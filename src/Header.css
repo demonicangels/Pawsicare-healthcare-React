@@ -1,0 +1,34 @@
+.header{
+    text-decoration: none;
+    color: black;
+    font-size: 187%;
+    position: relative;
+    top: 3px;
+  }
+  .account-logo {
+    width: 3%;
+    position: absolute;
+    top: 33%;
+    left: 88%;
+    height: 55%;
+  }
+  input[name="search"]{
+    position: absolute;
+    left: 8%;
+    top: 29px;
+    height: 27%;
+  }
+  img.search-icon {
+    position: absolute;
+    left: 290px;
+    width: 1.4rem;
+    height: 1.3rem;
+    top: 45%;
+    border: 1px solid #555;
+    border: 5% solid black;
+  }
+  
+  a.header {
+      position: relative;
+      left: 44%;
+  }

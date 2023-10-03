@@ -1,0 +1,48 @@
+input[name="uname"], input[name="pass"], input[name="em"]{
+    width: 42%;
+    padding: 15px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    align-items: center;
+}
+.login-form{
+    left: 30%;
+    position: relative;
+    top: 10rem; 
+    display: flex;
+    flex-direction: column;
+}
+button[name="loginbtn"]{    
+    background-color: #B7C9E2;
+    color: white;
+    padding: 13px 20px;
+    margin: 24px 0;
+    border: none;
+    cursor: pointer;
+    width: 42%;
+}
+
+.btn {
+    height: 60px;
+    width: 300px;
+    margin: 20px auto;
+    box-shadow: 10px 5px 30px #B7C9E2;
+    border-radius: 50px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    position: relative;
+    top: 9rem;
+}
+ 
+.login,
+.signup {
+    font-size: 22px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+    position: relative;
+    cursor: pointer;
+}
