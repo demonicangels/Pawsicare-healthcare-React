@@ -4,12 +4,16 @@ import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import Login from './pages/LoginPage'
 import About from './pages/AboutusPage'
 import Doctors from './pages/DoctorsPage'
+import Navbar from './components/Navbar'
+import Header from './components/Header'
 
 function App() {
 
   return (
     <div className='app'>
       <Router>
+            <Header/>
+            <Navbar/>
           <Routes>
             <Route path='/' element= {<Home/>}/>
             <Route path='/login' element = {<Login/>}/>

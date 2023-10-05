@@ -24,25 +24,34 @@ button[name="loginbtn"]{
     width: 42%;
 }
 
+
+
 .btn {
-    height: 60px;
-    width: 300px;
-    margin: 20px auto;
-    box-shadow: 10px 5px 30px #B7C9E2;
-    border-radius: 50px;
+    width: 236px;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
+    margin: auto;
     position: relative;
-    top: 9rem;
+    top: 8rem;
+}
+
+button.signup {
+    background: white;
+    height: 60px;
+    border: 0px;
+    border-radius: 0px 22px 22px 0px;
+    width: -webkit-fill-available;
 }
  
-.login,
-.signup {
-    font-size: 22px;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    position: relative;
-    cursor: pointer;
+button.login {
+    background: white;
+    height: 60px;
+    border-radius: 22px 0px 0px 22px;
+    border: 0px;
+    width: -webkit-fill-available;
 }
+
+button.pressed{
+    background-color: #B7C9E2;
+    color: white;
+}
+

@@ -1,6 +1,4 @@
 import '../LoginPage.css'
-import Header from "../components/Header";
-import Navbar from "../components/Navbar";
 import { useState } from 'react';
 
 
@@ -28,18 +26,17 @@ const SignupForm = () => {
 const Login = () => {
     const [showLogin, setLoginForm] = useState(true);
 
+
     const handleclick = (button) => {
         setLoginForm(button === 'login');
     }
 
     return ( 
         <>
-            <Header/>
-            <Navbar/>
 
             <div className="btn">
-                <button type='submit' className='login' onClick={() => handleclick('login')}>Login</button>
-                <button type='submit'  className="signup" value='signup' onClick={() => handleclick('signup')}>Signup</button>
+                <button type='submit' className={'login' + (showLogin ? " pressed": " ")} onClick={() => handleclick('login')} >Login</button>
+                <button type='submit'  className={'signup' + (!showLogin ? " pressed": " ")} onClick={() => handleclick('signup')}>Signup</button>
             </div>
 
             {showLogin ? <LoginForm /> : <SignupForm />}
