@@ -1,0 +1,49 @@
+.contactForm {
+    margin: auto;
+    position: relative;
+    top: 10rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 39%;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    left: -24rem;
+}
+input[type="email"] {
+    width: -webkit-fill-available;
+    margin-bottom: 3%;
+    width: 22rem;
+    font-family:"FreeMono", monospace; 
+}
+textarea {
+    margin-bottom: 5%;
+    height: 7rem;
+    width: 29rem;
+    font-family:"FreeMono", monospace;
+    padding-left: 1rem;
+    resize: none;
+}
+.content{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.2),
+    rgba(0, 0, 0, 0.2)), url('assets/images/contactImg.png');
+    height: 100vh;
+    background-size: cover;
+    width: 100vw;
+}
+.formCont {
+    position: relative;
+    left: 3rem;
+    height: 24rem;
+    top: 1rem;
+}
+button[name="contactbtn"]{
+    font-family: "FreeMono", monospace;
+    background-color: #B7C9E2;
+    color: white;
+    padding: 7px 20px;
+    border: none;
+    cursor: pointer;
+    width: 42%;
+    border-radius: 5px;
+}

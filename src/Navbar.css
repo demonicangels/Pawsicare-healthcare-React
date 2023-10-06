@@ -1,5 +1,6 @@
 .nav {
     background: #B7C9E2;
+    width: 100vw
   }
   nav ul {
     padding: 1%;
@@ -20,3 +21,6 @@
   nav li a:hover {
     color: black;
   }
+  ul {
+    margin: 0;
+}

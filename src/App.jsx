@@ -6,6 +6,7 @@ import About from './pages/AboutusPage'
 import Doctors from './pages/DoctorsPage'
 import Navbar from './components/Navbar'
 import Header from './components/Header'
+import ContactForm from './pages/ContactPage'
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
             <Route path='/login' element = {<Login/>}/>
             <Route path='/aboutus' element = {<About/>}/>
             <Route path='/doctors' element = {<Doctors/>}/>
+            <Route path='/contacts' element = {<ContactForm/>}/>
           </Routes>
       </Router>
     </div>

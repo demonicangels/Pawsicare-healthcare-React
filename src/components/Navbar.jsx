@@ -22,8 +22,6 @@ const links = [
         path: '/contacts',
         text: "Contacts"
     },
-
-    
 ]
 
 const Navbar = () => {
