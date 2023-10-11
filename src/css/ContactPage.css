@@ -22,11 +22,12 @@ textarea {
     width: 29rem;
     font-family:"FreeMono", monospace;
     padding-left: 1rem;
+    padding-top: 1rem;
     resize: none;
 }
 .content{
     background-image: linear-gradient(rgba(0, 0, 0, 0.2),
-    rgba(0, 0, 0, 0.2)), url('assets/images/contactImg.png');
+    rgba(0, 0, 0, 0.2)), url('./src/assets/images/contactImg.png');
     height: 100vh;
     background-size: cover;
     width: 100vw;

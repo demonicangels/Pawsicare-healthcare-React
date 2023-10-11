@@ -23,9 +23,6 @@ button[name="loginbtn"]{
     cursor: pointer;
     width: 42%;
 }
-
-
-
 .btn {
     width: 236px;
     display: flex;
@@ -41,7 +38,6 @@ button.signup {
     border-radius: 0px 22px 22px 0px;
     width: -webkit-fill-available;
 }
- 
 button.login {
     background: white;
     height: 60px;
@@ -49,9 +45,13 @@ button.login {
     border: 0px;
     width: -webkit-fill-available;
 }
-
 button.pressed{
     background-color: #B7C9E2;
     color: white;
 }
-
+button.login:hover {
+    border: 1px solid black;
+}
+button.signup:hover {
+    border: 1px solid black;
+}

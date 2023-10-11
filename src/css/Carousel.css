@@ -1,0 +1,23 @@
+#more {display: none;}
+#link{
+    text-decoration: underline;
+    cursor: pointer;
+}
+#link :hover{
+    text-emphasis-color: blue;
+}
+.carousel{
+    position: relative;
+    max-width: 75%;
+    top: 1rem;
+    left: 10rem;
+}
+ul.control-dots {
+    display: none;
+}
+.carousel .carousel-status{
+    display: none;
+}
+..carousel.carousel-slider .control-arrow :hover{
+    color: transparent;
+}

@@ -1,6 +1,6 @@
 import userI from '../assets/images/userI.png'
 import searchI from '../assets/images/searchI.jpg'
-import '../Header.css'
+import '../css/Header.css'
 
 
 const Header = () => {
