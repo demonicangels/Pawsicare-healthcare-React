@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'
 import DoctorService from '../services/DoctorService';
 import contactImg from '../assets/images/contactImg.png' 
+import '../css/DoctorsPage.css'
 
 
 
@@ -19,9 +19,11 @@ const Doctors = () => {
        <div className='doctors-cards'>
         {doctors.map(doc => 
             <div className='doctorCardContent'key={doc.id}>
-                <img src={contactImg}/>
-                <h4> Dr. {doc.name}</h4>
-                <p> Field: {doc.field}</p>
+                <img className='image-wrapper' src={doc.image}/>
+                <div className='text'>
+                    <h4> Dr. {doc.name}</h4>
+                    <p> Field: {doc.field}</p>
+                </div>
             </div>
             
             )}

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import kitten from '../assets/images/kitten.jpg'
+import kittens from '../assets/images/kittens.jpg'
 import simillingDoggo from '../assets/images/smillingDoggo.jpg'
 import '../css/Carousel.css'
 import React from "react";
@@ -9,7 +9,7 @@ import { Carousel } from 'react-responsive-carousel';
 const images = [
     {
         id: 1,
-        Image: `${kitten}`
+        Image: `${kittens}`
     },
     {
         id: 2,
@@ -25,27 +25,28 @@ const CarouselSlides = () => {
     }
     return ( 
         <div className='carousel'>
+            <h1>Check out our animal blog!</h1>
             <Carousel autoPlay interval={6000} axis="horizontal" infiniteLoop>
                 {images.map((im) => (
-                    <div key={im.id}>
+                    <div className='carouselContent' key={im.id}>
                         <img src={`${im.Image}`} alt={`Image ${im.id}`} />
                         <p className="text">
-                        {im.Image === kitten
+                        {im.Image === kittens
                             ? 'Cat habits that cause concern '
                             : 'Care tips from our specialists'}
                         <span id="dots" style={{ display: showMore ? 'none' : 'inline' }}>
                             ...
                         </span>
                         <span id="more" style={{ display: showMore ? 'inline' : 'none' }}>
-                            {im.Image === kitten
+                            {im.Image === kittens
                             ? ' but are completely normal'
-                            : 'for a happy and healthy dog'}
+                            : ' for a happy and healthy dog'}
                         </span>
                         </p>
                         <a onClick={btnText} id='link' >
                             {showMore ? 'Read less' : 'Read More'}
                         </a>
-                </div>
+                    </div>
                     
                 ))}
             </Carousel>

@@ -1,0 +1,30 @@
+.doctors-cards {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: auto;
+    position: relative;
+    top: 5rem;
+    box-sizing: border-box;
+    max-width: 75%;
+    left: 13rem;
+}
+img {
+    margin-left: 0;
+    margin-right: 0;
+    max-width: 20rem;
+}
+.doctorCardContent {
+    min-width: 21rem;
+    min-height: 21rem;
+    box-shadow: 10px 10px 5px #aaaaaa;
+}
+img.image-wrapper {
+    max-width: 21rem;
+    position: relative;
+}
+.text {
+    top: 1rem;
+    position: relative;
+    left: 1rem;
+}

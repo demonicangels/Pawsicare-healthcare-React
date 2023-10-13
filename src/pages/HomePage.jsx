@@ -1,6 +1,7 @@
 import CarouselSlides from "../components/Carousel.jsx";
 
 
+
 const Home = () => {
     return ( 
         <div className="homepage">

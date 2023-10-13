@@ -55,3 +55,9 @@ button.login:hover {
 button.signup:hover {
     border: 1px solid black;
 }
+button[name="loginbtn"]:active{
+    text-decoration: none;
+    background-color: #B7C9E2;
+    box-shadow: 0 3px #E0E0E0;
+    transform: translateY(4px);
+}

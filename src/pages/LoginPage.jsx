@@ -1,7 +1,7 @@
 import '../css/LoginPage.css'
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import UserService from '../services/UserService';
-import { Navigate, Router } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 
 
@@ -10,6 +10,7 @@ const LoginForm = () => {
     const [email, setEmail] = useState("smth");
     const [password, setPassword] = useState("22222");
     const [isUserPresent, setUser] = useState(null);
+    const navigate = useNavigate();
 
     const emailChange = (e) => {
         
@@ -20,15 +21,31 @@ const LoginForm = () => {
         setPassword(e.target.value)
     }
 
-    const handleLogin = (event) =>{
+    const handleLogin = async (event) =>{
         event.preventDefault();
-        setUser( UserService.loginUser(email,password)
-        .then(data => {
-            console.log(data);
-            setUser(data ? JSON.stringify(data) : null);
-            window.location.href = '/'
-        })
-        .catch(err => console.log(err), alert('Wrong login credentials')))
+
+        try{
+            const data = await UserService.loginUser(email,password);
+
+            if(data){
+                setUser(JSON.stringify(data));
+                navigate('/')
+            }
+            else{
+                alert('Wrong login credentials!')
+            }
+        }catch(err){
+            console.log(err), alert('Wrong login credentials!')
+        }
+       
+        // setUser( UserService.loginUser(email,password)
+        // .then(data => {
+        //     console.log(data);
+        //     setUser(data ? JSON.stringify(data) : null);
+        //     window.location.href = '/'
+            
+        // })
+        // .catch(err => console.log(err),  alert('Wrong login credentials')))
     }
 
     return (

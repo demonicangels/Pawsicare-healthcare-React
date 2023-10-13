@@ -9,8 +9,10 @@
 .carousel{
     position: relative;
     max-width: 75%;
-    top: 1rem;
+    top: 3rem;
     left: 10rem;
+    display: flex;
+    flex-direction: column;
 }
 ul.control-dots {
     display: none;
@@ -18,6 +20,28 @@ ul.control-dots {
 .carousel .carousel-status{
     display: none;
 }
-..carousel.carousel-slider .control-arrow :hover{
-    color: transparent;
+.carousel.carousel-slider .control-arrow{
+    max-height: 90rem;
+    top: 13rem;
+    max-width: 20rem;
+    /*pointer-events: none;*/
+    max-height: 42px;
+}
+.carousel .slide img{
+    max-width: 50rem;
+}
+h1 {
+    position: relative;
+    left: -1rem;
+    top: 0rem;
+}
+.carousel .control-next.control-arrow:before {
+    border-left: 13px solid black;
+}
+.carousel .control-prev.control-arrow:before {
+    border-right: 13px solid black;
+}
+button.control-arrow.control-next{
+    position: relative;
+    top: 2rem;
 }
