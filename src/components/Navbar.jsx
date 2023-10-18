@@ -21,7 +21,7 @@ const links = [
         id: 4,
         path: '/contacts',
         text: "Contacts"
-    },
+    }
 ]
 
 const Navbar = () => {

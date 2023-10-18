@@ -48,3 +48,6 @@ button[name="contactbtn"]{
     width: 42%;
     border-radius: 5px;
 }
+button[name="contactbtn"]:hover{
+    border: 1px solid black;
+}

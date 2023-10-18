@@ -9,7 +9,13 @@ const loginUser = (email, password) => {
     })
     .then(response => response.data)
 }
- 
+const createUser = (data) => {
+    return axios.post(`${hostname}/doctor`,{
+        data
+    })
+    .then(response => response.data)
+} 
 export default {
-    loginUser 
+    loginUser,
+    createUser
 };

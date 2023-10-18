@@ -10,7 +10,7 @@ input[name="uname"], input[name="pass"], input[name="em"]{
 .login-form{
     left: 30%;
     position: relative;
-    top: 10rem; 
+    top: 6rem; 
     display: flex;
     flex-direction: column;
 }
@@ -22,13 +22,14 @@ button[name="loginbtn"]{
     border: none;
     cursor: pointer;
     width: 42%;
+    border-radius: 3px 3px 3px 3px;
 }
 .btn {
     width: 236px;
     display: flex;
     margin: auto;
     position: relative;
-    top: 8rem;
+    top: 6rem;
 }
 
 button.signup {
@@ -60,4 +61,45 @@ button[name="loginbtn"]:active{
     background-color: #B7C9E2;
     box-shadow: 0 3px #E0E0E0;
     transform: translateY(4px);
+}
+button[name="loginbtn"]:hover{
+    border: 1px solid black;
+}
+.doctorPortal-box{
+    background: #fff;
+    border: 1px solid #cbd5e0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 16px;
+    max-width: 35%;
+    position: relative;
+    top: 7rem;
+    left: 31rem;   
+}
+.page-layout {
+    display: flex;
+    flex-direction: column;
+}
+.btn-doctorPortal-box{
+    border: none;
+    background-color: #B7C9E2;
+    color: #fff;
+    border-radius: 3px 3px 3px 3px;
+    padding: 6px;
+}
+.btn-doctorPortal-box:hover{
+    border: 1px solid black;
+}
+.btn-doctorPortal-box:active{
+    text-decoration: none;
+    background-color: #B7C9E2;
+    box-shadow: 0 3px #E0E0E0;
+    transform: translateY(4px);
+}
+h1.errorMsg {
+    position: relative;
+    top: -2rem;
+    color: red;
+    left: 28rem;
+    margin: 0;
 }

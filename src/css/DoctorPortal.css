@@ -1,0 +1,91 @@
+html{
+    scroll-behavior: smooth;
+}
+
+
+
+div#section1{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)),url('./src/assets/images/doctorPortalI.jpg');
+    height: 100vh;
+    background-size: cover;
+    width: 100vw;
+    margin: 0;
+}
+h1{
+    margin: 0;
+}
+div#content1 {
+    position: relative;
+    left: 4rem;
+    top: 18rem;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+button#signupbtn{
+    border: none;
+    background-color: #B7C9E2;
+    color: #fff;
+    border-radius: 3px 3px 3px 3px;
+    padding: 6px;
+    max-width: 13vw;
+    position: relative;
+    top: 1rem;
+    left: 5rem;
+    cursor: pointer;
+}
+button#signupbtn:hover{
+    border: 1px solid black;
+}
+
+
+
+
+div#section2{
+    display: flex;
+    flex-direction: row;
+}
+h1.advantagetxt {
+    position: relative;
+    left: 30rem;
+    top: 4rem;
+}
+.advantages-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 100%;
+    position: relative;
+    left: 5rem;
+    top: 10rem;
+    margin-bottom: 2rem;
+}
+.space-between{
+    margin: 4rem;
+}
+img.itemIconimg {
+    width: 100%;
+}
+.icon-box {
+    max-width: 38%;
+}
+
+
+div#section3{
+    display: flex;
+    flex-direction: column;
+}
+input[name="uname"], input[name="pass"], input[name="em"], input[name="field"]{
+    width: 42%;
+    padding: 15px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+
+
