@@ -1,8 +1,10 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import calendarI from '../assets/images/calendarIcon.png'
 import chatI from '../assets/images/chatIcon.png'
 import '../css/DoctorPortal.css'
 import UserService from '../services/UserService'
+import { json } from 'react-router-dom'
 
 const icons = [
     {
@@ -21,7 +23,7 @@ const DoctorPortal = () => {
     const [name,setName] = useState("ana")
     const [pass,setPassword] = useState("333")
     const [field, setField] = useState("cardi")
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
 
     const redirectToSection = () =>{
@@ -41,8 +43,23 @@ const DoctorPortal = () => {
         setField(event.target.value)
     } 
 
+    const doctorUser = {name: `${name}`, email: `${email}`, password: `${pass}`, field: `${field}`}
 
-    const user = {name: `${name}`, email: `${email}`, password: `${pass}`, field: `${field}`  }
+    const handleDocsignup = async (event) =>{
+        event.preventDefault();
+         
+        try{
+            const doc = await UserService.createDoctor(doctorUser)
+
+            if(doc){
+                console.log(doc)
+                navigate('/')
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+    }
 
     return ( 
         <div className="sections-layout">
@@ -75,14 +92,14 @@ const DoctorPortal = () => {
                 </div>
             </div>
             <div id='section3'>
-                <div className='page-layout'>
+                <div className='page-layout-section3'>
                     <h1 className='signuptxt'>Signup</h1>
-                    <form className="login-form">
-                        <input type="text" placeholder="Enter name" name="uname" required />
-                        <input type="text" placeholder='Enter email' name="em" required />
-                        <input type='text' placeholder='Enter the field you work in' name='field' required/>
-                        <input type="password" placeholder="Enter password" name="pass" required />
-                        <button type="submit" name='loginbtn'>Sign Up</button>
+                    <form className="login-form" onSubmit={(doctorUser,event) => {handleDocsignup(doctorUser,event)}} method='POST'>
+                        <input type="text" placeholder="Enter name" name="uname"  onChange={nameSetter} required />
+                        <input type="text" placeholder='Enter email' name="em"  onChange={emailSetter} required />
+                        <input type='text' placeholder='Enter the field you work in' name='field' onChange={fieldSetter} required/>
+                        <input type="password" placeholder="Enter password" name="pass" onChange={passwordSetter} required />
+                        <button type="submit" id='signupdoc' onClick={handleDocsignup}>Sign Up</button>
                     </form>
                 </div>
             </div>   

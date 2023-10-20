@@ -86,6 +86,33 @@ input[name="uname"], input[name="pass"], input[name="em"], input[name="field"]{
     box-sizing: border-box;
     align-items: center;
 }
+.page-layout-section3 {
+    position: absolute;
+    top: 103rem;
+    left: 2rem;
+    height: 69%;
+    width: 100%;
+    background-color: #B7C9E2;
+}
+h1.signuptxt {
+    position: relative;
+    left: 45rem;
+    top: 3rem;
+}
+button#signupdoc{
+    background-color: white;
+    color: black;
+    border-radius: 4px 4px 4px 4px;
+    max-width: 42%;
+    padding: 6px;
+    margin: 0;
+    margin-top: 30px;
+    border: none;
+}
+
+button#signupdoc:hover{
+    border: 1px solid black;
+}
 
 
 

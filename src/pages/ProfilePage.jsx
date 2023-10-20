@@ -1,10 +1,12 @@
-import { useLocation } from "react-router-dom";
-const Profile = (props) => {
-    const location = useLocation();
+import { useState } from "react";
 
-    const userData = location.state ? JSON.parse(location.state.user) : null
+const Profile = () => {
+    
+    const userData = JSON.parse(localStorage.getItem('user'));
+    console.log('User Data in Profile:', userData);
+
     return ( 
-        <h1>{userData.name}</h1>    
+        <h2>Welcome to your profile, {userData.name}!</h2>  
     );
 }
  

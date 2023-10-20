@@ -29,11 +29,9 @@ const LoginForm = () => {
             const data = await UserService.loginUser(email,password);
 
             if(data){
-                setUser(JSON.stringify(data));
-                navigate('/profile',  { state: { user: data } })
-            }
-            else{
-                setStatus(false)
+                setUser(data);
+                navigate('/');
+                localStorage.setItem('user', data);
             }
         }
         catch(err){
@@ -66,6 +64,7 @@ const LoginForm = () => {
 }
 
 const SignupForm = () => {
+
     const [email,setEmail] = useState("smth")
     const [name,setName] = useState("ana")
     const [pass,setPassword] = useState("333")
@@ -85,20 +84,20 @@ const SignupForm = () => {
 
     const newUser = {name: `${name}`, email: `${email}`, password: `${pass}` }
 
-         const handleSignup =  async (newUser,event) =>{
-             event.preventDefault();
-
-              try{
-                const user = await UserService.createUser(newUser)
-                setUser(user);
-                navigate('/profile', {user})
-              }
-              catch(err){
-                console.log(err)
-                setStatus(false)
-              }
-
-            } 
+    const handleSignup = async (event) => {
+        event.preventDefault();
+      
+        try {
+          const user = await UserService.createClient(newUser);
+      
+          if (user) {
+            navigate('/profile', { state: { user } });
+            localStorage.setItem('user', JSON.stringify(user));
+          }
+        } catch (err) {
+          console.error(err);
+        }
+    };   
 
 
     const handleRedirectongdoc = (event) => {
@@ -109,18 +108,17 @@ const SignupForm = () => {
 
     return (
         <div className='page-layout'>
-            <form className="login-form">
+            <form className="login-form" onSubmit={(newUser,event) => {handleSignup(newUser,event)}}>
                 <h1>{opStatus ? null : 'Something went wrong. Please try again!'}</h1>
-                <input type="text" placeholder="Enter username" name="uname" required />
-                <input type="text" placeholder='Enter email' name="em" required />
-                <input type="password" placeholder="Enter password" name="pass" required />
-                <p>{}</p>
-                <button type="submit" name='loginbtn' onClick={handleSignup}>Sign Up</button>
+                <input type="text" placeholder="Enter username" name="uname" required onChange={nameSet} />
+                <input type="text" placeholder='Enter email' name="em" required onChange={emailSet}/>
+                <input type="password" placeholder="Enter password" name="pass" autoComplete="123" required onChange={passwordSet} />
+                <button type="submit" name='signup' onClick={handleSignup}>Sign Up</button>
             </form>
             <div className="doctorPortal-box">
                 <h3>I am a doctor</h3>
                 <p>Login/Signup now and use the advantages of PawsiCare! </p>
-                <button className="btn-doctorPortal-box" onClick={handleRedirectongdoc}>Doctor Portal</button>
+                <button type="submit" className="btn-doctorPortal-box" onClick={handleRedirectongdoc}>Doctor Portal</button>
             </div>
         </div>
     );
