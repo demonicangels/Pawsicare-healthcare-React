@@ -1,5 +1,6 @@
 import '../css/LoginPage.css'
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import UserService from '../services/UserService';
 import {useNavigate} from 'react-router-dom';
 
@@ -7,31 +8,23 @@ import {useNavigate} from 'react-router-dom';
 
 const LoginForm = () => {
 
-    const [email, setEmail] = useState("smth");
-    const [password, setPassword] = useState("22222");
-    const [isUserPresent, setUser] = useState(null);
+    const { register, handleSubmit, formState: {errors} } = useForm();
+    const [userObj, setUser] = useState(null);
     const [operationStatus, setStatus] = useState(true);
     const navigate = useNavigate();
+    
+    const onSubmit = async (data) =>{
 
-    const emailChange = (e) => {
-        
-        setEmail(e.target.value)
-    } 
-    const passChange = (e) => {
-        
-        setPassword(e.target.value)
-    }
-
-    const handleLogin = async (event) =>{
-        event.preventDefault();
+        console.log(data)
 
         try{
-            const data = await UserService.loginUser(email,password);
+            const backendResponse = await UserService.loginUser(data.uname, data.pass);
 
-            if(data){
-                setUser(data);
-                navigate('/');
-                localStorage.setItem('user', data);
+            if(backendResponse){
+                setUser(backendResponse.loggedInClient);
+                //UserData(data.loggedInClient);
+                console.log(userObj);
+                navigate('/doctors');
             }
         }
         catch(err){
@@ -48,10 +41,12 @@ const LoginForm = () => {
     return (
         <div className='page-layout'>
             <h1 className='errorMsg'>{operationStatus ? null : 'Wrong username or password. Please try again!'}</h1>
-            <form className="login-form">
-                <input type="text" placeholder="Enter username" name="uname" required onChange={emailChange}/>
-                <input type="password" placeholder="Enter password" name="pass" required onChange={passChange}/>
-                <button type="submit" name='loginbtn' onClick={handleLogin}>Login</button>
+            <form  className="login-form" onSubmit={handleSubmit(onSubmit)}>
+                <input type="text" placeholder="Enter email..." {...register("uname", {required: true, pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i})} name='uname' />
+                {errors.uname && <p> Please enter a valid email! </p>}
+                <input type="password" placeholder="Enter password..." {...register("pass", {required: true, minLength: 3})} name='pass' />
+                {errors.pass && <p> Password must be at least 3 characters. </p>}
+                <button type="submit" name='loginbtn'>Login</button>
             </form>
             <div className="doctorPortal-box">
                 <h3>I am a doctor</h3>
@@ -65,34 +60,21 @@ const LoginForm = () => {
 
 const SignupForm = () => {
 
-    const [email,setEmail] = useState("smth")
-    const [name,setName] = useState("ana")
-    const [pass,setPassword] = useState("333")
+    const { register, handleSubmit, formState: {errors} } = useForm()
     const [opStatus, setStatus] = useState(true);
     const navigate = useNavigate();
 
+    const onSubmit = async (data) => {
 
-    const emailSet = (e) => {
-        setEmail(e.target.value);
-    }
-    const nameSet = (e) => {
-        setName(e.target.value);
-    }
-    const passwordSet = (e) => {
-        setPassword(e.target.value);
-    }
+        console.log(data);
+        const newUser = {name: `${data.uname}`, email: `${data.em}`, password: `${data.pass}` }
 
-    const newUser = {name: `${name}`, email: `${email}`, password: `${pass}` }
-
-    const handleSignup = async (event) => {
-        event.preventDefault();
-      
         try {
           const user = await UserService.createClient(newUser);
       
           if (user) {
-            navigate('/profile', { state: { user } });
-            localStorage.setItem('user', JSON.stringify(user));
+            //UserData(user);
+            navigate('/profile');
           }
         } catch (err) {
           console.error(err);
@@ -108,12 +90,15 @@ const SignupForm = () => {
 
     return (
         <div className='page-layout'>
-            <form className="login-form" onSubmit={(newUser,event) => {handleSignup(newUser,event)}}>
+            <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 <h1>{opStatus ? null : 'Something went wrong. Please try again!'}</h1>
-                <input type="text" placeholder="Enter username" name="uname" required onChange={nameSet} />
-                <input type="text" placeholder='Enter email' name="em" required onChange={emailSet}/>
-                <input type="password" placeholder="Enter password" name="pass" autoComplete="123" required onChange={passwordSet} />
-                <button type="submit" name='signup' onClick={handleSignup}>Sign Up</button>
+                <input type="text" placeholder="Enter username" name="uname" {...register("uname", {required: true, minLength: 3})} />
+                {errors.uname && <p> The username should be at least 3 letters long.</p>}
+                <input type="text" placeholder='Enter email' name="em" {...register("em", {required: true, pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i})}/>
+                {errors.em && <p> Please enter a valid email!</p>}
+                <input type="password" placeholder="Enter password" name="pass" autoComplete="123" {...register("pass", {required: true, minLength: 3})} />
+                {errors.pass && <p> The password should be at least 3 characters. </p>}
+                <button type="submit" name='signup'>Sign Up</button>
             </form>
             <div className="doctorPortal-box">
                 <h3>I am a doctor</h3>
@@ -122,6 +107,12 @@ const SignupForm = () => {
             </div>
         </div>
     );
+}
+
+const UserData = (userData) =>{
+        return(
+            <h1>{userData.name}</h1>
+        );
 }
 
 
@@ -148,3 +139,11 @@ const Login = () => {
 }
  
 export default Login;
+export  function UserProfile(){
+    return (
+        
+            <UserData />
+    )
+
+    
+}

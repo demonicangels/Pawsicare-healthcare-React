@@ -4,7 +4,7 @@ import calendarI from '../assets/images/calendarIcon.png'
 import chatI from '../assets/images/chatIcon.png'
 import '../css/DoctorPortal.css'
 import UserService from '../services/UserService'
-import { json } from 'react-router-dom'
+import { useForm } from 'react-hook-form'
 
 const icons = [
     {
@@ -19,34 +19,19 @@ const icons = [
 
 const DoctorPortal = () => {
 
-    const [email,setEmail] = useState("smth")
-    const [name,setName] = useState("ana")
-    const [pass,setPassword] = useState("333")
-    const [field, setField] = useState("cardi")
+    const { register, handleSubmit, formState: {errors} } = useForm()
     const navigate = useNavigate()
 
 
     const redirectToSection = () =>{
         location.href = "#section3"
-    } 
-
-    const emailSetter = (event) =>{
-        setEmail(event.target.value);
     }
-    const nameSetter = (event) =>{
-        setName(event.target.value)
-    } 
-    const passwordSetter = (event) =>{
-        setPassword(event.target.value)
-    } 
-    const fieldSetter = (event) =>{
-        setField(event.target.value)
-    } 
 
-    const doctorUser = {name: `${name}`, email: `${email}`, password: `${pass}`, field: `${field}`}
+    const onSubmit = async (data) =>{
 
-    const handleDocsignup = async (event) =>{
-        event.preventDefault();
+        console.log(data)
+
+        const doctorUser = {name: `${data.uname}`, email: `${data.em}`, password: `${data.pass}`, field: `${data.field}`}
          
         try{
             const doc = await UserService.createDoctor(doctorUser)
@@ -94,12 +79,16 @@ const DoctorPortal = () => {
             <div id='section3'>
                 <div className='page-layout-section3'>
                     <h1 className='signuptxt'>Signup</h1>
-                    <form className="login-form" onSubmit={(doctorUser,event) => {handleDocsignup(doctorUser,event)}} method='POST'>
-                        <input type="text" placeholder="Enter name" name="uname"  onChange={nameSetter} required />
-                        <input type="text" placeholder='Enter email' name="em"  onChange={emailSetter} required />
-                        <input type='text' placeholder='Enter the field you work in' name='field' onChange={fieldSetter} required/>
-                        <input type="password" placeholder="Enter password" name="pass" onChange={passwordSetter} required />
-                        <button type="submit" id='signupdoc' onClick={handleDocsignup}>Sign Up</button>
+                    <form className="login-form" onSubmit={handleSubmit(onSubmit)} method='POST'>
+                        <input type="text" placeholder="Enter username" name="uname" {...register("uname", {required: true, minLength: 3})} />
+                        {errors.uname && <p> The username should be at least 3 letters long.</p>}
+                        <input type="text" placeholder='Enter email' name="em" {...register("em", {required: true, pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i})}/>
+                        {errors.em && <p> Please enter a valid email!</p>}
+                        <input type='text' placeholder='Enter the field you work in' name='field' {...register("field", {required: true, minLength: 8})}/>
+                        {errors.field && <p> The field you work in should contain at least 8 letters. </p>}
+                        <input type="password" placeholder="Enter password" name="pass" autoComplete="123" {...register("pass", {required: true, minLength: 3})} />
+                        {errors.pass && <p> Password must be at least 3 characters. </p>}
+                        <button type="submit" id='signupdoc'>Sign Up</button>
                     </form>
                 </div>
             </div>   

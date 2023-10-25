@@ -1,12 +1,9 @@
-import { useState } from "react";
+import { UserProfile } from "./LoginSignupPageClient";
 
 const Profile = () => {
-    
-    const userData = JSON.parse(localStorage.getItem('user'));
-    console.log('User Data in Profile:', userData);
 
     return ( 
-        <h2>Welcome to your profile, {userData.name}!</h2>  
+        <UserProfile/>
     );
 }
  
