@@ -22,7 +22,6 @@ const LoginForm = () => {
 
             if(backendResponse){
                 setUser(backendResponse.loggedInClient);
-                //UserData(data.loggedInClient);
                 console.log(userObj);
                 navigate('/doctors');
             }
@@ -76,6 +75,7 @@ const SignupForm = () => {
             //UserData(user);
             navigate('/profile');
           }
+
         } catch (err) {
           console.error(err);
         }

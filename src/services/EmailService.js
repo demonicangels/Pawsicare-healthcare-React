@@ -1,29 +1,14 @@
-const transporter = () =>
+import axios from 'axios';
 
-function setNodemailer(){
-    const nodemailer = require('nodemailer');
+const hostname = 'http://localhost:8080'
 
-    transporter = nodemailer.createTransport({
-    host : "smtp.elasticemail.com",
-    port: 465,
-    secure: true,
-    auth: {
-        user: 'az@mail.com',
-        pass: '33BBBC6E99A044DD9502108A63E0303C04C9'
-    }
-    });
+const sendMail = (emailData) => {
+    console.log(emailData)
+    return axios.post(`${hostname}/contacts`, emailData)
+    .then(response => response.data)
+    .catch(error => {
+        console.log("Error sending email:", error)});
 }
-function sendMail(email, message) {
-
-    async function send(e) {
-        e.preventDefault();
-    
-        const info = await transporter.sendMail({
-            To : 'areliaherondale@gmail.com',
-            From : email,
-            Subject : "Contact form PawsiCare message",
-            Body : message,
-        });
-    }
-}
-export default sendMail;
+export default {
+    sendMail
+} ;

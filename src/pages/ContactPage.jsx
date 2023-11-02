@@ -1,71 +1,46 @@
-import { useState } from 'react';
 import '../css/ContactPage.css'
-import sendMail from '../services/EmailService';
+import mail from '../services/EmailService';
+import { useForm } from 'react-hook-form';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const ContactForm = () => {
 
+    const {register, handleSubmit, formState: {errors}} = useForm()
 
+    const sendEmail = (emailData) => {
 
-//     const nodemailer = require('nodemailer');
+        console.log(emailData)
 
-//     const transporter = nodemailer.createTransport({
-//     host : "smtp.elasticemail.com",
-//     port: 465,
-//     secure: true,
-//     auth: {
-//         user: 'az@mail.com',
-//         pass: '33BBBC6E99A044DD9502108A63E0303C04C9'
-//     }
-//     });
+        try{
 
-//     async function send(e) {
-//         e.preventDefault();
-    
-//     const info = await transporter.sendMail({
-//         To : 'areliaherondale@gmail.com',
-//         From : email,
-//         Subject : "Contact form PawsiCare message",
-//         Body : message,
-//     });
-// }
+            mail.sendMail(emailData)
+            .then(() => {
+                toast.success('Successfully sent email. Thank you!',{
+                    position: toast.POSITION.TOP_RIGHT
+                })
+            })
+            
+        }catch(er){
+            console.log(er);
+        }
 
-
-    // const sendEmail = (e) => {
-    //     e.preventDefault();
-
-    //     Email.send({
-    //         Host : "smtp.elasticemail.com",
-    //         Username : "az@gmail.com",
-    //         Password : "33BBBC6E99A044DD9502108A63E0303C04C9",
-    //         To : 'areliaherondale@gmail.com',
-    //         From : email,
-    //         Subject : "Contact form PawsiCare message",
-    //         Body : message }).then(
-    //            msg => alert(msg)
-    //         );
-    // }
-
-    const [email,setEmail] = useState('');
-    const [message, setMessage] = useState('');
-
-    const emailChange = (e) => {
-        setEmail(e.currentTarget.value);
-    }
-
-    const msgChange = (e) =>{
-        setMessage(e.currentTarget.value);
     }
 
     return (  
         <div className='content'>
-            <form className="contactForm" >
+            <form className="contactForm" onSubmit={handleSubmit(sendEmail)} >
                 <div className='formCont'>
                     <h1>Contact us</h1>
-                    <input type="email" name="em" placeholder="Enter your email" onChange={emailChange}/>
-                    <textarea type="text" name="msg" placeholder="Your comment or message" onChange={msgChange}/>
-                    <button type="submit" name='contactbtn' onClick={sendMail(email,message)}>Submit</button>
+                    <input type="text" name="userEmail" placeholder="Enter your email" {...register('userEmail', {required: true,  pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i})}/>
+                    {errors.userEmail && <p> Please enter a valid email address. </p>}
+                    <textarea type="text" name="message" placeholder="Your comment or message" {...register('message', {required: true})}/>
+                    {errors.message && <p> Please fill in your question/review in the text box. </p>}
+                    <button type="submit" name='contactbtn'>Submit</button>
                 </div>
             </form> 
+            <ToastContainer />
         </div>
     );
 }

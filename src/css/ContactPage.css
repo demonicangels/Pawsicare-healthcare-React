@@ -10,10 +10,11 @@
     border-radius: 5px;
     left: -24rem;
 }
-input[type="email"] {
+input[name="userEmail"] {
     width: -webkit-fill-available;
     margin-bottom: 3%;
     width: 22rem;
+    height: 2rem;
     font-family:"FreeMono", monospace; 
 }
 textarea {
