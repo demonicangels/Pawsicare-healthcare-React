@@ -1,0 +1,128 @@
+#Calendar {
+
+    width: 80%;
+    margin: 5px auto;
+}
+
+.rbc-month-view {
+    display: initial !important;
+    height: 100px !important;
+}
+
+
+.rbc-toolbar-label {
+    display: flex;
+    font-weight: bold;
+    font-size: 22px;
+    color: rgb(37, 66, 197)
+}
+
+
+.rbc-date-cell {
+    color: rgb(15, 114, 226);
+}
+
+.rbc-today {
+    background-color: rgb(196, 226, 250) !important;
+}
+
+
+
+.title {
+
+    align-items: center;
+    margin-bottom: 2px;
+}
+
+.title i {
+    font-size: 4rem;
+    color: #007bff;
+    margin-right: 10px;
+}
+
+.title .text {
+    font-size: 1.5rem;
+    font-weight: bold;
+    position: relative;
+    left: -1rem;
+    top: -1rem;
+}
+
+
+
+@media (max-width: 480px) {
+    .rbc-toolbar {
+        display: block !important;
+    }
+}
+
+
+.MuiDialog-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+
+.MuiPaper-root {
+    position: relative;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    max-width: 80%;
+    height: auto;
+    overflow: auto;
+    z-index: 1100;
+}
+
+
+.DialogCloseButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 24px;
+    color: #333;
+    background: transparent;
+    border: none;
+    outline: none;
+}
+
+
+.DialogTitle {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+
+.DialogText {
+    font-size: 16px;
+    color: #333;
+}
+
+.rbc-event, .rbc-day-slot .rbc-background-event {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    margin: 0;
+    padding: 2px 5px;
+    background-color: #3174ad;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    height: 2rem;
+}
+.rbc-ellipsis, .rbc-show-more, .rbc-row-segment .rbc-event-content, .rbc-event-label {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: wrap;
+}

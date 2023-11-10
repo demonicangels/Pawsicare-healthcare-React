@@ -9,27 +9,33 @@ import {useNavigate} from 'react-router-dom';
 const LoginForm = () => {
 
     const { register, handleSubmit, formState: {errors} } = useForm();
-    const [userObj, setUser] = useState(null);
+    const [user, setUser] = useState(null);
     const [operationStatus, setStatus] = useState(true);
     const navigate = useNavigate();
-    
-    const onSubmit = async (data) =>{
 
-        console.log(data)
+    const onSubmit = (data) =>{
 
         try{
-            const backendResponse = await UserService.loginUser(data.uname, data.pass);
+            
+            const backendResponse = UserService.loginUser(data.uname, data.pass)
+            backendResponse.then(response => setUser(prevUser => response.loggedInClient ?? response.loggedInDoctor))
 
-            if(backendResponse){
-                setUser(backendResponse.loggedInClient);
-                console.log(userObj);
+            if(user){
+
+                sessionStorage.setItem("userId", user.id)
                 navigate('/doctors');
+                console.log(sessionStorage.getItem("userId"))
             }
         }
         catch(err){
             console.log(err), setStatus(false)
         }
     }
+
+    useEffect (() => {
+        console.log("AA")
+        console.log(user)
+    },[user]) 
 
     const handleRedirectongdoc = (event) => {
         event.preventDefault();

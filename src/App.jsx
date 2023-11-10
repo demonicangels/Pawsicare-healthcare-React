@@ -9,6 +9,7 @@ import Header from './components/Header'
 import ContactForm from './pages/ContactPage'
 import DoctorPortal from './pages/DoctorPortal'
 import Profile from './pages/ProfilePage'
+import AppCalendar from './pages/AppointmentCalendar'
 
 function App() {
 
@@ -25,6 +26,7 @@ function App() {
             <Route path='/contacts' element = {<ContactForm/>}/>
             <Route path='/docportal' element = {<DoctorPortal/>}/>
             <Route path='/profile' element = {<Profile/>}/>
+            <Route path='/appointments' element = {<AppCalendar/>}/>
           </Routes>
       </Router>
     </div>
