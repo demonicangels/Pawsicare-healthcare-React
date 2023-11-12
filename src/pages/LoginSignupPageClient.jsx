@@ -13,24 +13,28 @@ const LoginForm = () => {
     const [operationStatus, setStatus] = useState(true);
     const navigate = useNavigate();
 
-    const onSubmit = (data) =>{
+    const onSubmit = async (data) => {
+        try {
+          const backendResponse = await UserService.loginUser(data.uname, data.pass);
+      
+          setUser(() => backendResponse.loggedInClient ?? backendResponse.loggedInDoctor);
+      
+          if (backendResponse.loggedInClient || backendResponse.loggedInDoctor) {
 
-        try{
-            
-            const backendResponse = UserService.loginUser(data.uname, data.pass)
-            backendResponse.then(response => setUser(prevUser => response.loggedInClient ?? response.loggedInDoctor))
+            sessionStorage.setItem("userId", backendResponse.loggedInClient?.id || backendResponse.loggedInDoctor?.id);
+            navigate('/doctors');
+            console.log(sessionStorage.getItem("userId"));
 
-            if(user){
+          } else {
 
-                sessionStorage.setItem("userId", user.id)
-                navigate('/doctors');
-                console.log(sessionStorage.getItem("userId"))
-            }
+            setStatus(false);
+
+          }
+        } catch (err) {
+          console.log(err);
+          setStatus(false);
         }
-        catch(err){
-            console.log(err), setStatus(false)
-        }
-    }
+      };
 
     useEffect (() => {
         console.log("AA")
