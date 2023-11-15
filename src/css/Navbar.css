@@ -24,3 +24,18 @@
   ul {
     margin: 0;
 }
+@media only screen and (max-width: 400px) {
+  nav ul {
+    max-width: 100%;
+    margin-left: 0;
+  }
+
+  nav li {
+      text-align: center;
+      justify-content: space-evenly;
+  }
+
+  nav li a {
+      font-size: 14px;
+  }
+}

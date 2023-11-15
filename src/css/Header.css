@@ -1,34 +1,75 @@
-.header{
-    text-decoration: none;
-    color: black;
-    font-size: 187%;
-    position: relative;
-    width: 100vw;
+
+.header {
+  text-decoration: none;
+  color: black;
+  font-size: 2rem;
+  position: relative;
+  width: 100vw;
+}
+
+.account-logo {
+  position: relative;
+  top: -1rem;
+}
+
+.topnav input[type=text] {
+  border: 1px solid #ccc;
+}
+
+input[name="search"] {
+  padding: 3px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  max-width: 50%;
+  position: relative;
+  left: 5%;
+  max-height: 50%;
+}
+
+button[name="searchbtn"] {
+  background-color: white;
+  border: none;
+  position: absolute;
+  left: 25%;
+  top: 12%;
+}
+
+a.header {
+  position: absolute;
+  top: 10%;
+  max-width: 12%;
+}
+
+form.searchFunction {
+  max-width: 20%;
+}
+
+@media only screen and (min-width: 400px) {
+
+  .header {
+    font-size: 150%;
   }
+
   .account-logo {
-    width: 3%;
-    position: absolute;
+    width: 8%;
+    left: 90%;
+    height: 35%;
+    max-width: 50%;
+  }
+
+  input[name="search"] {
+    left: 50%;
+    max-width: 60%;
+    top: 10px;
+  }
+
+  button[name="searchbtn"] {
+    left: 19.3%;
     top: 33%;
-    left: 88%;
-    height: 55%;
   }
-  input[name="search"]{
-    position: absolute;
-    left: 8%;
-    top: 29px;
-    height: 27%;
-  }
-  img.search-icon {
-    position: absolute;
-    left: 290px;
-    width: 1.4rem;
-    height: 1.3rem;
-    top: 45%;
-    border: 1px solid #555;
-    border: 5% solid black;
-  }
-  
+
   a.header {
-      position: relative;
-      left: 44%;
+    left: 39%;
+    text-align: center;
   }
+}

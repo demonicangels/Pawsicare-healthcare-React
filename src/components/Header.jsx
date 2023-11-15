@@ -1,5 +1,6 @@
 import userI from '../assets/images/userI.png'
-import searchI from '../assets/images/searchI.jpg'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import '../css/Header.css'
 
 
@@ -8,15 +9,13 @@ const Header = () => {
         <header>
             <div className="header">
                 <form className='searchFunction' method='post'>
-                    <input type='text' name="search" placeholder='Search...'/>
-                        <img src={searchI} className='search-icon' alt='icon'/>
+                    <input type="text" placeholder="Search.." name="search"/>
+                    <button type="submit" name='searchbtn'><FontAwesomeIcon icon={faSearch} /></button>
                 </form>
                 <a href="/" className="header">Pawsicare</a>
-                <a href='/login'><img src={userI} className="account-logo" alt='logo'/></a>
+                <a href='/login' className='account-logo'><FontAwesomeIcon icon={faUser} /></a>
             </div>
-
         </header>
-   
      );
 }
  

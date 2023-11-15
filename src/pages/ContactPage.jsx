@@ -32,7 +32,7 @@ const ContactForm = () => {
         <div className='content'>
             <form className="contactForm" onSubmit={handleSubmit(sendEmail)} >
                 <div className='formCont'>
-                    <h1>Contact us</h1>
+                    <h1 className='box-text'>Contact us</h1>
                     <input type="text" name="userEmail" placeholder="Enter your email" {...register('userEmail', {required: true,  pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i})}/>
                     {errors.userEmail && <p> Please enter a valid email address. </p>}
                     <textarea type="text" name="message" placeholder="Your comment or message" {...register('message', {required: true})}/>
