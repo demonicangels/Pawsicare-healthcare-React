@@ -30,8 +30,7 @@ button[name="searchbtn"] {
   background-color: white;
   border: none;
   position: absolute;
-  left: 25%;
-  top: 12%;
+  cursor: pointer;
 }
 
 a.header {

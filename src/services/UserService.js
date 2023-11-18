@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import TokenService from './TokenService';
 
 const hostname = 'http://localhost:8080'
 
@@ -8,7 +8,15 @@ const loginUser = (email, password) => {
         email,
         password
     })
-    .then(response => response.data)
+    .then(response => {
+        const accessToken = response.data.accessToken;
+        TokenService.setAccessToken(accessToken);
+        return true;
+    })
+    .catch(error => {
+        console.error('Error:', error.message);
+        return false;
+    });
 }
 const createClient = (data) => {
     return axios.post(`${hostname}/clients`, data)

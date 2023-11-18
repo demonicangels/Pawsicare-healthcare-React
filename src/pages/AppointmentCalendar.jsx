@@ -15,13 +15,14 @@ const AppCalendar = () => {
 
    useEffect(() => {
    
-    const fetchData = async () => {
+    const fetchData = async  () => {
 
       //make it so it shows different title for the appointment depending on whether is a doctor loggedin or client ex: Doctor -> appointment for Zara(zara being a link redirecting to zara's info page) Client -> Neurology appointment with Dr.Maria 
         try {
           const userId = sessionStorage.getItem("userId")
           const data = await AppointmentService.getAppointments(userId);
 
+          console.log(data)
 
           if (Array.isArray(data)) {
 

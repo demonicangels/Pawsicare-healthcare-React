@@ -1,3 +1,7 @@
+body{
+    margin-bottom: 20px;
+}
+
 input[name="uname"], input[name="pass"], input[name="em"]{
     width: 42%;
     padding: 15px 20px;
@@ -10,9 +14,11 @@ input[name="uname"], input[name="pass"], input[name="em"]{
 .login-form{
     left: 30%;
     position: relative;
-    top: 6rem; 
+    top: 9rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    max-width: 70%;
 }
 button[name="loginbtn"], button[name="signup"]{    
     background-color: #B7C9E2;
@@ -30,6 +36,7 @@ button[name="loginbtn"], button[name="signup"]{
     margin: auto;
     position: relative;
     top: 6rem;
+    right: 5%;
 }
 
 button.signup {
@@ -69,12 +76,12 @@ button[name="loginbtn"]:hover{
     background: #fff;
     border: 1px solid #cbd5e0;
     border-radius: 5px;
-    margin-bottom: 20px;
     padding: 16px;
     max-width: 35%;
     position: relative;
-    top: 7rem;
-    left: 31rem;   
+    top: 13rem;
+    left: 25rem;  
+    margin-bottom: 20px;
 }
 .page-layout {
     display: flex;

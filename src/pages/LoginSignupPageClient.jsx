@@ -9,19 +9,17 @@ import {useNavigate} from 'react-router-dom';
 const LoginForm = () => {
 
     const { register, handleSubmit, formState: {errors} } = useForm();
-    const [user, setUser] = useState(null);
     const [operationStatus, setStatus] = useState(true);
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
         try {
-          const backendResponse = await UserService.loginUser(data.uname, data.pass);
-      
-          setUser(() => backendResponse.loggedInClient ?? backendResponse.loggedInDoctor);
-      
-          if (backendResponse.loggedInClient || backendResponse.loggedInDoctor) {
+          const loginSuccess = await UserService.loginUser(data.uname, data.pass);
 
-            sessionStorage.setItem("userId", backendResponse.loggedInClient?.id || backendResponse.loggedInDoctor?.id);
+          console.log(loginSuccess)
+      
+          if (loginSuccess) {
+
             navigate('/doctors');
             console.log(sessionStorage.getItem("userId"));
 
@@ -35,11 +33,6 @@ const LoginForm = () => {
           setStatus(false);
         }
       };
-
-    useEffect (() => {
-        console.log("AA")
-        console.log(user)
-    },[user]) 
 
     const handleRedirectongdoc = (event) => {
         event.preventDefault();

@@ -1,5 +1,4 @@
 .nav {
-    background: #B7C9E2;
     width: 100vw
   }
   nav ul {
@@ -38,4 +37,5 @@
   nav li a {
       font-size: 14px;
   }
+
 }
