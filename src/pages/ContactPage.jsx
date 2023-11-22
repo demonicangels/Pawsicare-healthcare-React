@@ -21,6 +21,13 @@ const ContactForm = () => {
                     position: toast.POSITION.TOP_RIGHT
                 })
             })
+            .catch((error) => {
+                console.error('Error sending email:', error);
+                toast.error('Failed to send email. Please try again.', {
+                    position: toast.POSITION.TOP_RIGHT
+                });
+            });
+
             
         }catch(er){
             console.log(er);

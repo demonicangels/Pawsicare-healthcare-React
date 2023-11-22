@@ -6,7 +6,7 @@
     position: relative;
     top: 5rem;
     box-sizing: border-box;
-    max-width: 75%;
+    max-width: 50%;
     left: 13rem;
 }
 
@@ -37,16 +37,77 @@ img.image-wrapper {
     transform: scale(1.1);
 }
 
+page-container {
+    display: flex;
+}
+
+.sidebar h3 {
+    position: relative;
+    top: -1rem;
+}
+
+.sidebar form {
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar label {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.sidebar input{
+    cursor: pointer;
+    margin-right: 4px; 
+}
+
+.sidebar button {
+    background-color: rgb(183, 201, 226);
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sidebar button:hover {
+    background-color: rgb(109, 67, 248)(0, 0, 255, 0.9);
+}
+
+.sidebar button :active{
+    text-decoration: none;
+    background-color: #B7C9E2;
+    box-shadow: 0 3px #E0E0E0;
+    transform: translateY(4px);
+}
 
 @media only screen and (min-width: 400px) {
     .doctors-cards {
-        justify-content: center;
-        max-width: 100%; 
-        left: 0; 
+        justify-content: flex-start;
+        max-width: 60%;
+        left: 15rem;
     }
 
     .doctorCardContent {
         width: calc(48.33% - 20px);
         margin: 15px;
+    }
+
+    .sidebar {
+        max-width: 50%;
+        padding: 36px;
+        background: #f0f0f0;
+        border: 1px solid black;
+        position: absolute;
+        left: 2rem;
+        top: 13rem;
+        border-radius: 3px 3px 3px 3px;
     }
 }

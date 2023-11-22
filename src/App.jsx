@@ -10,7 +10,10 @@ import ContactForm from './pages/ContactPage'
 import DoctorPortal from './pages/DoctorPortal'
 import Profile from './pages/ProfilePage'
 import AppCalendar from './pages/AppointmentCalendar'
+import MyPets from './pages/PetsPage'
 import { useState, useEffect } from 'react'
+import TokenService from './services/TokenService'
+import AuthRequired from './services/AuthRequired'
 
 function App() {
 
@@ -35,10 +38,11 @@ function App() {
             <Route path='/login' element = {<Login/>}/>
             <Route path='/aboutus' element = {<About/>}/>
             <Route path='/doctors' element = {<Doctors/>}/>
-            <Route path='/contacts' element = {<ContactForm/>}/>
+            <Route path='/contacts' element = {<AuthRequired><ContactForm/></AuthRequired>}/>
             <Route path='/docportal' element = {<DoctorPortal/>}/>
-            <Route path='/profile' element = {<Profile/>}/>
-            <Route path='/appointments' element = {<AppCalendar/>}/>
+            <Route path='/profile' element = {<AuthRequired><Profile/></AuthRequired>}/>
+            <Route path='/appointments' element = {<AuthRequired><AppCalendar/></AuthRequired>}/>
+            <Route path='/mypets' element = {<AuthRequired><MyPets/></AuthRequired>}/>
           </Routes>
       </Router>
     </div>

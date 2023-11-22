@@ -2,6 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useEffect } from 'react'
 import '../css/Header.css'
+import TokenService from '../services/TokenService'
 
 
 const Header = ({isDarkMode}) => {   
@@ -21,6 +22,7 @@ const Header = ({isDarkMode}) => {
                     <button type="submit" name='searchbtn'><FontAwesomeIcon icon={faSearch} style={iconStyle()} /></button>
                 </form>
                 <a href="/" className="header" style={headerTextStyle()}>Pawsicare</a>
+                {TokenService.getAccessToken() !== null ? ( <a onClick={TokenService.clear()}> Logout</a> ) : <p> </p>}
                 <a href='/login' className='account-logo'><FontAwesomeIcon icon={faUser} /></a>
             </div>
         </header>

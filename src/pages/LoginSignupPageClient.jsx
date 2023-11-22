@@ -12,16 +12,15 @@ const LoginForm = () => {
     const [operationStatus, setStatus] = useState(true);
     const navigate = useNavigate();
 
-    const onSubmit = async (data) => {
+    const onSubmit = (data) => {
         try {
-          const loginSuccess = await UserService.loginUser(data.uname, data.pass);
+          const loginSuccess = UserService.loginUser(data.uname, data.pass);
 
           console.log(loginSuccess)
       
           if (loginSuccess) {
 
             navigate('/doctors');
-            console.log(sessionStorage.getItem("userId"));
 
           } else {
 
@@ -75,7 +74,6 @@ const SignupForm = () => {
           const user = await UserService.createClient(newUser);
       
           if (user) {
-            //UserData(user);
             navigate('/profile');
           }
 
@@ -112,12 +110,6 @@ const SignupForm = () => {
     );
 }
 
-const UserData = (userData) =>{
-        return(
-            <h1>{userData.name}</h1>
-        );
-}
-
 
 const Login = () => {
 
@@ -142,11 +134,3 @@ const Login = () => {
 }
  
 export default Login;
-export  function UserProfile(){
-    return (
-        
-            <UserData />
-    )
-
-    
-}

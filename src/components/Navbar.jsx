@@ -1,7 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import '../css/Navbar.css'
 import DarkModeToggle from "react-dark-mode-toggle";
-import { useState } from 'react';
+import React, { useState } from 'react';
+import TokenService from '../services/TokenService';
 
 const links = [
     {
@@ -28,6 +29,8 @@ const links = [
 
 const Navbar = ({isDarkMode,setIsDarkMode}) => {
 
+    const isLoggedIn = TokenService.getAccessToken() !== null;
+
     const navStyle = {
         background: isDarkMode ? 'white' : '#B7C9E2',
     };
@@ -52,6 +55,22 @@ const Navbar = ({isDarkMode,setIsDarkMode}) => {
                             </li>
                         );
                     })}
+
+                    { isLoggedIn !== null ? (
+                        <React.Fragment>
+                            <li>
+                                <NavLink to="/appointments" style={liStyle}>
+                                    My Appointments 
+                                </NavLink>
+                            </li> 
+                            <li>
+                                <NavLink to="/mypets" style={liStyle}>
+                                    My Pets 
+                                </NavLink>
+                            </li>
+                        </React.Fragment>) : null
+                    }
+
                 <DarkModeToggle
                     onChange={setIsDarkMode}
                     checked={isDarkMode}

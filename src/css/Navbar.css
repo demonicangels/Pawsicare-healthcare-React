@@ -4,10 +4,10 @@
   nav ul {
     padding: 1%;
     display: flex;
-    max-width: 44%;
+    max-width: 60%;
     justify-content: space-between;
     list-style-type: none;
-    margin-left: 26%;
+    margin-left: 20%;
     
   }
   nav li a {

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../css/AppointmentCalendar.css"
 import AppointmentService from "../services/AppointmentService";
+import TokenService from "../services/TokenService";
 
 
 momentLocalizer(moment);
@@ -11,6 +12,8 @@ momentLocalizer(moment);
 const AppCalendar = () => {
 
    const [apps, setAppointments] = useState([]);
+   const [selectedEvent, setSelectedEvent] = useState(undefined)
+   const [modalState, setModalState] = useState(false)
 
 
    useEffect(() => {
@@ -19,7 +22,7 @@ const AppCalendar = () => {
 
       //make it so it shows different title for the appointment depending on whether is a doctor loggedin or client ex: Doctor -> appointment for Zara(zara being a link redirecting to zara's info page) Client -> Neurology appointment with Dr.Maria 
         try {
-          const userId = sessionStorage.getItem("userId")
+          const userId = TokenService.getClaims().userId
           const data = await AppointmentService.getAppointments(userId);
 
           console.log(data)
@@ -50,6 +53,21 @@ const AppCalendar = () => {
       data: app
     })) : []
 
+
+   const handleSelectedEvent = (event) => {
+      setSelectedEvent(event)
+      setModalState(true)
+   }
+
+   const Modal = () => {
+       return (
+          <div className={`modal-${modalState == true ? 'show' : 'hide'}`}>
+             // Here you define your modal, what you want it to contain. 
+             // Event title for example will be accessible via 'selectedEvent.title'
+          </div>
+       )
+   }
+
     return (
         <div>
         <div id="Calendar">
@@ -64,17 +82,18 @@ const AppCalendar = () => {
                             <i className="bi-calendar-check-fill"></i>
                             <span className="text"> Make An Appointment </span>
                         </div>
-                        <Calendar
-                            localizer={momentLocalizer(moment)}
-                            events={userApps}
-                            views={["month", "week", "day", "agenda"]}
-                            defaultView="month"
-                            defaultDate={new Date()}
-                            selectable
-                            min={new Date().setHours(9, 0, 0)}
-                            max={new Date().setHours(16, 0, 0)}
 
-                        />
+                      {selectedEvent && <Modal/>}
+                      <Calendar
+                          localizer={momentLocalizer(moment)}
+                          events={userApps}
+                          views={["month", "week", "day", "agenda"]}
+                          defaultView="month"
+                          defaultDate={new Date()}
+                          selectable
+                          min={new Date().setHours(9, 0, 0)}
+                          max={new Date().setHours(16, 0, 0)}
+                      />
 
                        
                     </div>

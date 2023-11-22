@@ -3,13 +3,13 @@ import TokenService from './TokenService';
 
 const hostname = 'http://localhost:8080'
 
+TokenService.setAxiosHeaders()
 
 const sendMail = (emailData) => {
-    const axiosWithHeaders = TokenService.setAxiosHeaders(axios);
-
-    return axiosWithHeaders
+    debugger
+    return axios
       .post(`${hostname}/contacts`, emailData)
-      .then((response) => response.data)
+      .then(response => response.data)
       .catch((error) => {
         console.log("Error sending email:", error);
       });
