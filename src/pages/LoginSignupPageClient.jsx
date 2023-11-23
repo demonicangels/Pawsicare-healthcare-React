@@ -22,7 +22,7 @@ const LoginForm = () => {
 
             navigate('/doctors');
 
-          } else {
+          }else {
 
             setStatus(false);
 

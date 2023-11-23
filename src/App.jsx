@@ -14,6 +14,7 @@ import MyPets from './pages/PetsPage'
 import { useState, useEffect } from 'react'
 import TokenService from './services/TokenService'
 import AuthRequired from './services/AuthRequired'
+import DocProfile from './pages/DoctorProfile'
 
 function App() {
 
@@ -43,6 +44,7 @@ function App() {
             <Route path='/profile' element = {<AuthRequired><Profile/></AuthRequired>}/>
             <Route path='/appointments' element = {<AuthRequired><AppCalendar/></AuthRequired>}/>
             <Route path='/mypets' element = {<AuthRequired><MyPets/></AuthRequired>}/>
+            <Route path='/docprofile' element = {<DocProfile/>}/>
           </Routes>
       </Router>
     </div>

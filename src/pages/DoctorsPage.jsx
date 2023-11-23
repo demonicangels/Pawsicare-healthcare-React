@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import DoctorService from '../services/DoctorService';
 import { useForm } from 'react-hook-form';
 import '../css/DoctorsPage.css'
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -9,12 +10,20 @@ const Doctors = () => {
 
     const [doctors, setDoctors] = useState([]);
     const { register, handleSubmit, formState: {errors} } = useForm();
+    const [selectedDoctor, setSelectedDoctor] = useState(null);
+    const navigate = useNavigate()
     
 
     useEffect(() => {
         DoctorService.getAllDoctors()
             .then(data => setDoctors(data.doctors))
     }, []);
+
+    const handleSelectedDoctor = (docId) => {
+        
+        sessionStorage.setItem("docId", docId);
+        navigate("/docprofile");
+    };
 
     const onSubmit = async (data) => {
         try{
@@ -54,8 +63,11 @@ const Doctors = () => {
         </div>
         <div className='doctors-cards'>
             {doctors.map(doc => 
-                <div className='doctorCardContent' key={doc.id}>
-                    <img className='image-wrapper' src={doc.image} alt={`Dr. ${doc.name}`} />
+                <div className='doctorCardContent' key={doc.id} onClick={() => {
+                    handleSelectedDoctor(doc.id)
+                    sessionStorage.setItem("docId", doc.id)
+                    }}>
+                    <img className='image-wrapper' src={doc.image} alt={`Dr. ${doc.name}`}/>
                     <div className='text'>
                         <h4> Dr. {doc.name}</h4>
                         <p> Field: {doc.field}</p>

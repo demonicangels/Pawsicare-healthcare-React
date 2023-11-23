@@ -62,8 +62,6 @@ const AppCalendar = () => {
    const Modal = () => {
        return (
           <div className={`modal-${modalState == true ? 'show' : 'hide'}`}>
-             // Here you define your modal, what you want it to contain. 
-             // Event title for example will be accessible via 'selectedEvent.title'
           </div>
        )
    }
@@ -80,7 +78,7 @@ const AppCalendar = () => {
                     <div className="overview">
                         <div className="title">
                             <i className="bi-calendar-check-fill"></i>
-                            <span className="text"> Make An Appointment </span>
+                            <span className="text"> My Appointments </span>
                         </div>
 
                       {selectedEvent && <Modal/>}
@@ -93,6 +91,7 @@ const AppCalendar = () => {
                           selectable
                           min={new Date().setHours(9, 0, 0)}
                           max={new Date().setHours(16, 0, 0)}
+                          onSelecting={modalState}
                       />
 
                        

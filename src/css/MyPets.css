@@ -1,0 +1,108 @@
+.pets-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5; /* Light background color */
+  }
+  
+  .pets-content {
+    text-align: center;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-width: 90%;
+    min-height: 90%;;
+  }
+  
+  h1 {
+    color: #333; /* Dark text color */
+  }
+  
+  .button-add-pet {
+    margin-bottom: 20px;
+  }
+  
+  .dialog-title {
+    background-color: #2196f3; /* Primary color */
+    color: white;
+  }
+  
+  .dialog-content-text {
+    margin-bottom: 20px;
+    color: #555; /* Dark gray text color */
+  }
+  
+  .input-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .date-picker {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .description-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .dialog-actions {
+    justify-content: space-between;
+  }
+  
+  .button-cancel {
+    background-color: #ccc;
+    color: #333; 
+  }
+  
+  .button-register {
+    background-color: #4caf50; 
+    color: white;
+  }
+  .date-picker {
+    width: 100%;
+    display: inline-block; 
+  }
+  
+button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPrimary
+  .MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.MuiButton-root.MuiButton-outlined
+  .MuiButton-outlinedPrimary.MuiButton-sizeMedium.MuiButton-outlinedSizeMedium.css-1rwt2y5-MuiButtonBase-root-MuiButton-root {
+    position: absolute;
+    left: 50rem;
+    top: 48rem;
+}
+
+/* pet cards */
+
+.petCardContent {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 16px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    max-width: 25%;
+  }
+  
+  .petCardContent img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .text {
+    margin-top: -25px;
+  }
+  
+  .text h4 {
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .text p {
+    margin: 4px 0;
+    color: #666;
+  }

@@ -18,10 +18,19 @@ const getDoctorsByField = (field) =>{
         console.log("Error: ", error.message)
     })
 }
- 
+
+const getDoctorById = async (id) =>{
+    console.log(id)
+    return await axios.get(`${hostname}/doctors`, {params: {id: id}})
+    .then(response => response.data)
+    .catch(error => {
+        console.log('Error: ', error.message)
+    })
+}
 export default {
     getAllDoctors,
-    getDoctorsByField
+    getDoctorsByField,
+    getDoctorById
 };
 
 

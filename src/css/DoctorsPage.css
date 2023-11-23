@@ -88,6 +88,12 @@ page-container {
     transform: translateY(4px);
 }
 
+.docLink {
+    text-decoration: none; 
+    color: black; 
+    cursor: pointer;
+}
+
 @media only screen and (min-width: 400px) {
     .doctors-cards {
         justify-content: flex-start;
@@ -96,8 +102,12 @@ page-container {
     }
 
     .doctorCardContent {
-        width: calc(48.33% - 20px);
-        margin: 15px;
+        width: calc(65.33% - 20px);
+        margin: 31px;
+        height: 90%;
+        position: relative;
+        bottom: 3rem;
+        left: 1rem;
     }
 
     .sidebar {
