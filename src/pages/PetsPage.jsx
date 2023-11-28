@@ -34,15 +34,15 @@ const MyPets = () => {
 
 
     const options = ['Dog', 'Cat', 'Bird']
-    const gender = ['male','female','none']
+    const gender = ['Male','Female','Other']
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-        registerPet(pet)
+    const pet = {
+        ownerId: TokenService.getClaims().userId,
+        name: petName,
+        gender: petGender.toUpperCase(),
+        birthday: dateOfBirth,
+        type: selectedOption,
+        information: des
     };
 
     useEffect(() => {
@@ -55,38 +55,30 @@ const MyPets = () => {
         getAllPets()
     },[])
 
-    const pet = [
-       {
-            ownerId: TokenService.getClaims().userId,
-            name: petName,
-            gender: petGender,
-            birthday: dateOfBirth,
-            type: selectedOption,
-            information: des
-       } 
-    ]
-        useEffect(() => {
-            const registerPet = async () => {
-                try {
-                    const newPet = await PetService.registerPet(pet);
-                    if (newPet) {
-                        getAllPets();
-                        setShowSuccessMessage(true);
-                        setOpen(false);
-                    }
-                } catch (error) {
-                    console.error('Error registering pet:', error);
-                    setShowSuccessMessage(false);
-                }
+    const createPet = () => {
+        try {
+            console.log(petName)
+            console.log(selectedOption)
 
-                if (petName && open) {
-                    registerPet();
-                    setOpen(false); 
-                }
-            };
-        }, [handleClose]);
-    
-        
+            const newPet = PetService.registerPet(pet);
+            if (newPet) {
+                setShowSuccessMessage(true);
+                window.location.reload();
+            }
+        } catch (error) {
+            console.error('Error registering pet:', error);
+            setShowSuccessMessage(false);
+        }
+    };
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = () => {
+        setOpen(false);
+        createPet(); 
+    };
 
 
     return (  
@@ -94,18 +86,21 @@ const MyPets = () => {
             <div className="pets-content">
                 <h1>My pets: </h1>
 
+            <div className="pets-cards">
                 {mypets.map(p => 
-                <div className='petCardContent' key={p.id}>
-                    {/* //<img className='image-wrapper' src={doc.image} alt={`Dr. ${doc.name}`}/> */}
-                    <div className='text'>
-                        <h4>{p.name}</h4>
-                        <p>Species: {p.type}</p> 
-                        <p>Gender: {p.gender.toLowerCase()}</p>
-                        <p>Birthday: {p.birthday}</p>
-                        <p>Information: {p.information} </p>
-                    </div>
-                </div>
-            )}
+                        <div className='petCardContent' key={p.id}>
+                            {/* //<img className='image-wrapper' src={doc.image} alt={`Dr. ${doc.name}`}/> */}
+                            <div className='text'>
+                                <h4>{p.name}</h4>
+                                <p>Species: {p.type}</p> 
+                                <p>Gender: {p.gender.toLowerCase()}</p>
+                                <p>Birthday: {p.birthday}</p>
+                                <p>Information: {p.information} </p>
+                            </div>
+                        </div>
+                    )}
+            </div>
+                
 
                 <Button variant="outlined" onClick={handleClickOpen}>
                     Add new pet 
@@ -138,7 +133,7 @@ const MyPets = () => {
                                 ))}
                             </Select>
                             <label>Type of animal</label>
-                            <Select label="Type of animal" variant="outlined" className="input-field" value={selectedOption} onChange={(e) => setSelectedOption(e.target.value)}>
+                            <Select label="Type of animal" variant="outlined" className="input-field" value={selectedOption} onChange={e => setSelectedOption(e.target.value)}>
                                 {options.map((option) => (
                                     <MenuItem key={option} value={option}>
                                     {option}

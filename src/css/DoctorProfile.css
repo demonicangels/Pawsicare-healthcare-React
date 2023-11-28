@@ -1,5 +1,4 @@
 .profile-content {
     display: flex;
-    justify-content: space-between;
-    margin: 12px;
+    justify-content: space-evenly;
 }

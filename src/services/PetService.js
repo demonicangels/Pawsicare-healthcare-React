@@ -13,8 +13,8 @@ const getPetsByOwnerId = (id) => {
     })
 }
 
-const registerPet = (petData) =>{
-    return axios.post(`${hostname}/pets`, petData)
+const registerPet = (data) =>{
+    return axios.post(`${hostname}/pets`, data)
     .then(response => response.data)
     .catch(error => {
         console.log('Error: ',error.message)

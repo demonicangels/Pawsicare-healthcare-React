@@ -22,7 +22,7 @@ const Header = ({isDarkMode}) => {
                     <button type="submit" name='searchbtn'><FontAwesomeIcon icon={faSearch} style={iconStyle()} /></button>
                 </form>
                 <a href="/" className="header" style={headerTextStyle()}>Pawsicare</a>
-                {TokenService.getAccessToken() !== null ? ( <a onClick={TokenService.clear()}> Logout</a> ) : <p> </p>}
+                {TokenService.getAccessToken() !== null ? ( <button onClick={TokenService.clear}> Logout</button> ) : null}
                 <a href='/login' className='account-logo'><FontAwesomeIcon icon={faUser} /></a>
             </div>
         </header>

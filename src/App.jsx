@@ -29,6 +29,15 @@ function App() {
     };
   }, [isDarkMode]);
 
+  
+  useEffect(() =>{
+    console.log('#0', TokenService.getAccessToken())
+    if(TokenService.getAccessToken() !== null){
+      console.log('#1', TokenService.getAccessToken())
+      TokenService.setAccessToken(TokenService.getAccessToken())
+    }
+  },[])
+
   return (
     <div className='app'>
       <Router>
