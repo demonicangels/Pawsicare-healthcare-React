@@ -13,8 +13,10 @@ import AppCalendar from './pages/AppointmentCalendar'
 import MyPets from './pages/PetsPage'
 import { useState, useEffect } from 'react'
 import TokenService from './services/TokenService'
+import TokenRefresh from './services/TokenRefresh'
 import AuthRequired from './services/AuthRequired'
 import DocProfile from './pages/DoctorProfile'
+
 
 function App() {
 
@@ -27,15 +29,16 @@ function App() {
     return () => {
       document.body.className = '';
     };
+    
   }, [isDarkMode]);
 
-  
   useEffect(() =>{
-    console.log('#0', TokenService.getAccessToken())
+    
     if(TokenService.getAccessToken() !== null){
       console.log('#1', TokenService.getAccessToken())
       TokenService.setAccessToken(TokenService.getAccessToken())
     }
+    
   },[])
 
   return (

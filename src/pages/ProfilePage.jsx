@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import UserService from "../services/UserService";
+import TokenService from "../services/TokenService";
 
 
 const Profile = () => {
@@ -8,7 +9,7 @@ const Profile = () => {
 
     const clientData = () => {
 
-        const userId = sessionStorage.getItem("userId")
+        const userId = TokenService.getClaims().userId
 
         UserService.getClient(userId).then(data => setClient(data))
         console.log(client)

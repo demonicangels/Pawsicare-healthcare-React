@@ -3,8 +3,6 @@ import TokenService from './TokenService';
 
 const hostname = 'http://localhost:8080'
 
-TokenService.setAxiosHeaders()
-
 const sendMail = (emailData) => {
     debugger
     return axios

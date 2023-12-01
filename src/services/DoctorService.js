@@ -3,8 +3,6 @@ import TokenService from "./TokenService";
 
 const hostname = 'http://localhost:8080'
 
-TokenService.setAxiosHeaders()
-
 const getAllDoctors = () => {
     return axios.get(`${hostname}/doctors`)
     .then(response => response.data)
