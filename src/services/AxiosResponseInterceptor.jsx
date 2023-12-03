@@ -3,7 +3,7 @@ import TokenService from './TokenService';
 import UserService from './UserService';
 import { isExpired } from 'react-jwt';
 
-console.log(isExpired(TokenService.getAccessToken()))
+
 const axiosApiResponseInterceptor = axios.create();
     
 axiosApiResponseInterceptor.interceptors.request.use(
@@ -34,28 +34,37 @@ axiosApiResponseInterceptor.interceptors.response.use(
     console.log('Error from interceptor', err);
 
     const originalConfig = err.config;
-    if(isExpired(TokenService.getAccessToken())){
-      
-      originalConfig._retry = true;
 
-      try{
-        debugger
+    const accessT = TokenService.getAccessToken() !== null
+
+    try{
+      if(accessT){
+        if(isExpired(TokenService.getAccessToken())){
         
-        const refreshTokenPromise = UserService.refreshToken(TokenService.getRefreshToken())
-
-        console.log(refreshTokenPromise)
-        const {token} = refreshTokenPromise.data;
-
-
-
-        TokenService.setAccessToken(token);
-      }
-      catch(error){
-        return Promise.reject(error)
-      }
+          originalConfig._retry = true;
+    
+          try{
+            
+            const refreshTokenPromise = UserService.refreshToken(TokenService.getRefreshToken())
+    
+            console.log(refreshTokenPromise)
+            const {token} = refreshTokenPromise.data;
+    
+            TokenService.setAccessToken(token);
+          }
+          catch(error){
+            return Promise.reject(error)
+          }
+        }
+        return Promise.reject(err)
     }
-    return Promise.reject(err)
+      return Promise.reject(err)
+  }catch(er){
+      console.log('Interceptor error', er.message);
+      return Promise.reject(err)
   }
+}
+    
 ) 
 
 export default axiosApiResponseInterceptor

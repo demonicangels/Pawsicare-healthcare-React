@@ -31,6 +31,7 @@ const refreshToken = (refreshToken) => {
         console.log(response.data.accessToken)
         TokenService.setAccessToken(response.data.accessToken)
     })
+    
     .catch(error => {
         console.log('Error trying to refresh the token', error.message);
     })
