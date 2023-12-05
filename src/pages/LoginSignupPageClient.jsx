@@ -19,9 +19,7 @@ const LoginForm = () => {
           console.log(loginSuccess)
       
           if (loginSuccess) {
-
             navigate('/doctors');
-
           }else {
 
             setStatus(false);

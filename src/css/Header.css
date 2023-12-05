@@ -43,6 +43,10 @@ form.searchFunction {
   max-width: 20%;
 }
 
+i :hover{
+  cursor: pointer;
+}
+
 @media only screen and (min-width: 400px) {
 
   .header {
@@ -70,5 +74,11 @@ form.searchFunction {
   a.header {
     left: 39%;
     text-align: center;
+  }
+
+  .logoutBtn {
+    position: relative;
+    left: 91%;
+    top: -1rem;
   }
 }

@@ -21,17 +21,11 @@ const TokenService = {
     saveRefreshToken: (refreshToken) => {
         sessionStorage.setItem("refreshToken", refreshToken)
     },
-    // setAxiosHeaders: () =>{
-    //     const token = TokenService.getAccessToken();
-  
-    //     if (token) {
-    //       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    //     }
-    // },
     clear: () => {
         sessionStorage.removeItem("accessToken")
         sessionStorage.removeItem("claims")
         sessionStorage.removeItem("refreshToken")
+
     }
 
 };

@@ -2,6 +2,7 @@ import axios from 'axios'
 import TokenService from './TokenService';
 import UserService from './UserService';
 import { isExpired } from 'react-jwt';
+import { useNavigate } from 'react-router-dom';
 
 
 const axiosApiResponseInterceptor = axios.create();
@@ -17,6 +18,7 @@ axiosApiResponseInterceptor.interceptors.request.use(
 
       return config;
     },
+
     error => {
       return Promise.reject(error);
     }
@@ -36,25 +38,33 @@ axiosApiResponseInterceptor.interceptors.response.use(
     const originalConfig = err.config;
 
     const accessT = TokenService.getAccessToken() !== null
+    const refreshT = TokenService.getRefreshToken() !== null;
 
     try{
       if(accessT){
-        if(isExpired(TokenService.getAccessToken())){
+        if(isExpired(TokenService.getRefreshToken())){
+          window.location.href = '/login'
+        }
+        else{
+
+          if(refreshT && isExpired(TokenService.getAccessToken())){
         
-          originalConfig._retry = true;
-    
-          try{
-            
-            const refreshTokenPromise = UserService.refreshToken(TokenService.getRefreshToken())
-    
-            console.log(refreshTokenPromise)
-            const {token} = refreshTokenPromise.data;
-    
-            TokenService.setAccessToken(token);
+            originalConfig._retry = true;
+      
+            try{
+              
+              const refreshTokenPromise = UserService.refreshToken(TokenService.getRefreshToken())
+      
+              console.log(refreshTokenPromise)
+              const {token} = refreshTokenPromise.data;
+      
+              TokenService.setAccessToken(token);
+            }
+            catch(error){
+              return Promise.reject(error)
+            }
           }
-          catch(error){
-            return Promise.reject(error)
-          }
+
         }
         return Promise.reject(err)
     }
