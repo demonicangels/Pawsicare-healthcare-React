@@ -24,9 +24,9 @@ const loginUser = (email, password) => {
         return false;
     });
 }
-const refreshToken = (refreshToken) => {
+const refreshToken = (token) => {
     debugger
-    axios.post(`${hostname}/auth/refreshToken`, {refreshToken, skipAuthorization: true })
+    axios.post(`${hostname}/auth/refreshToken`, {token, skipAuthorization: true })
     .then(response => {
         console.log(response.data.accessToken)
         TokenService.setAccessToken(response.data.accessToken)
@@ -35,6 +35,11 @@ const refreshToken = (refreshToken) => {
     .catch(error => {
         console.log('Error trying to refresh the token', error.message);
     })
+}
+const logout = (token) => {
+    axios.post(`${hostname}/auth/logout`, {token, skipAuthorization: true})
+    .then(response => console.log(response.data))
+    .catch(error => console.error('Error during logout:', error));
 }
 const createClient = (data) => {
     return axios.post(`${hostname}/clients`, data)
@@ -60,4 +65,5 @@ export default {
     getClient,
     getDoctor,
     refreshToken,
+    logout
 };

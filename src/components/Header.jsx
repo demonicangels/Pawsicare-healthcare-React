@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../css/Header.css'
 import TokenService from '../services/TokenService'
+import UserService from '../services/UserService'
 
 
 
@@ -21,11 +22,11 @@ const Header = ({isDarkMode}) => {
     })
     const handleLogout = () => {
 
+        UserService.logout(TokenService.getRefreshToken())
         TokenService.clear()
         setIsLoggedIn(false)
         navigate('/')
 
-        
     }
     return ( 
         <header>

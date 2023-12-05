@@ -53,7 +53,7 @@ axiosApiResponseInterceptor.interceptors.response.use(
       
             try{
               
-              const refreshTokenPromise = UserService.refreshToken(TokenService.getRefreshToken())
+              const refreshTokenPromise = UserService.refreshToken(TokenService.getAccessToken())
       
               console.log(refreshTokenPromise)
               const {token} = refreshTokenPromise.data;
