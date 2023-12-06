@@ -5,8 +5,6 @@ import axios from 'axios';
 const hostname = 'http://localhost:8080'
 
 const loginUser = (email, password) => {
-    
-    debugger
 
     return axios.post(`${hostname}/auth`,{
         email,
@@ -25,13 +23,12 @@ const loginUser = (email, password) => {
     });
 }
 const refreshToken = (token) => {
-    debugger
+
     axios.post(`${hostname}/auth/refreshToken`, {token, skipAuthorization: true })
     .then(response => {
         console.log(response.data.accessToken)
         TokenService.setAccessToken(response.data.accessToken)
     })
-    
     .catch(error => {
         console.log('Error trying to refresh the token', error.message);
     })
@@ -50,12 +47,15 @@ const createDoctor = (data) => {
     .then(response => response.data)
 }
 const getClient = (usrId) => {
-    return axios.get(`${hostname}/clients`, usrId)
+    debugger 
+    return axiosApiResponseInterceptor.get(`${hostname}/clients`, { params: { id: usrId } })
     .then(response => response.data)
+    .catch(err => console.log('Error getting client', err.message))
 }
 const getDoctor = (usrId) => {
-    return axios.get(`${hostname}/doctors`, usrId)
+    return axiosApiResponseInterceptor.get(`${hostname}/doctors`, { params: { id: usrId } })
     .then(response => response.data)
+    .catch(err => console.log('Error getting client', err.message))
 }
 
 export default {

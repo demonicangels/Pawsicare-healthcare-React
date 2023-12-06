@@ -2,7 +2,6 @@ import axios from 'axios'
 import TokenService from './TokenService';
 import UserService from './UserService';
 import { isExpired } from 'react-jwt';
-import { useNavigate } from 'react-router-dom';
 
 
 const axiosApiResponseInterceptor = axios.create();
