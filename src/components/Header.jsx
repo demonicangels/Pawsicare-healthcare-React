@@ -27,7 +27,7 @@ const Header = ({isDarkMode}) => {
         navigate('/')
     }
     const openChat = () => {
-        navigate('/chat')
+        navigate('/chatRoom')
     }
     return ( 
         <header>
@@ -39,7 +39,7 @@ const Header = ({isDarkMode}) => {
                 <a href="/" className="header" style={headerTextStyle()}>Pawsicare</a>
                 <a href='/login' className='account-logo'><FontAwesomeIcon icon={faUser} /></a>
                 {isLoggedIn ? ( <i onClick={handleLogout} className='logoutBtn'> <FontAwesomeIcon icon={faSignOut} style={iconStyle()} /></i> ) : null}
-                {isLoggedIn ? (<i onClick={openChat} className='chatBtn'><FontAwesomeIcon icon={faComments} style={iconStyle()}/></i>) : null}
+                <i onClick={openChat} className='chatBtn'><FontAwesomeIcon icon={faComments} style={iconStyle()}/></i>
                 
             </div>
         </header>

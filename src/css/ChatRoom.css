@@ -1,0 +1,57 @@
+.doctorContainer {
+    padding: 2px;
+}
+
+
+.doctorGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    position: relative;
+    left: 10rem;
+    top: 2rem;
+    max-width: 50%;
+}
+
+
+.doctor-Box {
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+
+
+.doctor-Box:hover {
+    box-shadow: 0 0 5px #7575ff;
+}
+
+.docImage {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.doctorName {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+}
+
+.doctorEmail {
+    font-size: 12px;
+    display: flex;
+}
+
+.doctorDetails {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}

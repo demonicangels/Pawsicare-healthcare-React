@@ -15,7 +15,8 @@ import { useState, useEffect } from 'react'
 import TokenService from './services/TokenService'
 import AuthRequired from './services/AuthRequired'
 import DocProfile from './pages/DoctorProfile'
-import ChatRoom from './pages/Chat'
+import Chat from './pages/Chat'
+import ChatRoom from './pages/ChatRooom'
 
 
 function App() {
@@ -57,7 +58,8 @@ function App() {
             <Route path='/appointments' element = {<AuthRequired><AppCalendar/></AuthRequired>}/>
             <Route path='/mypets' element = {<AuthRequired><MyPets/></AuthRequired>}/>
             <Route path='/docprofile' element = {<DocProfile/>}/>
-            <Route path='/chat' element = {<AuthRequired><ChatRoom/></AuthRequired>}/>
+            <Route path='/chat' element = {<AuthRequired><Chat/></AuthRequired>}/>
+            <Route path='/chatRoom' element = {<ChatRoom/>}/>
           </Routes>
       </Router>
     </div>

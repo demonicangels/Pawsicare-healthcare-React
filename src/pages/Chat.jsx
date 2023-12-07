@@ -8,10 +8,11 @@ import TokenService from '../services/TokenService';
 import UsernamePlaceholder from '../components/UsernamePlaceholder';
 
 
-const ChatRoom = () => {
+const Chat = (props) => {
     const [stompClient,setStompClient] = useState();
-    const [user,setUser] = useState(); //set the username by getting the user from the database using the method in userService
+    const [sender,setSender] = useState(); //set the username by getting the user from the database using the method in userService
     const [username,setUsername] = useState()
+    const [receiver, setReceiver] = useState();
     const [messagesReceived, setMessages] = useState([]);
    
   
@@ -20,6 +21,7 @@ const ChatRoom = () => {
     const usrId = token.userId
   
     const fetchDataAndSetUsername = async () => {
+
       if (userRole === "Client") {
         try {
           const response = await UserService.getClient(usrId);
@@ -27,8 +29,8 @@ const ChatRoom = () => {
           console.log(response.client)
     
           if (response && response.client) {
-            setUser(response.client);
-            setUsername(user.name);
+            setSender(response.client);
+            setUsername(sender.name);
           } else {
             console.error('Invalid response format:', response);
           }
@@ -44,8 +46,8 @@ const ChatRoom = () => {
         console.log(response.doctor)
   
         if (response && response.doctor) {
-         setUser(response.doctor);
-          setUsername(user.name);
+         setSender(response.doctor);
+          setUsername(sender.name);
         } else {
           console.error('Invalid response format:', response);
         }
@@ -56,65 +58,67 @@ const ChatRoom = () => {
       }
     }
   };
-    
+
     fetchDataAndSetUsername()
     
-  
-    const setupStompClient = (username) => {
-  
-      const stompClient = new Client({
-        brokerUrl: 'ws://localhost:8080/chat',
-        reconnectDelay: 5000,
-        heartbeatIncoming: 4000,
-        heartbeatOutgoing: 4000
-      });
-  
-      stompClient.onConnect = () => {
-        stompClient.subscribe('/chat/messages', (data) => {
-          console.log(data)
-          onMessageReceived(data)
-        });
-  
-        stompClient.subscribe(`/user/${username}/queue/inboxmessages`, (data) => {
-          onMessageReceived(data);
-        });
-  
-      };
-  
-      stompClient.activate();
-  
-      setStompClient(stompClient);
-      
+    if(props.doctor){
+      setReceiver(props.doctor)
     }
+}
+
+const setupStompClient = (username) => {
+  
+  const stompClient = new Client({
+    brokerUrl: 'ws://localhost:8080/chat',
+    reconnectDelay: 5000,
+    heartbeatIncoming: 4000,
+    heartbeatOutgoing: 4000
+  });
+
+  stompClient.onConnect = () => {
+    stompClient.subscribe('/chat/messages', (data) => {
+      console.log(data)
+      onMessageReceived(data)
+    });
+
+    stompClient.subscribe(`/user/${username}/queue/inboxmessages`, (data) => {
+      onMessageReceived(data);
+    });
+  };
+
+  stompClient.activate();
+
+  setStompClient(stompClient);
+
     
-    const sendMessage = (newMessage) => {
-        const payload = { 'id': uuidv4(), 'from': username, 'to': newMessage.to, 'text': newMessage.text };
-        if (payload.to) {
-          stompClient.publish({ 'destination': `/user/${payload.to}/queue/inboxmessages`, body: JSON.stringify(payload) });
-        } else {
-          stompClient.publish({ 'destination': '/chat/publicmessages', body: JSON.stringify(payload) });
-        }
-    };
+  const sendMessage = (newMessage) => {
+      const payload = { 'id': uuidv4(), 'from': username, 'to': newMessage.to, 'text': newMessage.text };
+      if (payload.to) {
+        stompClient.publish({ 'destination': `/user/${payload.to}/queue/inboxmessages`, body: JSON.stringify(payload) });
+      } else {
+        stompClient.publish({ 'destination': '/chat/publicmessages', body: JSON.stringify(payload) });
+      }
+  };
 
-    const onUsernameInformed = () => {
-        setupStompClient(username);
-    }
+  const onUsernameInformed = () => {
+      setupStompClient(username);
+  }  
   
-    const onMessageReceived = (data) => {
-      const message = JSON.parse(data.body)
-      setMessages(messagesReceived => [...messagesReceived,message])
-    }
+  const onMessageReceived = (data) => {
+    const message = JSON.parse(data.body)
+    setMessages(messagesReceived => [...messagesReceived,message])
+  }
 
+  useEffect(() => {
+      if (username) {
+        setupStompClient(username);
+      }
+  }, [username]);
 
-    useEffect(() => {
-        if (username) {
-          setupStompClient(username);
-        }
-    }, [username]);
 
     return ( 
         <div className="ChatRoom">
-            <UsernamePlaceholder username={username} onUsernameInformed={onUsernameInformed} />
+            <UsernamePlaceholder username={username} receiver={receiver} onUsernameInformed={onUsernameInformed} />
             <br></br>
             <SendMessagePlaceholder username={username} onMessageSend={sendMessage} />
             <br></br>
@@ -123,4 +127,4 @@ const ChatRoom = () => {
     );
 }
  
-export default ChatRoom;
+export default Chat;
