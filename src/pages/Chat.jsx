@@ -1,10 +1,11 @@
-import { Client } from 'stompjs';
+import { Client } from '@stomp/stompjs';
+import { v4 as uuidv4 } from 'uuid';
 import UserService from '../services/UserService';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ChatMessagesPlaceholder from '../components/ChatMessagesPlaceHolder';
 import SendMessagePlaceholder from '../components/SendMessagePlaceholder';
-import UsernamePlaceholder from '../components/UsernamePlaceholder';
 import TokenService from '../services/TokenService';
+import UsernamePlaceholder from '../components/UsernamePlaceholder';
 
 
 const ChatRoom = () => {
@@ -18,15 +19,46 @@ const ChatRoom = () => {
     const userRole = token.role 
     const usrId = token.userId
   
-    if(userRole === "Client"){
-        UserService.getClient(usrId).then(response => setUser(response.data))
-    }
-    if(userRole === "Doctor"){
-        UserService.getDoctor(usrId).then(response => setUser(response.data))
-    }
+    const fetchDataAndSetUsername = async () => {
+      if (userRole === "Client") {
+        try {
+          const response = await UserService.getClient(usrId);
+
+          console.log(response.client)
+    
+          if (response && response.client) {
+            setUser(response.client);
+            setUsername(user.name);
+          } else {
+            console.error('Invalid response format:', response);
+          }
+
+        } catch (error) {
+          console.error('Error getting client:', error);
+          console.log('Error message:', error.message);
+        }
+    }if(userRole === "Doctor"){
+      try {
+        const response = await UserService.getDoctor(usrId);
+
+        console.log(response.doctor)
   
-    console.log(user);
-    setUsername(user.name);
+        if (response && response.doctor) {
+         setUser(response.doctor);
+          setUsername(user.name);
+        } else {
+          console.error('Invalid response format:', response);
+        }
+
+      } catch (error) {
+        console.error('Error getting doctor:', error);
+        console.log('Error message:', error.message);
+      }
+    }
+  };
+    
+    fetchDataAndSetUsername()
+    
   
     const setupStompClient = (username) => {
   
@@ -60,17 +92,29 @@ const ChatRoom = () => {
         if (payload.to) {
           stompClient.publish({ 'destination': `/user/${payload.to}/queue/inboxmessages`, body: JSON.stringify(payload) });
         } else {
-          stompClient.publish({ 'destination': '/topic/publicmessages', body: JSON.stringify(payload) });
+          stompClient.publish({ 'destination': '/chat/publicmessages', body: JSON.stringify(payload) });
         }
     };
+
+    const onUsernameInformed = () => {
+        setupStompClient(username);
+    }
   
     const onMessageReceived = (data) => {
       const message = JSON.parse(data.body)
       setMessages(messagesReceived => [...messagesReceived,message])
     }
+
+
+    useEffect(() => {
+        if (username) {
+          setupStompClient(username);
+        }
+    }, [username]);
+
     return ( 
         <div className="ChatRoom">
-            <UsernamePlaceholder username={username}/>
+            <UsernamePlaceholder username={username} onUsernameInformed={onUsernameInformed} />
             <br></br>
             <SendMessagePlaceholder username={username} onMessageSend={sendMessage} />
             <br></br>

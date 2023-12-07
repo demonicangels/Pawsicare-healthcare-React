@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 const SendMessagePlaceholder = (props) => {
+  
   const [message, setMessage] = useState('');
   const [destinationUsername, setDestinationUsername] = useState('');
 

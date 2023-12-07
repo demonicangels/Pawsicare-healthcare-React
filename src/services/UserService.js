@@ -50,7 +50,10 @@ const getClient = (usrId) => {
     debugger 
     return axiosApiResponseInterceptor.get(`${hostname}/clients`, { params: { id: usrId } })
     .then(response => response.data)
-    .catch(err => console.log('Error getting client', err.message))
+    .catch(err => {
+        console.error('Error getting client:', err);
+        console.log('Error message:', err.message);
+    });
 }
 const getDoctor = (usrId) => {
     return axiosApiResponseInterceptor.get(`${hostname}/doctors`, { params: { id: usrId } })
