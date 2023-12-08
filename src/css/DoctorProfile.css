@@ -1,4 +1,12 @@
+
 .profile-content {
+    position: relative;
+    left: 4rem;
     display: flex;
+    flex-direction: row;
     justify-content: space-evenly;
+}
+.text-content {
+    position: relative;
+    top: 7rem;
 }

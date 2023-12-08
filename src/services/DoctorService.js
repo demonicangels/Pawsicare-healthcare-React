@@ -18,6 +18,7 @@ const getDoctorsByField = (field) =>{
 }
 
 const getDoctorById = async (id) =>{
+    debugger
     console.log(id)
     return await axios.get(`${hostname}/doctors`, {params: {id: id}})
     .then(response => response.data)

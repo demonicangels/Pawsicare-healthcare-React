@@ -1,16 +1,22 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 import DoctorService from "../services/DoctorService";
+import '../css/DoctorProfile.css';
 
 const DocProfile = () => {
     const [doctor, setDoctor] = useState(null);
+    const navigate = useNavigate();
 
     const docId = sessionStorage.getItem("docId")
   
     useEffect(() => {
-      const getDocInfo = () => {
+      const getDocInfo = async () => {
         try {
-          DoctorService.getDoctorById(docId)
-          .then(data => setDoctor(data.doctor))
+          const data = await DoctorService.getDoctorById(docId)
+         
+          if(data){
+            setDoctor(data.doctor)
+          }
   
         } catch (error) {
           console.error('Error fetching doctor information:', error.message);
@@ -27,10 +33,16 @@ const DocProfile = () => {
         console.log(doctor)
 
       }
+      setDoctorAfterRender(doctor);
+
     },[docId])
   
     if (!doctor) {
       return <div>Loading...</div>;
+    }
+
+    const handleScheduleRedirecting = () =>{
+      navigate('/docSchedule')
     }
   
     return (
@@ -40,7 +52,9 @@ const DocProfile = () => {
           <p>{`Dr. ${doctor.name}`}</p>
           <p>{`Email: ${doctor.email}`}</p>
           <p>{`Work field: ${doctor.field}`}</p>
+          <button onClick={handleScheduleRedirecting}> Make an appointment</button>
         </div>
+       
       </div>
     );
   };
