@@ -5,8 +5,6 @@ import axios from 'axios';
 const hostname = 'http://localhost:8080'
 
 const loginUser = (email, password) => {
-    
-    debugger
 
     return axios.post(`${hostname}/auth`,{
         email,
@@ -25,7 +23,6 @@ const loginUser = (email, password) => {
     });
 }
 const refreshToken = (token) => {
-    debugger
     axios.post(`${hostname}/auth/refreshToken`, {token, skipAuthorization: true })
     .then(response => {
         console.log(response.data.accessToken)

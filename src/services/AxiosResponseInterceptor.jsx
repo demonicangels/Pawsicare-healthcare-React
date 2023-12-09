@@ -31,7 +31,6 @@ axiosApiResponseInterceptor.interceptors.response.use(
     return response
   },
   async(err) => {
-    console.log('any string'),
 
     console.log('Error from interceptor', err);
 

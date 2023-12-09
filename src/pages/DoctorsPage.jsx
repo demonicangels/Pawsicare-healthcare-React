@@ -12,15 +12,14 @@ const Doctors = () => {
     const { register, handleSubmit, formState: {errors} } = useForm();
     const [selectedDoctor, setSelectedDoctor] = useState(null);
     const navigate = useNavigate()
-    
 
     useEffect(() => {
         DoctorService.getAllDoctors()
             .then(data => setDoctors(data.doctors))
+
     }, []);
 
     const handleSelectedDoctor = (docId) => {
-        
         sessionStorage.setItem("docId", docId);
         navigate("/docprofile");
     };

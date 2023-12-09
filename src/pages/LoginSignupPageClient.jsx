@@ -14,12 +14,14 @@ const LoginForm = () => {
 
     const onSubmit = (data) => {
         try {
+            
           const loginSuccess = UserService.loginUser(data.uname, data.pass);
 
           console.log(loginSuccess)
       
           if (loginSuccess) {
             navigate('/doctors');
+            sessionStorage.setItem("needsReload", true);
           }else {
 
             setStatus(false);

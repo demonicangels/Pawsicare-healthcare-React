@@ -31,6 +31,7 @@ const MyPets = () => {
     const [des,setDescription] = useState('')
     const [petGender, setGender] = useState('')
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [deleteState, setDeleteState] = useState(false);
 
 
     const options = ['Dog', 'Cat', 'Bird']
@@ -46,13 +47,30 @@ const MyPets = () => {
     };
 
     useEffect(() => {
-        const getAllPets = () => {
+        const getAllPets = async () => {
             const usrId = TokenService.getClaims().userId
-            PetService.getPetsByOwnerId(usrId)
-            .then(data => setMyPets(data.pets))
+            const response = await PetService.getPetsByOwnerId(usrId)
+
+            console.log(response)
+
+            if(response && response.pets){
+                setMyPets(response.pets)
+            }
             
         }
         getAllPets()
+
+        const storedSuccessMessage = localStorage.getItem('showSuccessMessage');
+        const storedDeleteState = localStorage.getItem('deleteState');
+    
+        // Set state based on stored values
+        if (storedSuccessMessage) {
+          setShowSuccessMessage(JSON.parse(storedSuccessMessage));
+        }
+    
+        if (storedDeleteState) {
+          setDeleteState(JSON.parse(storedDeleteState));
+        }
     },[])
 
     const createPet = () => {
@@ -63,7 +81,8 @@ const MyPets = () => {
             const newPet = PetService.registerPet(pet);
             if (newPet) {
                 setShowSuccessMessage(true);
-                window.location.reload();
+                sessionStorage.setItem("needsReload", true);
+                
             }
         } catch (error) {
             console.error('Error registering pet:', error);
@@ -80,6 +99,27 @@ const MyPets = () => {
         createPet(); 
     };
 
+    const handleDeletePet = (id) => {
+        try {
+            const response = PetService.deletePet(id);
+    
+            setDeleteState(true);
+            sessionStorage.setItem("needsReload", true);
+
+        } catch (error) {
+            console.error('Error deleting pet:', error);
+        }
+
+    }
+
+    const reload = sessionStorage.getItem("needsReload");
+    
+    if(reload === "true"){
+        localStorage.setItem('showSuccessMessage', JSON.stringify(showSuccessMessage));
+        localStorage.setItem('deleteState', JSON.stringify(deleteState));
+        window.location.reload();
+        sessionStorage.setItem("needsReload", false);
+    }
 
     return (  
         <div className="pets-page">
@@ -96,6 +136,8 @@ const MyPets = () => {
                                 <p>Gender: {p.gender.toLowerCase()}</p>
                                 <p>Birthday: {p.birthday}</p>
                                 <p>Information: {p.information} </p>
+                                <button>Update</button>
+                                <button onClick={() => handleDeletePet(p.id)}>Remove</button>
                             </div>
                         </div>
                     )}
@@ -167,6 +209,7 @@ const MyPets = () => {
                         </DialogActions>
                 </FormDialog>
                 {showSuccessMessage && <p>Successfully added a new friend!</p>}
+                {deleteState && <p>Successful delete.</p> }
             </div>
         </div>
        

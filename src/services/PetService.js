@@ -1,3 +1,4 @@
+import axios from 'axios';
 import axiosApiResponseInterceptor from './AxiosResponseInterceptor';
 
 const hostname = 'http://localhost:8080'
@@ -19,7 +20,30 @@ const registerPet = (data) =>{
     })
 }
 
+const deletePet = (id) => {
+    try {
+        const response = axiosApiResponseInterceptor.delete(`${hostname}/pets`, {
+          params: {
+            id: id,
+          },
+        }).then(res => {
+          console.log('Data from delete request',res.data)
+        });
+
+        if (response) {
+          console.log('Pet deleted successfully');
+        } else {
+          console.error('Error deleting pet: Invalid response format', response);
+          throw new Error('Invalid response format');
+        }
+      } catch (error) {
+        console.error('Error deleting pet:', error);
+        throw error;
+      }
+}
+
 export default {
     getPetsByOwnerId,
-    registerPet
+    registerPet,
+    deletePet
 }
