@@ -32,6 +32,8 @@ const MyPets = () => {
     const [petGender, setGender] = useState('')
     const [showSuccessMessage, setShowSuccessMessage] = useState(false);
     const [deleteState, setDeleteState] = useState(false);
+    const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
+    const [petId, setPetId] = useState(0);
 
 
     const options = ['Dog', 'Cat', 'Bird']
@@ -61,16 +63,12 @@ const MyPets = () => {
         getAllPets()
 
         const storedSuccessMessage = localStorage.getItem('showSuccessMessage');
-        const storedDeleteState = localStorage.getItem('deleteState');
     
         // Set state based on stored values
         if (storedSuccessMessage) {
           setShowSuccessMessage(JSON.parse(storedSuccessMessage));
         }
-    
-        if (storedDeleteState) {
-          setDeleteState(JSON.parse(storedDeleteState));
-        }
+
     },[])
 
     const createPet = () => {
@@ -90,9 +88,40 @@ const MyPets = () => {
         }
     };
 
+    const updatePet = async () => {
+        try{
+            console.log(petName)
+            console.log(des)
+
+            const newPet = {
+                id: petId,
+                ownerId: TokenService.getClaims().userId,
+                name: petName,
+                information: des
+            }
+
+            const response = await PetService.updatePet(newPet);
+
+            sessionStorage.setItem("needsReload", true);
+            
+        }catch(error){
+            console.log('Error update pet', error)
+        }
+    }
+
     const handleClickOpen = () => {
         setOpen(true);
     };
+
+    const handleUpdateOpen = (petId) => {
+        setPetId(petId)
+        setOpenUpdateDialog(true)
+    }
+
+    const handleUpdateClose = () => {
+        setOpenUpdateDialog(false);
+        updatePet();
+    }
 
     const handleClose = () => {
         setOpen(false);
@@ -101,7 +130,8 @@ const MyPets = () => {
 
     const handleDeletePet = (id) => {
         try {
-            const response = PetService.deletePet(id);
+
+            PetService.deletePet(id);
     
             setDeleteState(true);
             sessionStorage.setItem("needsReload", true);
@@ -109,14 +139,13 @@ const MyPets = () => {
         } catch (error) {
             console.error('Error deleting pet:', error);
         }
-
     }
+
 
     const reload = sessionStorage.getItem("needsReload");
     
     if(reload === "true"){
         localStorage.setItem('showSuccessMessage', JSON.stringify(showSuccessMessage));
-        localStorage.setItem('deleteState', JSON.stringify(deleteState));
         window.location.reload();
         sessionStorage.setItem("needsReload", false);
     }
@@ -136,7 +165,7 @@ const MyPets = () => {
                                 <p>Gender: {p.gender.toLowerCase()}</p>
                                 <p>Birthday: {p.birthday}</p>
                                 <p>Information: {p.information} </p>
-                                <button>Update</button>
+                                <button onClick={() => handleUpdateOpen(p.id)}>Update</button>
                                 <button onClick={() => handleDeletePet(p.id)}>Remove</button>
                             </div>
                         </div>
@@ -208,8 +237,45 @@ const MyPets = () => {
                         <Button onClick={handleClose}>Save</Button>
                         </DialogActions>
                 </FormDialog>
-                {showSuccessMessage && <p>Successfully added a new friend!</p>}
-                {deleteState && <p>Successful delete.</p> }
+
+                <FormDialog open={openUpdateDialog} onClose={handleUpdateClose}>
+                    <DialogTitle>Update pet</DialogTitle>
+                        <DialogContent>
+                            <DialogContentText>
+                               Please update the information of your pet with the latest medical changes.
+                               You don't want to deteriorate the doctors in helping your pet maintain perfect health!
+                            </DialogContentText>
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="name"
+                                label="Pet name"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={e => {
+                                    setPetName(e.target.value)
+                                }}
+                            />
+                            <TextField
+                                autoFocus
+                                margin="dense"
+                                id="description"
+                                label="Description of health condition"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                                onChange={e => {
+                                    setDescription(e.target.value)
+                                }}  
+                            />
+                        </DialogContent>
+                        <DialogActions>
+                        <Button onClick={handleUpdateClose}>Cancel</Button>
+                        <Button onClick={handleUpdateClose}>Update</Button>
+                        </DialogActions>
+                </FormDialog>
+                {showSuccessMessage && <p>Success!</p>}
             </div>
         </div>
        

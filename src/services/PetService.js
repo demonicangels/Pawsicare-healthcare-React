@@ -42,8 +42,19 @@ const deletePet = (id) => {
       }
 }
 
+const updatePet = (updatedPet) => {
+  try {
+    const response = axiosApiResponseInterceptor.put(`${hostname}/pets`, updatedPet)
+    .then(res => console.log(res.data.updatedPet))
+    .catch(e => console.log('Promise of updating pet error', e))
+  }catch(error){
+    console.log('Error updating pet', error);
+  }
+}
+
 export default {
     getPetsByOwnerId,
     registerPet,
-    deletePet
+    deletePet,
+    updatePet
 }
