@@ -88,7 +88,7 @@ const MyPets = () => {
         }
     };
 
-    const updatePet = async () => {
+    const updatePet = () => {
         try{
             console.log(petName)
             console.log(des)
@@ -100,12 +100,24 @@ const MyPets = () => {
                 information: des
             }
 
-            const response = await PetService.updatePet(newPet);
+            PetService.updatePet(newPet);
 
             sessionStorage.setItem("needsReload", true);
             
         }catch(error){
             console.log('Error update pet', error)
+        }
+    }
+
+    const handleDeletePet = (id) => {
+        try {
+
+            PetService.deletePet(id);
+    
+            sessionStorage.setItem("needsReload", true);
+
+        } catch (error) {
+            console.error('Error deleting pet:', error);
         }
     }
 
@@ -127,19 +139,6 @@ const MyPets = () => {
         setOpen(false);
         createPet(); 
     };
-
-    const handleDeletePet = (id) => {
-        try {
-
-            PetService.deletePet(id);
-    
-            setDeleteState(true);
-            sessionStorage.setItem("needsReload", true);
-
-        } catch (error) {
-            console.error('Error deleting pet:', error);
-        }
-    }
 
 
     const reload = sessionStorage.getItem("needsReload");
