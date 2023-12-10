@@ -1,5 +1,6 @@
 import axios from "axios";
 import TokenService from "./TokenService";
+import axiosApiResponseInterceptor from "./AxiosResponseInterceptor";
 
 const hostname = 'http://localhost:8080'
 
@@ -20,7 +21,7 @@ const getDoctorsByField = (field) =>{
 const getDoctorById = async (id) =>{
     debugger
     console.log(id)
-    return await axios.get(`${hostname}/doctors`, {params: {id: id}})
+    return await axiosApiResponseInterceptor.get(`${hostname}/doctors`, {params: {id: id}})
     .then(response => response.data)
     .catch(error => {
         console.log('Error: ', error.message)
