@@ -27,7 +27,7 @@ const Header = ({isDarkMode}) => {
         navigate('/')
     }
     const openChat = () => {
-        navigate('/chatRoom')
+        navigate('/chat')
     }
     return ( 
         <header>

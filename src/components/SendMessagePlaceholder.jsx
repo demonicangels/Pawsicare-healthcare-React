@@ -1,35 +1,72 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import DoctorService from "../services/DoctorService";
+import { Box, Typography } from "@mui/material";
+import '../css/ChatRoom.css'
 
 const SendMessagePlaceholder = (props) => {
-  
+
   const [message, setMessage] = useState('');
+  const [doctors, setDoctors] = useState([]);
   const [destinationUsername, setDestinationUsername] = useState('');
 
-  if (!props.username) {
-    return <></>;
-  }
+  const [selectedDoctor, setSelectedDoctor] = useState(null);
+
+  useEffect(() => {
+    DoctorService.getAllDoctors()
+      .then(data => setDoctors(data.doctors))
+  }, []);
 
   const onMessageSend = () => {
     if (!message) {
       alert('Please type a message!');
+      return;
     }
-
-    props.onMessageSend({ 'text': message, 'to': destinationUsername });
+  
+    const to = selectedDoctor ? selectedDoctor.name : destinationUsername;
+  
+    props.onMessageSend({ 'text': message, 'to': to });
     setMessage('');
+    setSelectedDoctor(null); // Reset selected doctor after sending the message
   }
 
   const onSubmit = (event) => {
     event.preventDefault();
   }
 
+  const handleDoctorClick = (doctor) => {
+    setSelectedDoctor(doctor);
+  }
+
   return (
     <form onSubmit={onSubmit}>
-      <label htmlFor='message'>Message:</label>
-      <input id='message' type='text' onChange={(event) => setMessage(event.target.value)} value={message}></input>
       <br />
-      <label htmlFor='destUsername'>Destination:</label>
-      <input id='destUsername' type='text' onChange={(event) => setDestinationUsername(event.target.value)}></input>
-      <button onClick={onMessageSend}>Send</button>
+      <Box className="doctorContainer">
+        <div className="doctorGrid">
+          {doctors.map((doc, index) => (
+            <div key={index} className="doctor-Box" onClick={() => handleDoctorClick(doc)}>
+              <img src={doc.image} alt="" className="docImage" />
+              <Box width='60%'>
+                <Typography variant='body1' className="doctorName">{doc.name}</Typography>
+                <Typography variant='body2' className="doctorEmail">{doc.email}</Typography>
+                <Box className="doctorDetails">
+                  <Typography variant='body2' className="detailLabel">Field: </Typography>
+                  <Typography variant='body2' className="detailValue">{doc.field}</Typography>
+                </Box>
+              </Box>
+            </div>
+          ))}
+        </div>
+      </Box>
+      <input type="text" className="input-message" onChange={(event) => setMessage(event.target.value)} value={message} placeholder="Message..."></input>
+
+      {selectedDoctor && (
+        <div>
+          <Typography variant='subtitle1'>Selected Doctor: {selectedDoctor.name}</Typography>
+          <Typography variant='subtitle2'>Field: {selectedDoctor.field}</Typography>
+        </div>
+      )}
+
+      <button type="button" className="send-button" onClick={onMessageSend}>Send</button>
     </form>
   );
 }

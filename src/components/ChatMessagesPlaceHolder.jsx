@@ -7,6 +7,7 @@ const MessageReceived = (props) => {
 };
 
 const ChatMessagesPlaceholder = (props) => {
+    console.log('Rendering messages:', props.messagesReceived);
     return (
         <>
             <h2>Messages:</h2>

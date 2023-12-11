@@ -1,7 +1,10 @@
-import { Client } from '@stomp/stompjs';
+import SockJS from 'sockjs-client/dist/sockjs';
 import { v4 as uuidv4 } from 'uuid';
+import webstomp from  "webstomp-client";
 import UserService from '../services/UserService';
 import { useState, useEffect } from 'react';
+import '../css/Chat.css'
+
 
 import ChatMessagesPlaceholder from '../components/ChatMessagesPlaceHolder';
 import SendMessagePlaceholder from '../components/SendMessagePlaceholder';
@@ -9,13 +12,16 @@ import TokenService from '../services/TokenService';
 import UsernamePlaceholder from '../components/UsernamePlaceholder';
 
 
-const Chat = (props) => {
-    const [stompClient,setStompClient] = useState(null);
+const Chat = () => {
+  
+
+  //make so when a user logs in his picture appears as a circle instead of the client icon and redirects to the profile page it also has an arrow for drop down so the user can logout and go to profile from there
     const [sender,setSender] = useState(); //set the username by getting the user from the database using the method in userService
     const [username,setUsername] = useState()
     const [receiver, setReceiver] = useState();
     const [messagesReceived, setMessages] = useState([]);
-   
+
+    let stompClient=null;
   
     const token = TokenService.getClaims()
     const userRole = token.role 
@@ -70,37 +76,35 @@ const Chat = (props) => {
    
 
   const setupStompClient = (username) => {
-    
-    const stompClient = new Client({
-      brokerUrl: 'ws://localhost:8080/chat',
-      reconnectDelay: 5000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000
-    });
 
-    stompClient.onConnect = () => {
-      stompClient.subscribe('/chat/messages', (data) => {
-        console.log(data)
-        onMessageReceived(data)
-      });
+    if(!stompClient){
+      const sock = new SockJS('http://localhost:8080/ws')
+      stompClient = webstomp.over(sock)
+      stompClient.connect({}, () => {
+        stompClient.subscribe('/chat/public', (data) => {
+          console.log(data)
+          onMessageReceived(data)
+        })
+        stompClient.subscribe(`/user/${username}/private`, (data) => {
+          console.log(data)
+          onMessageReceived(data)
+        })
+        stompClient.activate();
 
-      stompClient.subscribe(`/user/${username}/private`, (data) => {
-        onMessageReceived(data);
-      });
-    };
+      }), (error) => {
+        console.error('Error connecting to Stomp:', error);
+      };
+    }
+}
 
-    stompClient.activate();
-
-    setStompClient(stompClient);
-  }
-
+  setupStompClient(username);
      
   const sendMessage = (newMessage) => {
     const payload = { 'id': uuidv4(), 'from': username, 'to': newMessage.to, 'text': newMessage.text };
     if (payload.to) {
-      stompClient.publish({ 'destination': `/user/${receiver}/private`, body: JSON.stringify(payload) });
+      stompClient.send(`/app/message/private/${newMessage.to}`, {}, JSON.stringify(payload));
     } else {
-      stompClient.publish({ 'destination': '/chat/publicmessages', body: JSON.stringify(payload) });
+      stompClient.send('/app/message/public', {}, JSON.stringify(payload));
     }
   };
 
@@ -110,6 +114,7 @@ const Chat = (props) => {
 
   const onMessageReceived = (data) => {
     const message = JSON.parse(data.body)
+    console.log('Received message:', message);
     setMessages(messagesReceived => [...messagesReceived,message])
   }
 
@@ -119,20 +124,21 @@ const Chat = (props) => {
         }
     }, [username]);
 
-    useEffect(() => {
-      return () => {
-        if (stompClient) {
-          stompClient.deactivate();
-        }
-      };
-    }, [stompClient]);
+    // useEffect(() => {
+    //   return () => {
+    //     if (stompClient) {
+    //       stompClient.disconnect(); // Disconnect if a disconnect method is available
+    //       stompClient = null; // Set stompClient to null to clean up the reference
+    //     }
+    //   };
+    // }, [stompClient]);
 
 
     return ( 
-        <div className="ChatRoom">
+      <div className="chat-box">
             <UsernamePlaceholder username={username} receiver={receiver} onUsernameInformed={onUsernameInformed} />
             <br></br>
-            <SendMessagePlaceholder username={username} onMessageSend={sendMessage} />
+            <SendMessagePlaceholder username={username} onMessageSend={(message) => sendMessage(message)} />
             <br></br>
             <ChatMessagesPlaceholder username={username} messagesReceived={messagesReceived} />
         </div>
