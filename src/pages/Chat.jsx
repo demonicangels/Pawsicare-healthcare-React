@@ -4,6 +4,7 @@ import webstomp from  "webstomp-client";
 import UserService from '../services/UserService';
 import { useState, useEffect } from 'react';
 import '../css/Chat.css'
+import DoctorService from '../services/DoctorService';
 
 
 import ChatMessagesPlaceholder from '../components/ChatMessagesPlaceHolder';
@@ -18,8 +19,9 @@ const Chat = () => {
   //make so when a user logs in his picture appears as a circle instead of the client icon and redirects to the profile page it also has an arrow for drop down so the user can logout and go to profile from there
     const [sender,setSender] = useState(); //set the username by getting the user from the database using the method in userService
     const [username,setUsername] = useState()
-    const [receiver, setReceiver] = useState();
+    const [receiver, setReceiver] = useState(); //not used delete later 
     const [messagesReceived, setMessages] = useState([]);
+    const [doctors, setDoctors] = useState([]);
 
     let stompClient=null;
   
@@ -69,32 +71,49 @@ const Chat = () => {
           }
         }
       };
+
+      const fetchDoctors = () =>{
+          DoctorService.getAllDoctors()
+          .then(data => setDoctors(data.doctors))
+      }; 
     
       fetchDataAndSetUsername();
+      fetchDoctors();
+
     }, []);
   
    
 
   const setupStompClient = (username) => {
 
-    if(!stompClient){
-      const sock = new SockJS('http://localhost:8080/ws')
-      stompClient = webstomp.over(sock)
-      stompClient.connect({}, () => {
-        stompClient.subscribe('/chat/public', (data) => {
-          console.log(data)
-          onMessageReceived(data)
-        })
-        stompClient.subscribe(`/user/${username}/private`, (data) => {
-          console.log(data)
-          onMessageReceived(data)
-        })
-        stompClient.activate();
+    try{
+      if(!stompClient){
+        const sock = new SockJS('http://localhost:8080/ws')
+        stompClient = webstomp.over(sock)
+        stompClient.connect({}, () => {
 
-      }), (error) => {
+          doctors.map(d => {
+            stompClient.subscribe(`/user/${d.name}/private`, (data) => {
+              console.log(data)
+              onMessageReceived(data)
+            })
+          })
+          
+          stompClient.subscribe(`/user/${username}/private`, (data) => {
+            console.log(data.body)
+            onMessageReceived(data.body)
+          })
+
+          stompClient.subscribe('/chat/public', (data) => {
+            console.log(data.body)
+            onMessageReceived(data.body)
+          }) 
+
+        })
+      }
+    }catch(error){
         console.error('Error connecting to Stomp:', error);
-      };
-    }
+    };
 }
 
   setupStompClient(username);
@@ -102,9 +121,10 @@ const Chat = () => {
   const sendMessage = (newMessage) => {
     const payload = { 'id': uuidv4(), 'from': username, 'to': newMessage.to, 'text': newMessage.text };
     if (payload.to) {
-      stompClient.send(`/app/message/private/${newMessage.to}`, {}, JSON.stringify(payload));
+      const jsonPayload = JSON.stringify(payload)
+      stompClient.send(`/user/${newMessage.to}/private`, {}, jsonPayload);
     } else {
-      stompClient.send('/app/message/public', {}, JSON.stringify(payload));
+      stompClient.send('/chat/public', {}, JSON.stringify(payload));
     }
   };
 
@@ -113,7 +133,7 @@ const Chat = () => {
   }  
 
   const onMessageReceived = (data) => {
-    const message = JSON.parse(data.body)
+    const message = data.body; 
     console.log('Received message:', message);
     setMessages(messagesReceived => [...messagesReceived,message])
   }
@@ -138,7 +158,7 @@ const Chat = () => {
       <div className="chat-box">
             <UsernamePlaceholder username={username} receiver={receiver} onUsernameInformed={onUsernameInformed} />
             <br></br>
-            <SendMessagePlaceholder username={username} onMessageSend={(message) => sendMessage(message)} />
+            <SendMessagePlaceholder username={username} onMessageSend={sendMessage} />
             <br></br>
             <ChatMessagesPlaceholder username={username} messagesReceived={messagesReceived} />
         </div>

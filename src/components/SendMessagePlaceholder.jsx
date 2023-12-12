@@ -26,7 +26,6 @@ const SendMessagePlaceholder = (props) => {
   
     props.onMessageSend({ 'text': message, 'to': to });
     setMessage('');
-    setSelectedDoctor(null); // Reset selected doctor after sending the message
   }
 
   const onSubmit = (event) => {

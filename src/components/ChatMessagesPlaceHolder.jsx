@@ -1,12 +1,14 @@
 const MessageReceived = (props) => {
+    debugger
     return (
-        <div>
+        <div key={props.key}>
             <b>{props.from}</b>: {props.text} {props.direct ? <b>(direct)</b> : ''}
         </div>
     );
 };
 
 const ChatMessagesPlaceholder = (props) => {
+    debugger
     console.log('Rendering messages:', props.messagesReceived);
     return (
         <>
