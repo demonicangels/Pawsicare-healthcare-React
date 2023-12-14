@@ -1,5 +1,5 @@
 const MessageReceived = (props) => {
-    debugger
+    
     return (
         <div key={props.key}>
             <b>{props.from}</b>: {props.text} {props.direct ? <b>(direct)</b> : ''}
@@ -8,13 +8,11 @@ const MessageReceived = (props) => {
 };
 
 const ChatMessagesPlaceholder = (props) => {
-    debugger
     console.log('Rendering messages:', props.messagesReceived);
     return (
         <>
             <h2>Messages:</h2>
             {props.messagesReceived
-                .filter(message => message.from !== props.username)
                 .map(message => <MessageReceived key={message.id} from={message.from} direct={message.to === props.username} text={message.text} />)}
         </>
     );

@@ -21,11 +21,12 @@ const SendMessagePlaceholder = (props) => {
       alert('Please type a message!');
       return;
     }
-  
-    const to = selectedDoctor ? selectedDoctor.name : destinationUsername;
+
+    const to = selectedDoctor ? selectedDoctor.id : destinationUsername;
   
     props.onMessageSend({ 'text': message, 'to': to });
     setMessage('');
+
   }
 
   const onSubmit = (event) => {
