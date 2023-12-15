@@ -133,7 +133,7 @@ const Chat = () => {
             <SendMessagePlaceholder username={username} onMessageSend={sendMessage} />
             <br></br>
             <ChatMessagesPlaceholder username={username} messagesReceived={messagesReceived} />
-        </div>
+      </div>
     );
 }
  
