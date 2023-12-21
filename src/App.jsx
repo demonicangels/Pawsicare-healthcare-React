@@ -68,7 +68,6 @@ function App() {
             <Route path='/mypets' element = {<AuthRequired>{userRole === 'Client' ? <MyPets/> : '' }</AuthRequired>}/>
             <Route path='/docprofile' element = {<DocProfile/>}/>
             <Route path='/chat' element = {<AuthRequired><Chat/></AuthRequired>}/>
-            <Route path='/chatRoom' element = {<ChatRoom/>}/>
           </Routes>
       </Router>
     </div>

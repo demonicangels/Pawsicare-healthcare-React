@@ -47,7 +47,7 @@ const createDoctor = (data) => {
     .then(response => response.data)
 }
 const getClient = (usrId) => {
-    debugger 
+     
     return axiosApiResponseInterceptor.get(`${hostname}/clients`, { params: { id: usrId } })
     .then(response => response.data)
     .catch(err => {
@@ -60,12 +60,18 @@ const getDoctor = (usrId) => {
     .then(response => response.data)
     .catch(err => console.log('Error getting client', err.message))
 }
+const getAllClients = () => {
+    return axiosApiResponseInterceptor.get(`${hostname}/clients`)
+    .then(response => response.data)
+    .catch(err => console.log('Error getting all clients', err.message))
+}
 
 export default {
     loginUser,
     createClient,
     createDoctor,
     getClient,
+    getAllClients,
     getDoctor,
     refreshToken,
     logout
