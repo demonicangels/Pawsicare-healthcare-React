@@ -8,7 +8,6 @@ function AuthRequired({children}){
     console.log(isLoggedIn);
 
     return isLoggedIn ? <>{children}</> : <Navigate to="/login" />;
-
    
 }
  

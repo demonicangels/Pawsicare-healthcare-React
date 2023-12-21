@@ -113,9 +113,7 @@ const Chat = () => {
         console.log(`Sending to /user/${payload.to}/chat`)
         stompClient.publish({'destination': `/user/${payload.to}/chat`, body: jsonPayload});
       //} make a client listen to himself and the doctor so he sees both messages and that acts like a chatroom
-      // } else {
-      //   stompClient.publish('/chat/public', {}, JSON.stringify(payload));
-      // }
+      
     };
 
 

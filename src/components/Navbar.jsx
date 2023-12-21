@@ -31,6 +31,12 @@ const Navbar = ({isDarkMode,setIsDarkMode}) => {
 
     const isLoggedIn = TokenService.getAccessToken() !== null;
 
+    let userRole = null;
+    if(isLoggedIn){
+        const claims = TokenService.getClaims();
+        userRole = claims.role;
+    }
+
     const navStyle = {
         background: isDarkMode ? 'white' : '#B7C9E2',
     };
@@ -56,7 +62,7 @@ const Navbar = ({isDarkMode,setIsDarkMode}) => {
                         );
                     })}
 
-                    { isLoggedIn !== null ? (
+                    { isLoggedIn !== null && userRole === 'Client' ? (
                         <React.Fragment>
                             <li>
                                 <NavLink to="/appointments" style={liStyle}>
@@ -68,7 +74,15 @@ const Navbar = ({isDarkMode,setIsDarkMode}) => {
                                     My Pets 
                                 </NavLink>
                             </li>
-                        </React.Fragment>) : null
+                        </React.Fragment> ) : (
+                        
+                        <React.Fragment>
+                            <li>
+                                <NavLink to="/appointments" style={liStyle}>
+                                    My Appointments 
+                                </NavLink>
+                            </li> 
+                        </React.Fragment> )
                     }
 
                 <DarkModeToggle
