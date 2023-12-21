@@ -84,3 +84,15 @@ button.send-button{
     margin-left: 5px;
     cursor: pointer;
 }
+
+.doctor-Box-selected{
+    box-shadow: 0 0 5px #7575ff;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}

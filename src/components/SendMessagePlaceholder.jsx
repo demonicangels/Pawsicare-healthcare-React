@@ -38,6 +38,7 @@ const SendMessagePlaceholder = (props) => {
     const to = selectedUser ? selectedUser.id : destinationUsername;
   
     props.onMessageSend({ 'text': message, 'to': to });
+    //props.handleMyOwnMessages({'text': message, 'from':})
     setMessage('');
 
   }
@@ -56,11 +57,9 @@ const SendMessagePlaceholder = (props) => {
       <Box className="doctorContainer">
         <div className="doctorGrid">
         {userRole === 'Client' ? doctors.map((doc, index) => (
-          <div key={index} className="doctor-Box" onClick={() => handleUserClick(doc)}>
-            <img src={doc.image} alt="" className="docImage" />
+          <div key={index} className={`${selectedUser === doc ? 'doctor-Box-selected' : 'doctor-Box'}`} onClick={() => handleUserClick(doc)}>
             <Box width='60%'>
-              <Typography variant='body1' className="doctorName">{doc.name}</Typography>
-              <Typography variant='body2' className="doctorEmail">{doc.email}</Typography>
+              <Typography variant='body1' className="doctorName">Dr. {doc.name}</Typography>
               <Box className="doctorDetails">
                 <Typography variant='body2' className="detailLabel">Field: </Typography>
                 <Typography variant='body2' className="detailValue">{doc.field}</Typography>
@@ -68,10 +67,9 @@ const SendMessagePlaceholder = (props) => {
             </Box>
           </div>
         )) : clients.map((cli, index) => (
-          <div key={index} className="doctor-Box" onClick={() => handleUserClick(cli)}>
+          <div key={index} className={`${selectedUser === cli ? 'doctor-Box-selected' : 'doctor-Box'}`} onClick={() => handleUserClick(cli)}>
              <Box width='60%'>
               <Typography variant='body1' className="doctorName">{cli.name}</Typography>
-              <Typography variant='body2' className="doctorEmail">{cli.email}</Typography>
             </Box>
           </div>
         ))}

@@ -17,8 +17,6 @@ const Chat = () => {
 
   //make so when a user logs in his picture appears as a circle instead of the client icon and redirects to the profile page it also has an arrow for drop down so the user can logout and go to profile from there
     const [messagesReceived, setMessages] = useState([]);
-    const [doctors, setDoctors] = useState([]);
-    const [selectedDoctorId, setSelectedDoctorId] = useState(0);
     const [username,setUsername] = useState('');
     const [stompClient, setStompClient] = useState();
   
@@ -54,7 +52,6 @@ const Chat = () => {
     
             if (response && response.doctor) {
               setUsername(response.doctor.name);
-              return;
             } else {
               console.error('Invalid response format:', response);
             }
@@ -65,16 +62,8 @@ const Chat = () => {
           }
         }
       };
-
-      const fetchDoctors = () =>{
-          DoctorService.getAllDoctors()
-          .then(data => setDoctors(data.doctors))
-      }; 
-    
       fetchDataAndSetUsername();
-      fetchDoctors();
       setupStompClient();
-
     }, []);
   
    
@@ -108,21 +97,19 @@ const Chat = () => {
     const sendMessage = (newMessage) => {
       console.log("meeting")
       const payload = { 'id': uuidv4(), 'from': username, 'to': newMessage.to, 'text': newMessage.text };
-      //if (payload.to) {
+      if (payload.to) {
         const jsonPayload = JSON.stringify(payload)
         console.log(`Sending to /user/${payload.to}/chat`)
+        stompClient.publish({'destination': `/user/${usrId}/chat`, body: jsonPayload})
         stompClient.publish({'destination': `/user/${payload.to}/chat`, body: jsonPayload});
-      //} make a client listen to himself and the doctor so he sees both messages and that acts like a chatroom
-      
+      }
     };
 
-
-  const onMessageReceived = (newmsg) => {
-    console.log('Received message:', newmsg);
-    const message = JSON.parse(newmsg)
-    setMessages(messagesReceived => [...messagesReceived,message])
-  }
-
+    const onMessageReceived = (newmsg) => {
+      console.log('Received message:', newmsg);
+      const message = JSON.parse(newmsg)
+      setMessages(messagesReceived => [...messagesReceived,message])
+    }
 
     return ( 
       <div className="chat-box">
