@@ -4,7 +4,8 @@ import { Box, Typography } from "@mui/material";
 import '../css/ChatRoom.css'
 import TokenService from "../services/TokenService";
 import UserService from "../services/UserService";
-import { client } from "webstomp-client";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 
 const SendMessagePlaceholder = (props) => {
 
@@ -77,13 +78,7 @@ const SendMessagePlaceholder = (props) => {
       </Box>
       <input type="text" className="input-message" onChange={(event) => setMessage(event.target.value)} value={message} placeholder="Message..."></input>
 
-      {selectedUser && (
-        <div>
-          <Typography variant='subtitle1'>Selected User: {selectedUser.name}</Typography>
-        </div>
-      )}
-
-      <button type="button" className="send-button" onClick={onMessageSend}>Send</button>
+      <button type="button" title="send" className="send-button" onClick={onMessageSend}><FontAwesomeIcon icon={faPaperPlane}/></button>
     </form>
   );
 }

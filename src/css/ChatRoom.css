@@ -24,6 +24,9 @@
     padding: 10px;
     margin-bottom: 20px;
     cursor: pointer;
+    left: -2rem;
+    top: 1rem;
+    position: relative;
 }
 
 
@@ -56,26 +59,26 @@
     margin-top: 5px;
 }
 
-input .input-message{
-    padding: 10px;
+.input-message{
+    padding: 7px;
     font-size: 1.2em;
-    top: 4rem;
-    left: 20rem;
+    position: relative;
+    left: 24rem;
+    top: 15rem;
+    width:90%;
+    border-radius: 50px;
 }
 
 button.send-button{
     border: none;
-    padding: 10px;
-    background: blue;
-    color: #fff;
+    padding: 9px;
+    background: transparent;
     font-size: 1.2em;
     font-weight: bold;
-    width: 30%;
-}
-
-.input-message{
-    width:90%;
-    border-radius: 50px;
+    width: 19%;
+    position: relative;
+    left: 203%;
+    top: 200px;
 }
 
 .send-button{
@@ -95,4 +98,7 @@ button.send-button{
     padding: 10px;
     margin-bottom: 20px;
     cursor: pointer;
+    left: -2rem;
+    top: 1rem;
+    position: relative;
 }
