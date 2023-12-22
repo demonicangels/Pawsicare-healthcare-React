@@ -1,0 +1,125 @@
+.doctorContainer {
+    padding: 2px;
+}
+
+
+.doctorGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    position: relative;
+    left: 2rem;
+    top: -2rem;
+    max-width: 40%;
+}
+
+
+.doctor-Box {
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 85.5%;
+    padding: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    left: -2rem;
+    top: 12px;
+    position: relative;
+}
+
+
+
+.doctor-Box:hover {
+    box-shadow: 0 0 5px #7575ff;
+}
+
+.docImage {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.doctorName {
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+}
+
+.doctorEmail {
+    font-size: 12px;
+    display: flex;
+}
+
+.doctorDetails {
+    display: flex;
+    align-items: center;
+    margin-top: 5px;
+}
+
+.input-message{
+    padding: 7px;
+    font-size: 1.2em;
+    position: relative;
+    left: 20rem;
+    top: 69%;
+    width:203%;
+    border-radius: 50px;
+}
+
+button.send-button{
+    border: none;
+    padding: 9px;
+    background: transparent;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 19%;
+    position: relative;
+    left: 303%;
+    top: 377px;
+}
+
+.send-button{
+    width:10%;
+    border-radius: 50px;
+    margin-left: 5px;
+    cursor: pointer;
+    border: none;
+}
+
+.doctor-Box-selected{
+    box-shadow: 0 0 5px #7575ff;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 85.5%;
+    padding: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    left: -2rem;
+    top: 12px;
+    position: relative;
+}
+.messagesBox {
+    position: relative;
+    top: 2rem;
+    left: 2rem;
+}
+
+form.chooseDoc{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    top: 0rem;
+    left: 0rem;
+}
+
+.userMessageHolder {
+    position: relative;
+    left: 19rem;
+    top: 0rem;
+}

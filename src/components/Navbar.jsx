@@ -24,12 +24,23 @@ const links = [
         id: 4,
         path: '/contacts',
         text: "Contacts"
+    },
+    {
+        id: 5,
+        path: '/appointments',
+        text: "My appointments"
     }
 ]
 
 const Navbar = ({isDarkMode,setIsDarkMode}) => {
 
     const isLoggedIn = TokenService.getAccessToken() !== null;
+
+    let userRole = null;
+    if(isLoggedIn){
+        const claims = TokenService.getClaims();
+        userRole = claims.role;
+    }
 
     const navStyle = {
         background: isDarkMode ? 'white' : '#B7C9E2',
@@ -56,19 +67,24 @@ const Navbar = ({isDarkMode,setIsDarkMode}) => {
                         );
                     })}
 
-                    { isLoggedIn !== null ? (
+                    { isLoggedIn !== null && userRole === 'Client' ? (
                         <React.Fragment>
-                            <li>
-                                <NavLink to="/appointments" style={liStyle}>
-                                    My Appointments 
-                                </NavLink>
-                            </li> 
                             <li>
                                 <NavLink to="/mypets" style={liStyle}>
                                     My Pets 
                                 </NavLink>
                             </li>
-                        </React.Fragment>) : null
+                        </React.Fragment> ) : null
+                        
+                        //(
+                        //convert this to link to the page where the doctor makes their schedule 
+                        // <React.Fragment>
+                        //     <li>
+                        //         <NavLink to="/appointments" style={liStyle}>
+                        //             My Appointments 
+                        //         </NavLink>
+                        //     </li> 
+                        // </React.Fragment> )
                     }
 
                 <DarkModeToggle

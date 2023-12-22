@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch, faUser,faSignOut } from '@fortawesome/free-solid-svg-icons'
+import { faSearch, faUser,faSignOut,faComments } from '@fortawesome/free-solid-svg-icons'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../css/Header.css'
@@ -21,12 +21,13 @@ const Header = ({isDarkMode}) => {
         color: isDarkMode ? 'white' : 'blue' 
     })
     const handleLogout = () => {
-
         UserService.logout(TokenService.getRefreshToken())
         TokenService.clear()
         setIsLoggedIn(false)
         navigate('/')
-
+    }
+    const openChat = () => {
+        navigate('/chat')
     }
     return ( 
         <header>
@@ -38,6 +39,7 @@ const Header = ({isDarkMode}) => {
                 <a href="/" className="header" style={headerTextStyle()}>Pawsicare</a>
                 <a href='/login' className='account-logo'><FontAwesomeIcon icon={faUser} /></a>
                 {isLoggedIn ? ( <i onClick={handleLogout} className='logoutBtn'> <FontAwesomeIcon icon={faSignOut} style={iconStyle()} /></i> ) : null}
+                <i onClick={openChat} className='chatBtn'><FontAwesomeIcon icon={faComments} style={iconStyle()}/></i>
                 
             </div>
         </header>

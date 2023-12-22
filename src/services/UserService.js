@@ -28,7 +28,6 @@ const refreshToken = (token) => {
         console.log(response.data.accessToken)
         TokenService.setAccessToken(response.data.accessToken)
     })
-    
     .catch(error => {
         console.log('Error trying to refresh the token', error.message);
     })
@@ -47,12 +46,23 @@ const createDoctor = (data) => {
     .then(response => response.data)
 }
 const getClient = (usrId) => {
-    return axios.get(`${hostname}/clients`, usrId)
+     
+    return axiosApiResponseInterceptor.get(`${hostname}/clients`, { params: { id: usrId } })
     .then(response => response.data)
+    .catch(err => {
+        console.error('Error getting client:', err);
+        console.log('Error message:', err.message);
+    });
 }
 const getDoctor = (usrId) => {
-    return axios.get(`${hostname}/doctors`, usrId)
+    return axiosApiResponseInterceptor.get(`${hostname}/doctors`, { params: { id: usrId } })
     .then(response => response.data)
+    .catch(err => console.log('Error getting client', err.message))
+}
+const getAllClients = () => {
+    return axiosApiResponseInterceptor.get(`${hostname}/clients`)
+    .then(response => response.data)
+    .catch(err => console.log('Error getting all clients', err.message))
 }
 
 export default {
@@ -60,6 +70,7 @@ export default {
     createClient,
     createDoctor,
     getClient,
+    getAllClients,
     getDoctor,
     refreshToken,
     logout

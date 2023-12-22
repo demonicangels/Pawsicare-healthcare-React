@@ -16,6 +16,8 @@ import TokenService from './services/TokenService'
 import AuthRequired from './services/AuthRequired'
 import DocProfile from './pages/DoctorProfile'
 import ScheduleCalendar from './pages/DoctorSchedule'
+import Chat from './pages/Chat'
+import ChatRoom from './pages/ChatRooom'
 
 
 function App() {
@@ -42,6 +44,15 @@ function App() {
     
   },[])
 
+  const token = TokenService.getAccessToken();
+  const isLoggedIn = token !== null;
+
+  let userRole = null;
+  if(isLoggedIn){
+    const claims = TokenService.getClaims();
+    userRole = claims.role;
+  }
+
   return (
     <div className='app'>
       <Router>
@@ -56,9 +67,10 @@ function App() {
             <Route path='/docportal' element = {<DoctorPortal/>}/>
             <Route path='/profile' element = {<AuthRequired><Profile/></AuthRequired>}/>
             <Route path='/appointments' element = {<AuthRequired><AppCalendar/></AuthRequired>}/>
-            <Route path='/mypets' element = {<AuthRequired><MyPets/></AuthRequired>}/>
+            <Route path='/mypets' element = {<AuthRequired>{userRole === 'Client' ? <MyPets/> : '' }</AuthRequired>}/>
             <Route path='/docprofile' element = {<DocProfile/>}/>
             <Route path='/docSchedule' element = {<ScheduleCalendar/>}/>
+            <Route path='/chat' element = {<AuthRequired><Chat/></AuthRequired>}/>
           </Routes>
       </Router>
     </div>
