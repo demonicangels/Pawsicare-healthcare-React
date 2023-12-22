@@ -1,4 +1,3 @@
-
 .profile-content {
     position: relative;
     left: 4rem;
@@ -9,4 +8,18 @@
 .text-content {
     position: relative;
     top: 7rem;
+}
+.doctor-Box {
+    background-color: #fff;
+    box-shadow: 0 0 5px #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 85.5%;
+    padding: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    left: -2rem;
+    top: 12px;
+    position: relative;
 }

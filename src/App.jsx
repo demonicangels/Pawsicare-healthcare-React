@@ -17,7 +17,6 @@ import AuthRequired from './services/AuthRequired'
 import DocProfile from './pages/DoctorProfile'
 import ScheduleCalendar from './pages/DoctorSchedule'
 import Chat from './pages/Chat'
-import ChatRoom from './pages/ChatRooom'
 
 
 function App() {

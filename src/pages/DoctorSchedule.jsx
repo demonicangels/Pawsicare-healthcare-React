@@ -6,6 +6,8 @@ import "../css/DoctorSchedule.css"
 import AppointmentService from "../services/AppointmentService";
 import TokenService from "../services/TokenService";
 import DoctorService from "../services/DoctorService";
+import PetService from "../services/PetService";
+import { Select } from "@mui/base";
 
 const ScheduleCalendar = () => {
     const [events, setEvents] = useState([]);
@@ -13,11 +15,10 @@ const ScheduleCalendar = () => {
     const [start, setStart] = useState(new Date());
     const [end, setEnd] = useState(new Date());
     const [desc, setDesc] = useState("");
-    const [openSlot, setOpenSlot] = useState(false);
+    const [open, setOpenDialog] = useState(false);
     const [selectedOption, setSelectedOption] = useState("");
     const [doc, setDoc] = useState(null);
-    const [docOptions, setDocOptions] = useState([]);
-    const [, setLoading] = useState(false);
+    const [userPets, setUserPets] = useState([]);
     const views = ["month", "week", "day", "agenda"];
 
     const docId = sessionStorage.getItem("docId");
@@ -54,15 +55,22 @@ const ScheduleCalendar = () => {
                 console.error('Error fetching doctor bookings:', error);
             }
         };
+
+        const fetcUsersPets = async () =>{
+            try{
+                const userId = TokenService.getClaims().id
+                const pets = await PetService.getPetsByOwnerId(userId)
+                setUserPets(pets.pets)
+            }
+            catch(err){
+                console.log("Error fetching the pets of the user",err.message)
+            }
+        }
     
         fetchDocBookings();
+        fetcUsersPets();
     
     }, [docId]);
-
-
-    const handleClose = () => {
-        setOpenSlot(false);
-    };
 
 
     const handleSlotSelected = (slotInfo) => {
@@ -75,12 +83,10 @@ const ScheduleCalendar = () => {
             setEnd(end);
             setTitle("");
             setDesc("");
-            setOpenSlot(true);
             
         } else {
             setTitle("");
             setDesc("");
-            setOpenSlot(true);
         }
     };
 
@@ -146,9 +152,9 @@ const ScheduleCalendar = () => {
 
 };
 
-const handleOpen = () =>{
-    setOpenSlot(true);
-}
+const handleClose = () => {
+    setOpenDialog(false);
+};
 
 const doctorName = doc ? doc.name : "";
 
@@ -173,90 +179,44 @@ return (
                                 min={new Date().setHours(9, 0, 0)}
                                 max={new Date().setHours(17, 0, 0)}
                             />
-                        ) : (
-                            <Calendar
-                                localizer={momentLocalizer(moment)}
-                                events={events}
-                                views={views}
-                                defaultView="month"
-                                defaultDate={new Date()}
-                                selectable
-                                onSelectSlot={handleSlotSelected}
-                                min={new Date().setHours(9, 0, 0)}
-                                max={new Date().setHours(17, 0, 0)}
-                            />
-                        )}
+                        ) : null }
                     </div>
                 </div>
             </div>
         </section>
-        {openSlot && (
-            <Dialog open={openSlot} onClose={handleClose}>
-                <br/>
-                <div>
-                    {docId ? (
-                        <div>
-                            {/* Content for the dialog without tutor selection */}
-                            {/* ... */}
-                            <TextField
-                                label="Title"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                autoComplete="off"
-                            />
-                            <br/>
-                            <TextField
-                                label="Description"
-                                value={desc}
-                                onChange={(e) => setDesc(e.target.value)}
-                                inputProps={{maxLength: MAX_CHARACTERS}}
-                                autoComplete="off"
-                            />
-                            <br/>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={setNewAppointment}
-                            >
-                                Submit
-                            </Button>
-                        </div>
-                    ) : (
-                        <div>
-                            <Select
-                                value={docOptions.find((doc) => doc.value === selectedOption)}
-                                onChange={(selected) => setSelectedOption(selected.value)}
-                                options={docOptions.map((doc) => ({value: doc.value, label: doc.value}))}
-                            />
-                            <br/>
-                            <TextField
-                                label="Title"
-                                value={title}
-                                onChange={(e) => setTitle(e.target.value)}
-                                autoComplete="off"
-                            />
-                            <br/>
-                            <TextField
-                                label="Description"
-                                value={desc}
-                                onChange={(e) => setDesc(e.target.value)}
-                                inputProps={{maxLength: MAX_CHARACTERS}}
-                                autoComplete="off"
-                            />
-                            <br/>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                onClick={setNewAppointment}
-                            >
-                                Submit
-                            </Button>
-                        </div>
-                    )}
-                </div>
-                <br/>
-            </Dialog>
-        )}
+        {open && (
+            <FormDialog open={open} onClose={handleClose}>
+                <DialogTitle>Make an appointment</DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Please make your appointment
+                        </DialogContentText>
+                        <TextField
+                            autoFocus
+                            margin="dense"
+                            id="name"
+                            label="Description"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                            onChange={e => {
+                                setDesc(e.target.value)
+                            }}
+                        />
+                        <label>Pet</label>
+                        <Select label="Pet" variant="outlined" placeholder="Pet" className="input-field" value={petGender} onChange={(e) => setGender(e.target.value)}>
+                            {userPets.map((choice) => (
+                                <MenuItem key={choice} value={choice}>
+                                {choice}
+                                </MenuItem>
+                            ))}
+                        </Select>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={handleClose}>Cancel</Button>
+                        <Button onClick={handleClose}>Save</Button>
+                    </DialogActions>
+        </FormDialog>)}
     </div>
 );}
  

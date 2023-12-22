@@ -23,7 +23,7 @@ const addEmptyBookings = (doctorId) =>{
         currentDate.setDate(startOfWeek.getDate() + i);
 
         if (currentDate.getDay() !== 0 && currentDate.getDay() !== 6) {
-            dates.push(currentDate.toISOString());
+            dates.push(currentDate.toISOString().split('T')[0]);
         }
     }
 
