@@ -20,12 +20,12 @@
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 50%;
+    width: 85.5%;
     padding: 10px;
     margin-bottom: 20px;
     cursor: pointer;
     left: -2rem;
-    top: 1rem;
+    top: 12px;
     position: relative;
 }
 
@@ -63,9 +63,9 @@
     padding: 7px;
     font-size: 1.2em;
     position: relative;
-    left: 24rem;
-    top: 15rem;
-    width:90%;
+    left: 20rem;
+    top: 69%;
+    width:203%;
     border-radius: 50px;
 }
 
@@ -73,12 +73,12 @@ button.send-button{
     border: none;
     padding: 9px;
     background: transparent;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     font-weight: bold;
     width: 19%;
     position: relative;
-    left: 203%;
-    top: 200px;
+    left: 303%;
+    top: 377px;
 }
 
 .send-button{
@@ -86,6 +86,7 @@ button.send-button{
     border-radius: 50px;
     margin-left: 5px;
     cursor: pointer;
+    border: none;
 }
 
 .doctor-Box-selected{
@@ -94,11 +95,31 @@ button.send-button{
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 50%;
+    width: 85.5%;
     padding: 10px;
     margin-bottom: 20px;
     cursor: pointer;
     left: -2rem;
-    top: 1rem;
+    top: 12px;
     position: relative;
+}
+.messagesBox {
+    position: relative;
+    top: 2rem;
+    left: 2rem;
+}
+
+form.chooseDoc{
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    top: 0rem;
+    left: 0rem;
+}
+
+.userMessageHolder {
+    position: relative;
+    left: 19rem;
+    top: 0rem;
 }

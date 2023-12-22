@@ -53,7 +53,7 @@ const SendMessagePlaceholder = (props) => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="chooseDoc">
       <br />
       <Box className="doctorContainer">
         <div className="doctorGrid">

@@ -1,3 +1,4 @@
+import '../css/ChatRoom.css'
 const MessageReceived = (props) => {
     
     return (
