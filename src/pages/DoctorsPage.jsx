@@ -20,7 +20,9 @@ const Doctors = () => {
     }, []);
 
     const handleSelectedDoctor = (docId) => {
-        sessionStorage.setItem("docId", docId);
+
+        const jsonId = JSON.stringify(docId)
+        sessionStorage.setItem("docId", jsonId);
         navigate("/docprofile");
     };
 
@@ -62,10 +64,7 @@ const Doctors = () => {
         </div>
         <div className='doctors-cards'>
             {doctors.map(doc => 
-                <div className='doctorCardContent' key={doc.id} onClick={() => {
-                    handleSelectedDoctor(doc.id)
-                    sessionStorage.setItem("docId", doc.id)
-                    }}>
+                <div className='doctorCardContent' key={doc.id} onClick={() => { handleSelectedDoctor(doc.id) }}>
                     <img className='image-wrapper' src={doc.image} alt={`Dr. ${doc.name}`}/>
                     <div className='text'>
                         <h4> Dr. {doc.name}</h4>

@@ -5,11 +5,19 @@ import axiosApiResponseInterceptor from './AxiosResponseInterceptor';
 const hostname = 'http://localhost:8080'
 
 
+const createAppointment = (appointment) =>{
+    return axiosApiResponseInterceptor.post(`${hostname}/appointments`, appointment)
+    .then(response => response.data)
+    .catch(error => {
+        console.log('Error creating appointment', error.message)
+    })
+}
+
 const getAppointments = (userId) => {
     return axiosApiResponseInterceptor.get(`${hostname}/appointments`, { params: { userId } })
     .then(response => response.data.appointments)
     .catch(error => {
-        console.error('Error:', error.message)});
+        console.error('Error getting users appointments:', error.message)});
 }
 
 const addEmptyBookings = (doctorId) =>{
@@ -43,6 +51,7 @@ const addEmptyBookings = (doctorId) =>{
  
 export default {
     getAppointments,
-    addEmptyBookings
+    addEmptyBookings,
+    createAppointment
     
 };

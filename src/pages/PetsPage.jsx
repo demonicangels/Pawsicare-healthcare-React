@@ -6,7 +6,6 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import Select from '@mui/material/Select';
-//import DatePicker from "react-datepicker";
 import Button from '@mui/material/Button';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -137,7 +136,7 @@ const MyPets = () => {
 
     const handleClose = () => {
         setOpen(false);
-        createPet(); 
+        //createPet(); 
     };
 
 
