@@ -44,9 +44,10 @@ const DocProfile = () => {
     useEffect(() => {
       const getDocInfo = async () => {
         try {
-          const data = await DoctorService.getDoctorById(docId)
+
+          const data = await DoctorService.getDoctorById(docId, TokenService.getAccessToken())
          
-          if(data){
+          if(data.doctor){
             setDoctor(data.doctor)
           }
   
@@ -89,10 +90,11 @@ const DocProfile = () => {
                 end: `${convertTime(app.endTime)}`
             }));
 
-            const data = await DoctorService.getDoctorById(docId);
+            const data = await DoctorService.getDoctorById(docId, TokenService.getAccessToken());
 
             if (data) {
-                setOpenApps(docAppointments);  // Move setting events inside the if block
+                setOpenApps(docAppointments);
+                setDoctor(data.doctor);  // Move setting events inside the if block
             }
 
         } catch (error) {
@@ -124,11 +126,11 @@ const DocProfile = () => {
     const handleClose = () =>{
       setOpen(false);
       const chosenSlot = JSON.parse(sessionStorage.getItem("chosenAppointment"))
-      const appointment ={
+      const appointment = {
         date: `${chosenSlot.date}`,
         start: `${chosenSlot.start}`,
         end: `${chosenSlot.end}`,
-        clientId: claims.userId,
+        clientId: clientId,
         doctorId: docId,
         petId: appPet.id 
       }

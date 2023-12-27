@@ -16,9 +16,9 @@ const Doctors = () => {
     useEffect(() => {
         DoctorService.getAllDoctors()
             .then(data => setDoctors(data.doctors))
-
     }, []);
 
+    
     const handleSelectedDoctor = (docId) => {
 
         const jsonId = JSON.stringify(docId)
@@ -33,8 +33,8 @@ const Doctors = () => {
         
             const response = await DoctorService.getDoctorsByField(data);
         
-            if (response && response.Doctors) {
-                setDoctors(response.Doctors);
+            if (response) {
+                setDoctors(response.doctors);
             }
         } catch (err) {
             console.error("Error: ", err.message);
@@ -48,15 +48,15 @@ const Doctors = () => {
             <h3>Search Doctors</h3>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <label>
-                    <input type="radio" name="field" {...register("field", {required: true})} value="neurology" />
+                    <input type="radio" name="field" {...register("field", {required: true})} value="Neurology" />
                     Neurology
                 </label>
                 <label>
-                    <input type="radio" name="field" {...register("field", {required: true})} value="cardiology" />
+                    <input type="radio" name="field" {...register("field", {required: true})} value="Cardiology" />
                     Cardiology
                 </label>
                 <label>
-                    <input type="radio" name="field"  {...register("field", {required: true})} value="dermatology"/>
+                    <input type="radio" name="field"  {...register("field", {required: true})} value="Dermatology"/>
                     Dermatology
                 </label>
                 <button type="submit">Search</button>

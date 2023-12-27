@@ -21,7 +21,7 @@ const LoginForm = () => {
       
           if (loginSuccess) {
             navigate('/doctors');
-            // sessionStorage.setItem("needsReload", true);
+            sessionStorage.setItem("needsReload", true);
           }else {
 
             setStatus(false);

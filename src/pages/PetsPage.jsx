@@ -132,6 +132,7 @@ const MyPets = () => {
     const handleUpdateClose = () => {
         setOpenUpdateDialog(false);
         updatePet();
+        sessionStorage.setItem("needsReload", true)
     }
 
     const handleClose = () => {

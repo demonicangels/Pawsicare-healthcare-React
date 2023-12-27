@@ -11,17 +11,20 @@ const getAllDoctors = () => {
 
 const getDoctorsByField = (field) =>{
     console.log(field)
-    return axios.get(`${hostname}/doctors`, {params: { field: field }})
+    debugger
+    return axiosApiResponseInterceptor.get(`${hostname}/doctors/fields`, {params: field })
     .then(response => response.data)
     .catch(error => {
         console.log("Error: ", error.message)
     })
 }
 
-const getDoctorById = async (id) =>{
+const getDoctorById = (id, token) =>{
     debugger
-    console.log(id)
-    return await axiosApiResponseInterceptor.get(`${hostname}/doctors`, {params: {id: id}})
+    return axiosApiResponseInterceptor.get(`${hostname}/doctors/docInfo`, {params: {
+        id: id,
+        token: token
+    }})
     .then(response => response.data)
     .catch(error => {
         console.log('Error: ', error.message)
