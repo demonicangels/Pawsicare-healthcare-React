@@ -61,7 +61,10 @@ const MyPets = () => {
             }
             
         }
+        setShowSuccessMessage(false)
         getAllPets()
+
+        
 
         const storedSuccessMessage = localStorage.getItem('showSuccessMessage');
     
@@ -104,6 +107,8 @@ const MyPets = () => {
 
             PetService.updatePet(newPet);
 
+            setShowSuccessMessage(true);
+
             sessionStorage.setItem("needsReload", true);
             
         }catch(error){
@@ -116,6 +121,8 @@ const MyPets = () => {
 
             const userToken = TokenService.getAccessToken();
             PetService.deletePet(id,userToken);
+
+            setShowSuccessMessage(true);
     
             sessionStorage.setItem("needsReload", true);
 
