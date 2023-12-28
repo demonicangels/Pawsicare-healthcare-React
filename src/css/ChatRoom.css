@@ -6,7 +6,6 @@
 .doctorGrid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
     position: relative;
     left: 2rem;
     top: -2rem;
@@ -59,26 +58,21 @@
     margin-top: 5px;
 }
 
-.input-message{
+.input-message {
     padding: 7px;
     font-size: 1.2em;
-    position: relative;
-    left: 20rem;
-    top: 69%;
-    width:203%;
+    width: 45%;
     border-radius: 50px;
 }
-
-button.send-button{
+  
+button.send-button {
     border: none;
     padding: 9px;
     background: transparent;
     font-size: 1.2rem;
     font-weight: bold;
-    width: 19%;
-    position: relative;
-    left: 303%;
-    top: 377px;
+    position: absolute;
+    left: 22rem;
 }
 
 .send-button{
@@ -122,4 +116,12 @@ form.chooseDoc{
     position: relative;
     left: 19rem;
     top: 0rem;
+}
+.message-container {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 5%; 
+    left: 23rem;
+    width: 330%;
 }

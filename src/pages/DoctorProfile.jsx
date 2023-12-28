@@ -59,7 +59,8 @@ const DocProfile = () => {
       const fetcUsersPets = async () =>{
         try{
             const userId = TokenService.getClaims().userId
-            const pets = await PetService.getPetsByOwnerId(userId)
+            const token = TokenService.getAccessToken()
+            const pets = await PetService.getPetsByOwnerId(userId,token)
             setUserPets(pets.pets)
         }
         catch(err){
@@ -139,63 +140,78 @@ const DocProfile = () => {
   
     return (
       <div className="profile-content">
-        <img src={doctor.image} alt={`${doctor.image}`} />
-        <div className="text-content">
-          <p>{`Dr. ${doctor.name}`}</p>
-          <p>{`Email: ${doctor.email}`}</p>
-          <p>{`Work field: ${doctor.field}`}</p>
-          {claims.userId == docId ? (
-          <button onClick={handleScheduleRedirecting}> Make my schedule</button>) : ( openApps.map((a, index) => (
-            <div key={index} className='doctor-Box' onClick={() => handleChosenAppointment(a)}>
-              <Box width='60%'>
-                <Typography variant='body1' className="doctorName">{`${a.date}  ${a.start} - ${a.end}`}</Typography>
-              </Box>
-            </div>
-          ))
-          )}  
+      <div className="left-section">
+        <img src={doctor.image} alt={`${doctor.image}`} className="docPic" />
+        <p className="doctorName">{`Dr. ${doctor.name}`}</p>
+        <div className="line"></div>
+        <p className="information" >
+          Information
+        </p>
+        <div className="information-content">
+            <p>Email: {doctor.email}</p>
+            <p>Work field: {doctor.field}</p>
         </div>
-        <FormDialog open={open} onClose={handleClose}>
-                    <DialogTitle>Make an appointment</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                Please choose a pet and fill the reason for the appointment.
-                            </DialogContentText>
-                            <TextField
-                                autoFocus
-                                margin="dense"
-                                id="desc"
-                                label="Reason for meeting"
-                                type="text"
-                                fullWidth
-                                variant="standard"
-                                onChange={e => {
-                                    setDescription(e.target.value)
-                                }}
-                            />
-                            <label>Pet</label>
-                              <Select
-                              label="Pet"
-                              variant="outlined"
-                              placeholder="Pet"
-                              className="input-field"
-                              value={appPet || ''}
-                              onChange={(e) => setAppPet(e.target.value)}
-                              >
-                                {userPets.map((choice, index) => (
-                                  <MenuItem key={index} value={choice}>
-                                    {choice.name}
-                                  </MenuItem>
-                                ))}
-                              </Select>
-                        </DialogContent>
-                        <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleClose}>Save</Button>
-                        </DialogActions>
-                </FormDialog>
+        <div className="line"></div>
+        <div>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+        Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </div>
       </div>
-      
-    );
-  };
+      <div className="right-section">
+        {claims.userId === docId ? (
+          <button onClick={handleScheduleRedirecting}>Make my schedule</button>
+        ) : (
+        <div className="appointmentSlots">
+          <h1>Make an appointment</h1>
+          {openApps.map((a, index) => (
+              <div key={index} className="doctor-Box" onClick={() => handleChosenAppointment(a)}>
+                <Box width="60%">
+                  <Typography variant="body1" className="doctorName">{`${a.date}  ${a.start} - ${a.end}`}</Typography>
+                </Box>
+              </div> ))}
+        </div>
+        )}
+      </div>
+      <FormDialog open={open} onClose={handleClose}>
+        <DialogTitle>Make an appointment</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Please choose a pet and fill the reason for the appointment.</DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="desc"
+            label="Reason for meeting"
+            type="text"
+            fullWidth
+            variant="standard"
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+          />
+          <label>Pet</label>
+          <Select
+            label="Pet"
+            variant="outlined"
+            placeholder="Pet"
+            className="input-field"
+            value={appPet || ''}
+            onChange={(e) => setAppPet(e.target.value)}
+          >
+            {userPets.map((choice, index) => (
+              <MenuItem key={index} value={choice}>
+                {choice.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleClose}>Save</Button>
+        </DialogActions>
+      </FormDialog>
+    </div>
+  );
+};
+export default DocProfile;
   
-  export default DocProfile;

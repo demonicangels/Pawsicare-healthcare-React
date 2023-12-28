@@ -76,9 +76,18 @@ const SendMessagePlaceholder = (props) => {
         ))}
         </div>
       </Box>
-      <input type="text" className="input-message" onChange={(event) => setMessage(event.target.value)} value={message} placeholder="Message..."></input>
-
-      <button type="button" title="send" className="send-button" onClick={onMessageSend}><FontAwesomeIcon icon={faPaperPlane}/></button>
+      <div className="message-container">
+          <input
+            type="text"
+            className="input-message"
+            onChange={(event) => setMessage(event.target.value)}
+            value={message}
+            placeholder="Message..."
+          />
+          <button type="button" title="send" className="send-button" onClick={onMessageSend}>
+            <FontAwesomeIcon icon={faPaperPlane} />
+          </button>
+      </div>
     </form>
   );
 }
