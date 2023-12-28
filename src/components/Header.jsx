@@ -24,6 +24,7 @@ const Header = ({isDarkMode}) => {
         UserService.logout(TokenService.getRefreshToken())
         TokenService.clear()
         setIsLoggedIn(false)
+        sessionStorage.setItem("needsReload", true);
         navigate('/')
     }
     const openChat = () => {

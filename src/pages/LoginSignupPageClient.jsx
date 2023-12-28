@@ -19,7 +19,7 @@ const LoginForm = () => {
 
           console.log(loginSuccess)
       
-          if (loginSuccess) {
+          if (loginSuccess){
             navigate('/doctors');
             sessionStorage.setItem("needsReload", true);
           }else {

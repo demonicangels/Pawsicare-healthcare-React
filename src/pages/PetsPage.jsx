@@ -39,6 +39,7 @@ const MyPets = () => {
     const gender = ['Male','Female','Other']
 
     const pet = {
+        token: TokenService.getAccessToken(),
         ownerId: TokenService.getClaims().userId,
         name: petName,
         gender: petGender.toUpperCase(),
@@ -50,7 +51,8 @@ const MyPets = () => {
     useEffect(() => {
         const getAllPets = async () => {
             const usrId = TokenService.getClaims().userId
-            const response = await PetService.getPetsByOwnerId(usrId)
+            const token = TokenService.getAccessToken()
+            const response = await PetService.getPetsByOwnerId(usrId,token)
 
             console.log(response)
 
@@ -93,6 +95,7 @@ const MyPets = () => {
             console.log(des)
 
             const newPet = {
+                token: TokenService.getAccessToken(),
                 id: petId,
                 ownerId: TokenService.getClaims().userId,
                 name: petName,
@@ -111,7 +114,8 @@ const MyPets = () => {
     const handleDeletePet = (id) => {
         try {
 
-            PetService.deletePet(id);
+            const userToken = TokenService.getAccessToken();
+            PetService.deletePet(id,userToken);
     
             sessionStorage.setItem("needsReload", true);
 
@@ -137,7 +141,7 @@ const MyPets = () => {
 
     const handleClose = () => {
         setOpen(false);
-        //createPet(); 
+        createPet(); 
     };
 
 
