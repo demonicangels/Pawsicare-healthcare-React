@@ -59,6 +59,15 @@ const getAllClients = () => {
     .then(response => response.data)
     .catch(err => console.log('Error getting all clients', err.message))
 }
+const deleteUserAccount = (userId, token) =>{
+    debugger
+    return axiosApiResponseInterceptor.delete(`${hostname}/auth`,{params: {
+        id: userId,
+        token: token
+    }}).then(res => {
+        console.log('Data from delete request',res.data)
+    }).catch(err => {console.log('Error deleting user account', err.message)})
+}
 
 export default {
     loginUser,
@@ -67,5 +76,6 @@ export default {
     getClient,
     getAllClients,
     refreshToken,
-    logout
+    logout,
+    deleteUserAccount
 };

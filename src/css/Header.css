@@ -47,6 +47,80 @@ i :hover{
   cursor: pointer;
 }
 
+.logoutBtn:hover{
+  cursor: pointer;
+  color: rgb(78, 78, 245);
+}
+.accountBtn:hover{
+  cursor: pointer;
+  color: rgb(78, 78, 245);
+}
+.deleteBtn:hover{
+  cursor: pointer;
+  color: rgb(78, 78, 245);
+}
+
+.sideNav {
+  height: 100vh;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  right: -16rem;
+  background-color: white;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.5s;
+}
+
+.sideNav i {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+.sideNav .closeBtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.sideNavButtons {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 50%;
+}
+
+i.sideNavIcon {
+  position: absolute;
+  right: 3rem;
+  bottom: 1rem;
+}
+
+button.accountBtn{
+  position: relative;
+  left: 14%;
+  top: -1rem;
+  border: none;
+  background: transparent;
+  font-size: 70%;
+}
+
+button.deleteBtn{
+  position: relative;
+  left: 14%;
+  top: -1rem;
+  border: none;
+  background: transparent;
+  font-size: 70%;
+}
+
 @media only screen and (min-width: 400px) {
 
   .header {
@@ -78,7 +152,10 @@ i :hover{
 
   .logoutBtn {
     position: relative;
-    left: 91%;
+    left: 14%;
     top: -1rem;
+    border: none;
+    background: transparent;
+    font-size: 70%;
   }
 }
