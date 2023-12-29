@@ -7,11 +7,12 @@ const hostname = 'http://localhost:8080'
 const getAllDoctors = () => {
     return axios.get(`${hostname}/doctors`)
     .then(response => response.data)
+    .catch(err => {
+        console.log('Erro loading all doctors', err)
+    })
 }
 
 const getDoctorsByField = (field) =>{
-    console.log(field)
-    debugger
     return axiosApiResponseInterceptor.get(`${hostname}/doctors/fields`, {params: field })
     .then(response => response.data)
     .catch(error => {
@@ -20,7 +21,6 @@ const getDoctorsByField = (field) =>{
 }
 
 const getDoctorById = (id, token) =>{
-    debugger
     return axiosApiResponseInterceptor.get(`${hostname}/doctors/docInfo`, {params: {
         id: id,
         token: token

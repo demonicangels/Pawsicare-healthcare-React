@@ -29,6 +29,7 @@ const DoctorPortal = () => {
 
     const onSubmit = async (data) =>{
 
+        debugger
         console.log(data)
 
         const doctorUser = {name: `${data.uname}`, email: `${data.em}`, password: `${data.pass}`, field: `${data.field}`}
@@ -36,9 +37,14 @@ const DoctorPortal = () => {
         try{
             const doc = await UserService.createDoctor(doctorUser)
 
-            if(doc){
-                console.log(doc)
-                navigate('/')
+            if(doc === true){
+               const login = await UserService.loginUser(doctorUser.email, doctorUser.password)
+
+               if(login === true){
+                    sessionStorage.setItem('needsReload', true)
+                    navigate('/')
+               }
+                
             }
         }
         catch(err){

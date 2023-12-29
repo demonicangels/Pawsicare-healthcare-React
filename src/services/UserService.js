@@ -42,11 +42,25 @@ const logout = (token) => {
 }
 const createClient = (data) => {
     return axios.post(`${hostname}/clients`, data)
-    .then(response => response.data)
+    .then(response => {
+        console.log(response.data)
+        return true;
+    })
+    .catch(err => {
+        console.log('Error creating doctor account', err)
+        return false;
+    })
 } 
 const createDoctor = (data) => {
     return axios.post(`${hostname}/doctors`, data)
-    .then(response => response.data)
+    .then(response => {
+        console.log(response.data)
+        return true;
+    })
+    .catch(err => {
+        console.log('Error creating doctor account', err)
+        return false;
+    })
 }
 const getClient = (usrId) => {
      
