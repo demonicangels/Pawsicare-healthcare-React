@@ -12,16 +12,14 @@ const LoginForm = () => {
     const [operationStatus, setStatus] = useState(true);
     const navigate = useNavigate();
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         try {
-            
-          const loginSuccess = UserService.loginUser(data.uname, data.pass);
-
-          console.log(loginSuccess)
+            debugger
+          const loginSuccess = await UserService.loginUser(data.uname, data.pass);
       
           if (loginSuccess){
-            navigate('/doctors');
             sessionStorage.setItem("needsReload", true);
+            navigate('/doctors');
           }else {
 
             setStatus(false);

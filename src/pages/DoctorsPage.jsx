@@ -16,9 +16,15 @@ const Doctors = () => {
     useEffect(() => {
         DoctorService.getAllDoctors()
             .then(data => setDoctors(data.doctors))
+
     }, []);
 
-    
+    const reload = sessionStorage.getItem("needsReload")
+    if(reload === "true"){
+        sessionStorage.setItem("needsReload",false)
+        window.location.reload()
+    }
+
     const handleSelectedDoctor = (docId) => {
 
         const jsonId = JSON.stringify(docId)

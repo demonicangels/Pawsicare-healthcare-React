@@ -29,7 +29,7 @@ const MyPets = () => {
     const [petName, setPetName] = useState('')
     const [des,setDescription] = useState('')
     const [petGender, setGender] = useState('')
-    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(sessionStorage.getItem('showSuccessMessage'));
     const [deleteState, setDeleteState] = useState(false);
     const [openUpdateDialog, setOpenUpdateDialog] = useState(false);
     const [petId, setPetId] = useState(0);
@@ -61,19 +61,12 @@ const MyPets = () => {
             }
             
         }
-        setShowSuccessMessage(false)
         getAllPets()
-
-        
-
-        const storedSuccessMessage = localStorage.getItem('showSuccessMessage');
-    
-        // Set state based on stored values
-        if (storedSuccessMessage) {
-          setShowSuccessMessage(JSON.parse(storedSuccessMessage));
-        }
+        sessionStorage.setItem('showSuccessMessage',false)
 
     },[])
+
+    
 
     const createPet = () => {
         try {
@@ -151,15 +144,14 @@ const MyPets = () => {
         createPet(); 
     };
 
-
     const reload = sessionStorage.getItem("needsReload");
     
     if(reload === "true"){
-        localStorage.setItem('showSuccessMessage', JSON.stringify(showSuccessMessage));
-        window.location.reload();
+        sessionStorage.setItem('showSuccessMessage', JSON.stringify(showSuccessMessage));
         sessionStorage.setItem("needsReload", false);
+        window.location.reload();
     }
-
+    
     return (  
         <div className="pets-page">
             <div className="pets-content">
@@ -168,7 +160,6 @@ const MyPets = () => {
             <div className="pets-cards">
                 {mypets.map(p => 
                         <div className='petCardContent' key={p.id}>
-                            {/* //<img className='image-wrapper' src={doc.image} alt={`Dr. ${doc.name}`}/> */}
                             <div className='text'>
                                 <h4>{p.name}</h4>
                                 <p>Species: {p.type}</p> 
@@ -285,7 +276,7 @@ const MyPets = () => {
                         <Button onClick={handleUpdateClose}>Update</Button>
                         </DialogActions>
                 </FormDialog>
-                {showSuccessMessage && <p>Success!</p>}
+                {showSuccessMessage === "true" && <p>Success!</p>}
             </div>
         </div>
        

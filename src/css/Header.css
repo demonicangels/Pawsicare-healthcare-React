@@ -158,4 +158,10 @@ button.deleteBtn{
     background: transparent;
     font-size: 70%;
   }
+
+  i.chatBtn {
+    position: relative;
+    left: 5rem;
+    top: -1rem;
+}
 }

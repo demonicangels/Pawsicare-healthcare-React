@@ -48,8 +48,8 @@ const Navbar = ({isDarkMode,setIsDarkMode}) => {
 
     const liStyle = {
         color: isDarkMode ? 'black' : 'white',
+        cursor: 'pointer'
     }
-    
 
     return ( 
         <nav className="navbar">

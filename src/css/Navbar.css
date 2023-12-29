@@ -1,4 +1,4 @@
-.nav {
+  .nav {
     width: 100vw
   }
   nav ul {
@@ -15,14 +15,11 @@
     color: white;
     font-size: 16px;
     text-decoration: none;
-    
-  }
-  nav li a:hover {
-    color: black;
+    cursor: pointer;
   }
   ul {
-    margin: 0;
-}
+      margin: 0;
+  }
 @media only screen and (max-width: 400px) {
   nav ul {
     max-width: 100%;

@@ -140,8 +140,8 @@ const DocProfile = () => {
   
     return (
       <div className="profile-content">
-      <div className="left-section">
-        <img src={doctor.image} alt={`${doctor.image}`} className="docPic" />
+      <div className="left-section" style={{top: doctor.image ? '4rem': '-4rem'}}>
+        <img src={doctor.image} alt={`${doctor.image ? doctor.image : ''}`} className="docPic" />
         <p className="doctorName">{`Dr. ${doctor.name}`}</p>
         <div className="line"></div>
         <p className="information" >

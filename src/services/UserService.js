@@ -16,6 +16,7 @@ const loginUser = (email, password) => {
 
         console.log(TokenService.getAccessToken())
         console.log(TokenService.getRefreshToken())
+        return true;
     })
     .catch(error => {
         console.log('Error:', error.message);
@@ -27,9 +28,11 @@ const refreshToken = (token) => {
     .then(response => {
         console.log(response.data.accessToken)
         TokenService.setAccessToken(response.data.accessToken)
+        return true;
     })
     .catch(error => {
         console.log('Error trying to refresh the token', error.message);
+        return false;
     })
 }
 const logout = (token) => {

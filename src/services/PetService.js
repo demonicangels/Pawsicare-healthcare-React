@@ -5,7 +5,6 @@ const hostname = 'http://localhost:8080'
 
 
 const getPetsByOwnerId = (id, token) => {
-  debugger
     return axiosApiResponseInterceptor.get(`${hostname}/pets`,{params: {
       ownerId: id,
       token: token
