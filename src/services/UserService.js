@@ -66,7 +66,11 @@ const deleteUserAccount = (userId, token) =>{
         token: token
     }}).then(res => {
         console.log('Data from delete request',res.data)
-    }).catch(err => {console.log('Error deleting user account', err.message)})
+        return true;
+    }).catch(err => {
+        console.log('Error deleting user account', err.message) 
+        return false;
+    })
 }
 
 export default {

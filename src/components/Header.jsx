@@ -48,11 +48,11 @@ const Header = ({isDarkMode}) => {
     const handleRedirectToProfile = () =>{
         //under construction
     }
-    const handleDeleteAccount = () =>{
+    const handleDeleteAccount = async () =>{
         const userId = TokenService.getClaims().userId
         const token = TokenService.getAccessToken()
 
-        const response = UserService.deleteUserAccount(userId,token)
+        const response = await UserService.deleteUserAccount(userId,token)
 
         if(response){
             UserService.logout(TokenService.getRefreshToken())
