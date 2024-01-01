@@ -29,6 +29,7 @@ const DocProfile = () => {
     const [endHour, setEndHour] = useState('');
     const [startDay, setStartDay] = useState('');
     const [endDay, setEndDay] = useState('');
+    const [openDialogSC, setOpenDialogSC] = useState(false)
 
     const docId = sessionStorage.getItem("docId")
     const claims = TokenService.getClaims();
@@ -120,17 +121,13 @@ const DocProfile = () => {
       return <div>Loading...</div>;
     }
 
-    const handleScheduleRedirecting = () =>{
-      navigate('/docSchedule')
-    }
-
     const handleChosenAppointment = (app) => {
       setOpen(true);
       const jsonObj = JSON.stringify(app)
       sessionStorage.setItem("chosenAppointment", jsonObj)
     }
 
-    const handleClose = () =>{
+    const createAppointment = () =>{
       setOpen(false);
       const chosenSlot = JSON.parse(sessionStorage.getItem("chosenAppointment"))
       const appointment = {
@@ -145,7 +142,7 @@ const DocProfile = () => {
     }
   
     const createSchedule = () =>{
-      setOpen(false)
+      setOpenDialogSC(false)
       const schedulePreferences = {
         token: TokenService.getAccessToken(),
         startDay: startDay,
@@ -155,8 +152,17 @@ const DocProfile = () => {
       } 
       AppointmentService.createSchedule(schedulePreferences)
     }
+
+    const handleClose = () =>{
+      setOpen(false)
+    }
+
+    const closeScheduleDialog = () =>{
+      setOpenDialogSC(false)
+    }
+    
     const openScheduleDialog = () =>{
-      setOpen(true)
+      setOpenDialogSC(true)
     }
     return (
       <div className="profile-content">
@@ -230,12 +236,12 @@ const DocProfile = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Save</Button>
+          <Button onClick={createAppointment}>Save</Button>
         </DialogActions>
 
 
       </FormDialog>
-      <FormDialog open={open} onClose={createSchedule}>
+      <FormDialog open={openDialogSC} onClose={createSchedule}>
         <DialogTitle>Create my schedule</DialogTitle>
         <DialogContent>
           <DialogContentText>Please choose your daily working hours and work day. WARNING: The schedule will automatically be created for the whole month! </DialogContentText>
@@ -245,7 +251,7 @@ const DocProfile = () => {
             variant="outlined"
             placeholder="StartHour"
             className="input-field"
-            value={workingHours || ''}
+            value={startHour || ''}
             onChange={(e) => setStartHour(e.target.value)}
           >
             {workingHours.map((choice, index) => (
@@ -260,7 +266,7 @@ const DocProfile = () => {
             variant="outlined"
             placeholder="EndHour"
             className="input-field"
-            value={workingHours || ''}
+            value={endHour || ''}
             onChange={(e) => setEndHour(e.target.value)}
           >
             {workingHours.map((choice, index) => (
@@ -275,7 +281,7 @@ const DocProfile = () => {
             variant="outlined"
             placeholder="startDay"
             className="input-field"
-            value={weekDays || ''}
+            value={startDay || ''}
             onChange={(e) => setStartDay(e.target.value)}
           >
             {weekDays.map((choice, index) => (
@@ -290,7 +296,7 @@ const DocProfile = () => {
             variant="outlined"
             placeholder="endDay"
             className="input-field"
-            value={weekDays || ''}
+            value={endDay || ''}
             onChange={(e) => setEndDay(e.target.value)}
           >
             {weekDays.map((choice, index) => (
@@ -301,7 +307,7 @@ const DocProfile = () => {
           </Select>
         </DialogContent>
         <DialogActions>
-          <Button onClick={createSchedule}>Cancel</Button>
+          <Button onClick={closeScheduleDialog}>Cancel</Button>
           <Button onClick={createSchedule}>Save</Button>
         </DialogActions>
       </FormDialog>
