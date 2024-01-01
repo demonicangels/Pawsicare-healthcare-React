@@ -70,3 +70,18 @@ h1 {
     right: 8rem;
     top: 2rem;
 }
+
+button.scheduleButton {
+  border-radius: 5px 5px 5px 5px;
+  border: none;
+  background-color: #B7C9E2;
+  color: white;
+  position: absolute;
+  left: 43rem;
+  top: 12rem;
+  height: 6%;
+}
+button.scheduleButton:hover{
+  cursor: pointer;
+  border: solid 1px black;
+}

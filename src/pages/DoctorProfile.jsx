@@ -25,6 +25,10 @@ const DocProfile = () => {
     const [description, setDescription] = useState('');
     const [appPet, setAppPet] = useState(null);
     const [clientId, setClientId] = useState(0);
+    const [startHour, setStartHour] = useState('');
+    const [endHour, setEndHour] = useState('');
+    const [startDay, setStartDay] = useState('');
+    const [endDay, setEndDay] = useState('');
 
     const docId = sessionStorage.getItem("docId")
     const claims = TokenService.getClaims();
@@ -40,6 +44,8 @@ const DocProfile = () => {
       return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`
     }
 
+    const workingHours = ['8:00','9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
+    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
   
     useEffect(() => {
       const getDocInfo = async () => {
@@ -138,9 +144,25 @@ const DocProfile = () => {
       AppointmentService.createAppointment(appointment);
     }
   
+    const createSchedule = () =>{
+      setOpen(false)
+      const schedulePreferences = {
+        token: TokenService.getAccessToken(),
+        startDay: startDay,
+        endDay: endDay,
+        startHour: startHour,
+        endHour: endHour
+      } 
+      AppointmentService.createSchedule(schedulePreferences)
+    }
+    const openScheduleDialog = () =>{
+      setOpen(true)
+    }
     return (
       <div className="profile-content">
-      <div className="left-section" style={{top: doctor.image ? '4rem': '-4rem'}}>
+      <div className="left-section" style={{top: doctor.image ? '4rem' : '-4rem',
+      position: claims.userId == docId ?  'relative'  : '',
+      left: claims.userId == docId ? '16rem' : ''}}>
         <img src={doctor.image} alt={`${doctor.image ? doctor.image : ''}`} className="docPic" />
         <p className="doctorName">{`Dr. ${doctor.name}`}</p>
         <div className="line"></div>
@@ -159,8 +181,8 @@ const DocProfile = () => {
         </div>
       </div>
       <div className="right-section">
-        {claims.userId === docId ? (
-          <button onClick={handleScheduleRedirecting}>Make my schedule</button>
+      {claims.userId == docId ? (
+          <button onClick={openScheduleDialog} className="scheduleButton">Make my schedule</button>
         ) : (
         <div className="appointmentSlots">
           <h1>Make an appointment</h1>
@@ -173,6 +195,7 @@ const DocProfile = () => {
         </div>
         )}
       </div>
+
       <FormDialog open={open} onClose={handleClose}>
         <DialogTitle>Make an appointment</DialogTitle>
         <DialogContent>
@@ -208,6 +231,78 @@ const DocProfile = () => {
         <DialogActions>
           <Button onClick={handleClose}>Cancel</Button>
           <Button onClick={handleClose}>Save</Button>
+        </DialogActions>
+
+
+      </FormDialog>
+      <FormDialog open={open} onClose={createSchedule}>
+        <DialogTitle>Create my schedule</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Please choose your daily working hours and work day. WARNING: The schedule will automatically be created for the whole month! </DialogContentText>
+          <label>Start of working day (hour)</label>
+          <Select
+            label="start"
+            variant="outlined"
+            placeholder="StartHour"
+            className="input-field"
+            value={workingHours || ''}
+            onChange={(e) => setStartHour(e.target.value)}
+          >
+            {workingHours.map((choice, index) => (
+              <MenuItem key={index} value={choice}>
+                {choice}
+              </MenuItem>
+            ))}
+          </Select>
+          <label>End of working day (hour)</label>
+          <Select
+            label="end"
+            variant="outlined"
+            placeholder="EndHour"
+            className="input-field"
+            value={workingHours || ''}
+            onChange={(e) => setEndHour(e.target.value)}
+          >
+            {workingHours.map((choice, index) => (
+              <MenuItem key={index} value={choice}>
+                {choice}
+              </MenuItem>
+            ))}
+          </Select>
+          <label>Start of working week (week day)</label>
+          <Select
+            label="start"
+            variant="outlined"
+            placeholder="startDay"
+            className="input-field"
+            value={weekDays || ''}
+            onChange={(e) => setStartDay(e.target.value)}
+          >
+            {weekDays.map((choice, index) => (
+              <MenuItem key={index} value={choice}>
+                {choice}
+              </MenuItem>
+            ))}
+          </Select>
+          <label>End of working week (week day)</label>
+          <Select
+            label="end"
+            variant="outlined"
+            placeholder="endDay"
+            className="input-field"
+            value={weekDays || ''}
+            onChange={(e) => setEndDay(e.target.value)}
+          >
+            {weekDays.map((choice, index) => (
+              <MenuItem key={index} value={choice}>
+                {choice}
+              </MenuItem>
+            ))}
+          </Select>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={createSchedule}>Cancel</Button>
+          <Button onClick={createSchedule}>Save</Button>
         </DialogActions>
       </FormDialog>
     </div>

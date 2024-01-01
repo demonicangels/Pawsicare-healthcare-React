@@ -71,8 +71,14 @@ const SignupForm = () => {
         try {
           const user = await UserService.createClient(newUser);
       
-          if (user) {
-            navigate('/profile');
+          if (user === true) {
+            const login = await UserService.loginUser(newUser.email,newUser.password)
+
+            if(login === true){
+                sessionStorage.setItem('needsReload',true)
+                navigate('/profile');
+            }
+            
           }
 
         } catch (err) {
