@@ -31,7 +31,7 @@ const DocProfile = () => {
     const [endDay, setEndDay] = useState('');
     const [openDialogSC, setOpenDialogSC] = useState(false)
 
-    const docId = sessionStorage.getItem("docId")
+    const docId = sessionStorage.getItem("docId") === null ? TokenService.getClaims().userId : sessionStorage.getItem("docId")
     const claims = TokenService.getClaims();
 
     useEffect(() => {
@@ -244,7 +244,7 @@ const DocProfile = () => {
       <FormDialog open={openDialogSC} onClose={createSchedule}>
         <DialogTitle>Create my schedule</DialogTitle>
         <DialogContent>
-          <DialogContentText>Please choose your daily working hours and work day. WARNING: The schedule will automatically be created for the whole month! </DialogContentText>
+          <DialogContentText>Please choose your daily working hours and work day. WARNING: The schedule will be created automatically for a whole month starting from today!</DialogContentText>
           <label>Start of working day (hour)</label>
           <Select
             label="start"

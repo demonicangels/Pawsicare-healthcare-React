@@ -46,7 +46,14 @@ const Header = ({isDarkMode}) => {
         setSideNavMarginRight(0)
     }
     const handleRedirectToProfile = () =>{
-        //under construction
+        const userRole = TokenService.getClaims().role
+
+        if(userRole === 'Doctor'){
+            navigate('/docprofile')
+        }
+        else{
+            navigate('/profile')
+        }
     }
     const handleDeleteAccount = async () =>{
         const userId = TokenService.getClaims().userId
