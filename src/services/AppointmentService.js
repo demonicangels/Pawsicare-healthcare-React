@@ -50,6 +50,7 @@ const addEmptyBookings = (doctorId) =>{
 }
 
 const createSchedule = (schedulePreferences) => {
+    debugger
     return axiosApiResponseInterceptor.post(`${hostname}/appointments/schedule`, schedulePreferences)
     .then(response => response.data)
     .catch(err => console.log('Error creating schedule', err))
