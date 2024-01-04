@@ -95,16 +95,21 @@ const DocProfile = () => {
 
             const docSchedule = JSON.parse(localStorage.getItem('docSchedule'));
 
-            const docAppointments = docSchedule.map(app => ({
-                date: `${app.date}`,
-                start: `${convertTime(app.start)}`,
-                end: `${convertTime(app.end)}`
-            }));
+            const matchingDocId = docSchedule.filter(schedule => schedule.doctorId === docId);
+
+            if (matchingDocId.length !== 0) {
+                const docAppointments = matchingDocId.map(app => ({
+                    date: `${app.date}`,
+                    start: `${convertTime(app.start)}`,
+                    end: `${convertTime(app.end)}`
+                }));
+
+                setOpenApps(docAppointments);
+            } 
 
             const data = await DoctorService.getDoctorById(docId, TokenService.getAccessToken());
 
             if (data) {
-              setOpenApps(docAppointments);
               setDoctor(data.doctor);
             }
 
@@ -152,7 +157,7 @@ const DocProfile = () => {
       if (indexOfApp !== -1) {
         openApps.splice(indexOfApp, 1);
         setOpenApps([...openApps]);
-        localStorage.setItem('docSchedule', openApps)
+        localStorage.setItem('docSchedule', JSON.stringify(openApps))
       }
     }
   
@@ -193,6 +198,7 @@ const DocProfile = () => {
       
 
         const slot = {
+          doctorId: docId,
           date: appDate,
           start: startTime,
           end: endTime,
@@ -248,14 +254,13 @@ const DocProfile = () => {
         ) : (
         <div className="appointmentSlots">
           <h1>Make an appointment</h1>
-          <a>{`Avalilable appointments for ${localStorage.getItem('appMonth')} ${localStorage.getItem('appYear')} `}</a>
-          {openApps.map((a, index) => (
+          {openApps.length !== 0 ? <a>{`Avalilable appointments for ${localStorage.getItem('appMonth')} ${localStorage.getItem('appYear')} `}</a> && openApps.map((a, index) => (
               <div key={index} className="doctor-Box" onClick={() => handleChosenAppointment(a)}>
                 <Box width="60%">
                   <Typography variant="body1" className="doctorName">{`${a.date}  ${a.start} - ${a.end}`}</Typography>
                 </Box>
               </div>
-          ))}
+          )) : <a> No available appointment hours. </a>}
         </div>
         )}
       </div>
