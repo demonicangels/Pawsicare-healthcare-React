@@ -128,7 +128,8 @@ const DocProfile = () => {
       sessionStorage.setItem("chosenAppointment", jsonObj)
     }
 
-    const createAppointment = () =>{
+    const createAppointment = async () =>{
+      debugger
       setOpen(false);
       const chosenSlot = JSON.parse(sessionStorage.getItem("chosenAppointment"))
       const appointment = {
@@ -139,7 +140,20 @@ const DocProfile = () => {
         doctorId: docId,
         petId: appPet.id 
       }
+
       AppointmentService.createAppointment(appointment);
+      
+      const indexOfApp = openApps.findIndex((app) =>{
+        return(app.date === chosenSlot.date &&
+        app.start === chosenSlot.start &&
+        app.end === chosenSlot.end)
+      })
+
+      if (indexOfApp !== -1) {
+        openApps.splice(indexOfApp, 1);
+        setOpenApps([...openApps]);
+        localStorage.setItem('docSchedule', openApps)
+      }
     }
   
     const createSchedule = async () =>{
@@ -192,6 +206,7 @@ const DocProfile = () => {
       localStorage.setItem('docSchedule', jsonSchedule)
       localStorage.setItem('appMonth', appMonth)
       localStorage.setItem('appYear', appYear)
+
     }
 
     const handleClose = () =>{

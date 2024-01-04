@@ -60,6 +60,6 @@ export default {
     getAppointments,
     addEmptyBookings,
     createAppointment,
-    createSchedule
+    createSchedule,
     
 };
