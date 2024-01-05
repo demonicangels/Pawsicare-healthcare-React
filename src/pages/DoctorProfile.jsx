@@ -99,6 +99,7 @@ const DocProfile = () => {
 
             if (matchingDocId.length !== 0) {
                 const docAppointments = matchingDocId.map(app => ({
+                    doctorId: app.doctorId,
                     date: `${app.date}`,
                     start: `${convertTime(app.start)}`,
                     end: `${convertTime(app.end)}`
@@ -142,16 +143,17 @@ const DocProfile = () => {
         start: `${chosenSlot.start}`,
         end: `${chosenSlot.end}`,
         clientId: clientId,
-        doctorId: docId,
+        doctorId: chosenSlot.doctorId,
         petId: appPet.id 
       }
 
       AppointmentService.createAppointment(appointment);
       
       const indexOfApp = openApps.findIndex((app) =>{
-        return(app.date === chosenSlot.date &&
-        app.start === chosenSlot.start &&
-        app.end === chosenSlot.end)
+        return(
+        app.doctorId === chosenSlot.doctorId &&
+        app.date === chosenSlot.date &&
+        app.start === chosenSlot.start)
       })
 
       if (indexOfApp !== -1) {
@@ -226,6 +228,13 @@ const DocProfile = () => {
     const openScheduleDialog = () =>{
       setOpenDialogSC(true)
     }
+
+    const chosenAppointment = JSON.parse(sessionStorage.getItem("chosenAppointment"))
+    const appDate = new Date(chosenAppointment.date)
+    const weekDaysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    const indexOfDay = appDate.getDay()
+    const weekDayOfAppointment = weekDaysArray[indexOfDay]
+
     return (
       <div className="profile-content">
       <div className="left-section" style={{top: doctor.image ? '4rem' : '-4rem',
@@ -266,7 +275,7 @@ const DocProfile = () => {
       </div>
 
       <FormDialog open={open} onClose={handleClose}>
-        <DialogTitle>Make an appointment</DialogTitle>
+        <DialogTitle>{`Make an appointment for ${weekDayOfAppointment} ${chosenAppointment.date} ${chosenAppointment.start}h`} </DialogTitle>
         <DialogContent>
           <DialogContentText>Please choose a pet and fill the reason for the appointment.</DialogContentText>
           <TextField
