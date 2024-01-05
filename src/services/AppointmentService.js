@@ -17,7 +17,19 @@ const getAppointments = (userId) => {
     return axiosApiResponseInterceptor.get(`${hostname}/appointments`, { params: { userId } })
     .then(response => response.data.appointments)
     .catch(error => {
-        console.error('Error getting users appointments:', error.message)});
+        console.error('Error getting users appointments:', error.message)
+    });
+}
+
+const getDoctorSchedule = (doctorId, token) => {
+    return axiosApiResponseInterceptor.get(`${hostname}/appointments/getDocSchedule`, {params: {
+        docId: doctorId,
+        token: token
+    }})
+    .then(response => response.data.appointments)
+    .catch(error => {
+        console.log('Error getting doctors schedule', error)
+    })
 }
 
 const addEmptyBookings = (doctorId) =>{
@@ -61,5 +73,6 @@ export default {
     addEmptyBookings,
     createAppointment,
     createSchedule,
+    getDoctorSchedule
     
 };

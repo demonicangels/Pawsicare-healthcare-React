@@ -30,8 +30,10 @@ const DocProfile = () => {
     const [startDay, setStartDay] = useState('');
     const [endDay, setEndDay] = useState('');
     const [openDialogSC, setOpenDialogSC] = useState(false)
-    const [scheduleMonth, setScheduleMonth] = useState('')
-    const [scheduleYear, setScheduleYear] = useState('')
+    const [weekDayOfAppointment, setweekDayOfAppointment] = useState('');
+    const [chosenAppointment, setChosenAppointment] = useState('');
+    const [appMonth, setAppMonth] = useState('');
+    const [appYear, setAppYear] = useState('');
 
     const docId = sessionStorage.getItem("docId") === null ? TokenService.getClaims().userId : sessionStorage.getItem("docId")
     const claims = TokenService.getClaims();
@@ -47,8 +49,14 @@ const DocProfile = () => {
     }
 
     const workingHours = ['8:00','9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00']
-    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-  
+    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+
+
     useEffect(() => {
       const getDocInfo = async () => {
         try {
@@ -89,30 +97,48 @@ const DocProfile = () => {
       }
 
       const fetchDocBookings = async () => {
-        try {
-          
+        try{
+      
           debugger
 
-            const docSchedule = JSON.parse(localStorage.getItem('docSchedule'));
+          const docSchedule = await AppointmentService.getDoctorSchedule(docId, TokenService.getAccessToken());
 
-            const matchingDocId = docSchedule.filter(schedule => schedule.doctorId === docId);
+          const openScheduledSlots = []
 
-            if (matchingDocId.length !== 0) {
-                const docAppointments = matchingDocId.map(app => ({
-                    doctorId: app.doctorId,
-                    date: `${app.date}`,
-                    start: `${convertTime(app.start)}`,
-                    end: `${convertTime(app.end)}`
-                }));
+          docSchedule.forEach((app) => {
+            const startDate = new Date(app.dateAndStart);
+            const endDate = new Date(app.dateAndEnd);
 
-                setOpenApps(docAppointments);
-            } 
+            const monthIndex = startDate.getMonth();
 
-            const data = await DoctorService.getDoctorById(docId, TokenService.getAccessToken());
 
-            if (data) {
-              setDoctor(data.doctor);
-            }
+
+            const appDate = startDate.toISOString().split('T')[0];
+            const month = monthNames[monthIndex];
+            setAppMonth(month);
+            const year = startDate.getFullYear();
+            setAppYear(year);
+            const startTime = startDate.toTimeString().split(' ')[0];
+            const endTime = endDate.toTimeString().split(' ')[0];
+
+            const slot = {
+              date: appDate,
+              start: startTime,
+              end: endTime,
+            };
+
+            openScheduledSlots.push(slot);
+
+          })
+
+          setOpenApps(openScheduledSlots);
+             
+
+          const data = await DoctorService.getDoctorById(docId, TokenService.getAccessToken());
+
+          if (data) {
+            setDoctor(data.doctor);
+          }
 
         } catch (error) {
           console.error('Error fetching doctor bookings:', error);
@@ -132,18 +158,25 @@ const DocProfile = () => {
       setOpen(true);
       const jsonObj = JSON.stringify(app)
       sessionStorage.setItem("chosenAppointment", jsonObj)
+
+      setChosenAppointment(JSON.parse(jsonObj))
+
+      const appDate = new Date(chosenAppointment.date)
+      const indexOfDay = appDate.getDay()
+      setweekDayOfAppointment(weekDays[indexOfDay - 1])
     }
 
     const createAppointment = async () =>{
       debugger
       setOpen(false);
       const chosenSlot = JSON.parse(sessionStorage.getItem("chosenAppointment"))
+
       const appointment = {
         date: `${chosenSlot.date}`,
         start: `${chosenSlot.start}`,
         end: `${chosenSlot.end}`,
         clientId: clientId,
-        doctorId: chosenSlot.doctorId,
+        doctorId: docId,
         petId: appPet.id 
       }
 
@@ -151,7 +184,6 @@ const DocProfile = () => {
       
       const indexOfApp = openApps.findIndex((app) =>{
         return(
-        app.doctorId === chosenSlot.doctorId &&
         app.date === chosenSlot.date &&
         app.start === chosenSlot.start)
       })
@@ -159,7 +191,6 @@ const DocProfile = () => {
       if (indexOfApp !== -1) {
         openApps.splice(indexOfApp, 1);
         setOpenApps([...openApps]);
-        localStorage.setItem('docSchedule', JSON.stringify(openApps))
       }
     }
   
@@ -173,48 +204,6 @@ const DocProfile = () => {
         endHour: endHour
       } 
       const schedule = await AppointmentService.createSchedule(schedulePreferences)
-
-      const appointments = schedule.appointments
-
-      const openScheduledSlots = []
-
-      let appMonth = ''
-      let appYear = ''
-      
-      appointments.forEach((app) => {
-        const startDate = new Date(app.dateAndStart)
-        const endDate = new Date(app.dateAndEnd)
-
-        const monthNames = [
-          'January', 'February', 'March', 'April', 'May', 'June',
-          'July', 'August', 'September', 'October', 'November', 'December'
-        ];
-
-        const monthIndex = startDate.getMonth();
-
-        const appDate = startDate.toISOString().split('T')[0];
-        appMonth = monthNames[monthIndex];
-        appYear = startDate.getFullYear();
-        const startTime = startDate.toTimeString().split(' ')[0];
-        const endTime = endDate.toTimeString().split(' ')[0];
-      
-
-        const slot = {
-          doctorId: docId,
-          date: appDate,
-          start: startTime,
-          end: endTime,
-        };
-
-        openScheduledSlots.push(slot);
-      })
-
-      const jsonSchedule = JSON.stringify(openScheduledSlots)
-      localStorage.clear()
-      localStorage.setItem('docSchedule', jsonSchedule)
-      localStorage.setItem('appMonth', appMonth)
-      localStorage.setItem('appYear', appYear)
-
     }
 
     const handleClose = () =>{
@@ -228,12 +217,6 @@ const DocProfile = () => {
     const openScheduleDialog = () =>{
       setOpenDialogSC(true)
     }
-
-    const chosenAppointment = JSON.parse(sessionStorage.getItem("chosenAppointment"))
-    const appDate = new Date(chosenAppointment.date)
-    const weekDaysArray = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
-    const indexOfDay = appDate.getDay()
-    const weekDayOfAppointment = weekDaysArray[indexOfDay]
 
     return (
       <div className="profile-content">
@@ -263,7 +246,7 @@ const DocProfile = () => {
         ) : (
         <div className="appointmentSlots">
           <h1>Make an appointment</h1>
-          {openApps.length !== 0 ? <a>{`Avalilable appointments for ${localStorage.getItem('appMonth')} ${localStorage.getItem('appYear')} `}</a> && openApps.map((a, index) => (
+          {openApps.length !== 0 ? <a>{`Avalilable appointments for ${appMonth} ${appYear} `}</a> && openApps.map((a, index) => (
               <div key={index} className="doctor-Box" onClick={() => handleChosenAppointment(a)}>
                 <Box width="60%">
                   <Typography variant="body1" className="doctorName">{`${a.date}  ${a.start} - ${a.end}`}</Typography>
