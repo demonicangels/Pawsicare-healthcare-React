@@ -28,17 +28,19 @@ const MyAppointments = () => {
 
             setUserApps(appointments)
 
-            appointments.map(app =>{
-                const startDate = new Date(app.dateAndStart);
+            if(appointments){
+                appointments.map(app =>{
+                    const startDate = new Date(app.dateAndStart);
+        
+                    const monthIndex = startDate.getMonth();
     
-                const monthIndex = startDate.getMonth();
-
-                const month = monthNames[monthIndex];
-                const year = startDate.getFullYear();
-                setAppMonth(month);
-                setAppYear(year);
-
-            })
+                    const month = monthNames[monthIndex];
+                    const year = startDate.getFullYear();
+                    setAppMonth(month);
+                    setAppYear(year);
+    
+                })
+            }
         }
 
         getUserAppointments();
@@ -55,37 +57,49 @@ const MyAppointments = () => {
         navigate('/appointmentsInCalendar')
     }
 
+    const deleteAppointment =  async (app) =>{
+
+        debugger
+        const response = await AppointmentService.cancelAppointment(app.id, TokenService.getAccessToken())
+
+        if(response === 'true'){
+            console.log("Successful")
+        }
+
+    }
+
     return (  
 
         <div className="page-content">
             <a className="appForDateTitle">{`My appointments for ${appMonth} ${appYear}`}</a>
             <div className="appointmentsList">
-                {userApps.map((app, index) =>{
+            {userApps !== undefined ? (
+                userApps.map((app, index) => {
                     const startDate = new Date(app.dateAndStart);
                     const endDate = new Date(app.dateAndEnd);
-        
-        
+
                     const appDate = startDate.toISOString().split('T')[0];
                     const startTime = startDate.toTimeString().split(' ')[0];
                     const endTime = endDate.toTimeString().split(' ')[0];
 
-                    return(
-                            <div className="appointment-row" key={index}>
-
-                                <div className="appointment-Box">
-                                    
-                                        <a> Date: {appDate}</a>
-                                        <a> {`Time: ${convertTime(startTime)}h - ${convertTime(endTime)}h`}</a>
-                                        <div className="appButtons">
-                                            <button className="rescheduleBtn">Reschedule</button>
-                                            <button className="removeBtn">Cancel appointment</button>
-                                        </div>
-                                    
-                                </div>
-
+                    return (
+                    <div className="appointment-row" key={index}>
+                        <div className="appointment-Box">
+                        <a> Date: {appDate}</a>
+                        <a> {`Time: ${convertTime(startTime)}h - ${convertTime(endTime)}h`}</a>
+                        <div className="appButtons">
+                            <button className="rescheduleBtn">Reschedule</button>
+                            <button className="removeBtn" onClick={() => { deleteAppointment(app) }}>
+                            Cancel appointment
+                            </button>
                         </div>
-                    )
-                })}
+                        </div>
+                    </div>
+                    );
+                })
+                ) : (
+                <div className="noAppText"> No upcoming appointments.</div>
+                )}
                 <button className="redirectToCalendarbtn" onClick={redirectToCalendar}> My calendar </button>
             </div>
         </div>

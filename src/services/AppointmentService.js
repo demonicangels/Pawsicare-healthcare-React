@@ -62,10 +62,22 @@ const addEmptyBookings = (doctorId) =>{
 }
 
 const createSchedule = (schedulePreferences) => {
-    debugger
     return axiosApiResponseInterceptor.post(`${hostname}/appointments/schedule`, schedulePreferences)
     .then(response => response.data)
     .catch(err => console.log('Error creating schedule', err))
+}
+
+const cancelAppointment = (appId, token) =>{
+    debugger
+    return axiosApiResponseInterceptor.delete(`${hostname}/appointments`, {params: {
+        id: appId,
+        token: token
+    }})
+    .then(response => {
+        response.data
+        return true
+    })
+    .catch(err => console.log('Error in deleting the appointment', err))
 }
  
 export default {
@@ -73,6 +85,7 @@ export default {
     addEmptyBookings,
     createAppointment,
     createSchedule,
-    getDoctorSchedule
+    getDoctorSchedule,
+    cancelAppointment
     
 };

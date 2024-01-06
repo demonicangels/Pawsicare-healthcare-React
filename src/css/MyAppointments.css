@@ -51,8 +51,13 @@ button.redirectToCalendarbtn{
     border-radius: 3px 3px 3px 3px;
     font-size: 150%;
     position: relative;
-    left: -24rem;
-    top: -22rem;
+    left: -27rem;
+    top: -10rem;
+}
+
+.page-content {
+    position: relative;
+    top: 3rem;
 }
 
 button.removeBtn:active, button.rescheduleBtn:active, button.redirectToCalendarbtn:active{
@@ -72,4 +77,8 @@ button.removeBtn{
 
 button.rescheduleBtn:hover, button.removeBtn:hover, button.redirectToCalendarbtn:hover{
     border: 1px solid black;
+}
+
+.noAppText{
+    font-size: 150%;
 }
