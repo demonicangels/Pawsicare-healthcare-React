@@ -126,3 +126,29 @@
     text-overflow: ellipsis;
     white-space: wrap;
 }
+
+.returnToPreviousPagebtn{
+    font-size: 60%; 
+    background-color: #B7C9E2;
+    color: white;
+    padding: 13px 20px;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    border-radius: 3px 3px 3px 3px;
+    font-size: 100%;
+    position: relative;
+    top: 2rem;
+    left: 6rem;
+}
+
+.returnToPreviousPagebtn:hover{
+    border: 1px solid black;
+}
+
+button.returnToPreviousPagebtn:active{
+    text-decoration: none;
+    background-color: #B7C9E2;
+    box-shadow: 0 3px #E0E0E0;
+    transform: translateY(4px);
+}

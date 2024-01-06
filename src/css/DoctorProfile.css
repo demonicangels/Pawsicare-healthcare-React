@@ -4,60 +4,60 @@
     padding: 14px;
     position: relative;
     left: 2rem;
-  }
+}
   
-  .left-section {
+.left-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     position: relative;
     width: 25%;
-  }
+}
   
-  .docPic {
+.docPic {
     width: 120px;
     height: 115px;
     border-radius: 50%;
     position: relative;
     top: -1rem;
     left: -1rem;
-  }
+}
   
-  .doctorName {
+.doctorName {
     margin: 10px 0;
     font-weight: bold;
-  }
+}
   
-  .line {
+.line {
     width: 100%;
     height: 1px;
     background-color: #ccc;
-  }
+}
   
-  .information {
+.information {
     margin: 10px 0;
     cursor: pointer;
     position: relative;
-  }
+}
   
-  .right-section {
+.right-section {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-  }
+}
   
-  .doctor-Box {
+.doctor-Box {
     background-color: #fff;
     box-shadow: 0 0 5px #ccc;
     display: flex;
     align-items: center;
     justify-content: space-evenly;
-    width: 101%;
+    width: 40.5%;
     padding: 10px;
     margin-bottom: 20px;
     cursor: pointer;
     position: relative;
-  }
+}
 
 h1 {
     color: #333;
@@ -81,6 +81,7 @@ button.scheduleButton {
   top: 12rem;
   height: 6%;
 }
+
 button.scheduleButton:hover{
   cursor: pointer;
   border: solid 1px black;

@@ -123,8 +123,8 @@ const DocProfile = () => {
 
             const slot = {
               date: appDate,
-              start: startTime,
-              end: endTime,
+              start: convertTime(startTime),
+              end: convertTime(endTime),
             };
 
             openScheduledSlots.push(slot);

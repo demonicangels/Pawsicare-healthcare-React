@@ -17,6 +17,7 @@ import AuthRequired from './services/AuthRequired'
 import DocProfile from './pages/DoctorProfile'
 import ScheduleCalendar from './pages/DoctorSchedule'
 import Chat from './pages/Chat'
+import MyAppointments from './pages/MyAppointments'
 
 
 function App() {
@@ -65,7 +66,8 @@ function App() {
             <Route path='/contacts' element = {<AuthRequired><ContactForm/></AuthRequired>}/>
             <Route path='/docportal' element = {<DoctorPortal/>}/>
             <Route path='/profile' element = {<AuthRequired><Profile/></AuthRequired>}/>
-            <Route path='/appointments' element = {<AuthRequired><AppCalendar/></AuthRequired>}/>
+            <Route path='/appointmentsInCalendar' element = {<AuthRequired><AppCalendar/></AuthRequired>}/>
+            <Route path='/appointments' element = {<AuthRequired><MyAppointments/></AuthRequired>}/>
             <Route path='/mypets' element = {<AuthRequired>{userRole === 'Client' ? <MyPets/> : '' }</AuthRequired>}/>
             <Route path='/docprofile' element = {<AuthRequired><DocProfile/></AuthRequired>}/>
             <Route path='/docSchedule' element = {<ScheduleCalendar/>}/>

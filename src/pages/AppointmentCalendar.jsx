@@ -5,6 +5,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../css/AppointmentCalendar.css"
 import AppointmentService from "../services/AppointmentService";
 import TokenService from "../services/TokenService";
+import { useNavigate } from "react-router-dom";
 
 
 momentLocalizer(moment);
@@ -12,8 +13,9 @@ momentLocalizer(moment);
 const AppCalendar = () => {
 
    const [apps, setAppointments] = useState([]);
-   const [selectedEvent, setSelectedEvent] = useState(undefined)
-   const [modalState, setModalState] = useState(false)
+   const [selectedEvent, setSelectedEvent] = useState(undefined);
+   const [modalState, setModalState] = useState(false);
+   const navigate = useNavigate();
 
 
    useEffect(() => {
@@ -47,7 +49,7 @@ const AppCalendar = () => {
 
    const userApps = apps
      ? apps.map(app => ({
-      title: `Appointment with \n Dr.Maria \n for ${app.pet.name}`,
+      title: `Appointment with \n ${app.doctor.name} \n for ${app.pet.name}`,
       start: new Date(app.dateAndStart),
       end: new Date(app.dateAndEnd), 
       data: app
@@ -59,6 +61,10 @@ const AppCalendar = () => {
       setModalState(true)
    }
 
+   const returnToPreviousPage = () => {
+      navigate('/appointments')
+   }
+
    const Modal = () => {
        return (
           <div className={`modal-${modalState == true ? 'show' : 'hide'}`}>
@@ -68,6 +74,7 @@ const AppCalendar = () => {
 
     return (
         <div>
+        <button className="returnToPreviousPagebtn" onClick={returnToPreviousPage}> Back </button>
         <div id="Calendar">
             <section className="dashboard">
                 <div className="top">

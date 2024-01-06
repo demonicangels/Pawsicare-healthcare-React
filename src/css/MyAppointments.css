@@ -1,0 +1,75 @@
+.appointment-row {
+    border: 1px solid;
+    width: 35%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px;
+    font-size: 200%;
+    margin-bottom: 10px;
+}
+.appForDateTitle{
+    font-size: 250%;
+    position: relative;
+    left: 29rem;
+}
+.appointmentsList {
+    position: relative;
+    left: 30rem;
+    top: 3rem;
+}
+.appButtons {
+    display: flex;
+    flex-direction: row; 
+    align-items: center;
+    justify-content: center;
+    padding: 1px;
+    margin-top: 12px;
+}
+      
+button.rescheduleBtn, button.removeBtn { 
+    font-size: 60%;
+    background-color: #B7C9E2;
+    color: white;
+    padding: 13px 20px;
+    margin: 24px 0;
+    border: none;
+    cursor: pointer;
+    width: 45%;
+    border-radius: 3px 3px 3px 3px;
+}
+
+button.redirectToCalendarbtn{
+    background-color: #B7C9E2;
+    color: white;
+    padding: 13px 20px;
+    margin: 24px 0;
+    border: none;
+    cursor: pointer;
+    width: 15%;
+    border-radius: 3px 3px 3px 3px;
+    font-size: 150%;
+    position: relative;
+    left: -24rem;
+    top: -22rem;
+}
+
+button.removeBtn:active, button.rescheduleBtn:active, button.redirectToCalendarbtn:active{
+    text-decoration: none;
+    background-color: #B7C9E2;
+    box-shadow: 0 3px #E0E0E0;
+    transform: translateY(4px);
+}
+
+button.rescheduleBtn{
+    margin: 0 5px;
+}
+
+button.removeBtn{
+    margin: 0 5px;
+}
+
+button.rescheduleBtn:hover, button.removeBtn:hover, button.redirectToCalendarbtn:hover{
+    border: 1px solid black;
+}
