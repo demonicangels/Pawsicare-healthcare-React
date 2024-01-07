@@ -296,6 +296,7 @@ const DocProfile = () => {
 
 
       </FormDialog>
+      
       <FormDialog open={openDialogSC} onClose={createSchedule}>
         <DialogTitle>Create my schedule</DialogTitle>
         <DialogContent>

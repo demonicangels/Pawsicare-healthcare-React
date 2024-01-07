@@ -68,7 +68,6 @@ const createSchedule = (schedulePreferences) => {
 }
 
 const cancelAppointment = (appId, token) =>{
-    debugger
     return axiosApiResponseInterceptor.delete(`${hostname}/appointments`, {params: {
         id: appId,
         token: token
@@ -79,6 +78,13 @@ const cancelAppointment = (appId, token) =>{
     })
     .catch(err => console.log('Error in deleting the appointment', err))
 }
+
+const rescheduleAppointment = (newAppointment) =>{
+    debugger
+    return axiosApiResponseInterceptor.put(`${hostname}/appointments`, newAppointment)
+    .then(response => response.data)
+    .catch(err => console.log('Error updating appointment', err))
+}
  
 export default {
     getAppointments,
@@ -86,6 +92,7 @@ export default {
     createAppointment,
     createSchedule,
     getDoctorSchedule,
-    cancelAppointment
+    cancelAppointment,
+    rescheduleAppointment
     
 };
