@@ -12,23 +12,25 @@ import TokenService from '../services/TokenService';
 import UsernamePlaceholder from '../components/UsernamePlaceholder';
 
 
-const Chat = () => {
+const Chat = (props) => {
   
 
-  //make so when a user logs in his picture appears as a circle instead of the client icon and redirects to the profile page it also has an arrow for drop down so the user can logout and go to profile from there
     const [messagesReceived, setMessages] = useState([]);
     const [username,setUsername] = useState('');
     const [stompClient, setStompClient] = useState();
   
-    const token = TokenService.getClaims()
-    const userRole = token.role 
-    const usrId = token.userId
+    const claims = TokenService.getClaims()
+    const token = TokenService.getAccessToken()
+    const userRole = claims.role 
+    const usrId = claims.userId
+    const notification = props.notification;
+
 
     useEffect(() => {
       const fetchDataAndSetUsername = async () => {
         if (userRole === "Client") {
           try {
-            const response = await UserService.getClient(usrId);
+            const response = await UserService.getClient(usrId, token);
     
             console.log(response.client);
     
@@ -46,7 +48,7 @@ const Chat = () => {
     
         if (userRole === "Doctor") {
           try {
-            const response = await UserService.getDoctor(usrId);
+            const response = await DoctorService.getDoctorById(usrId, token);
     
             console.log(response.doctor);
     
@@ -68,7 +70,6 @@ const Chat = () => {
   
    
     const setupStompClient = () => {
-      console.log('#3')
 
       try{
         
@@ -102,6 +103,7 @@ const Chat = () => {
         console.log(`Sending to /user/${payload.to}/chat`)
         stompClient.publish({'destination': `/user/${usrId}/chat`, body: jsonPayload})
         stompClient.publish({'destination': `/user/${payload.to}/chat`, body: jsonPayload});
+        notification.sendNotification(`${payload.from} sent you a message`)
       }
     };
 

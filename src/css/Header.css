@@ -163,5 +163,14 @@ button.deleteBtn{
     position: relative;
     left: 5rem;
     top: -1rem;
-}
+  }
+
+  i.notificationIcon {
+    border: 1px solid;
+    border-radius: 50%;
+    padding: 4px;
+    font-size: 56%;
+    background-color: red;
+    color: white;
+  }
 }

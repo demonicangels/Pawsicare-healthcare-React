@@ -18,12 +18,16 @@ import DocProfile from './pages/DoctorProfile'
 import ScheduleCalendar from './pages/DoctorSchedule'
 import Chat from './pages/Chat'
 import MyAppointments from './pages/MyAppointments'
+import Notifications from './services/Notifications.jsx';
+
 
 
 function App() {
 
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [notification, setNotification] = useState(null);
 
+  
   useEffect(() => {
 
     document.body.className = isDarkMode ? 'dark-mode' : 'light-mode';
@@ -41,6 +45,19 @@ function App() {
       console.log('#1', TokenService.getAccessToken())
       TokenService.setAccessToken(TokenService.getAccessToken())
     }
+
+    const initNotifications = async () =>{
+      
+      const noti = new Notifications()
+
+      if(noti){
+        noti.subscribeUser()
+        console.log('user subscribed')
+        setNotification(noti)
+      }
+    } 
+
+    initNotifications()
     
   },[])
 
@@ -56,7 +73,7 @@ function App() {
   return (
     <div className='app'>
       <Router>
-            <Header isDarkMode = {isDarkMode} /> 
+            <Header isDarkMode = {isDarkMode} notification={notification} /> 
             <Navbar isDarkMode = {isDarkMode} setIsDarkMode = {setIsDarkMode} />
           <Routes>
             <Route path='/' element= {<Home/>}/>
@@ -71,7 +88,7 @@ function App() {
             <Route path='/mypets' element = {<AuthRequired>{userRole === 'Client' ? <MyPets/> : '' }</AuthRequired>}/>
             <Route path='/docprofile' element = {<AuthRequired><DocProfile/></AuthRequired>}/>
             <Route path='/docSchedule' element = {<ScheduleCalendar/>}/>
-            <Route path='/chat' element = {<AuthRequired><Chat/></AuthRequired>}/>
+            <Route path='/chat' element = {<AuthRequired><Chat notification={notification}/></AuthRequired>}/>
           </Routes>
       </Router>
     </div>

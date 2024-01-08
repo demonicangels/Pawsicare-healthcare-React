@@ -63,8 +63,8 @@ const createDoctor = (data) => {
     })
 }
 const getClient = (usrId,token) => {
-     
-    return axiosApiResponseInterceptor.get(`${hostname}/clients`, { params: { 
+     debugger
+    return axiosApiResponseInterceptor.get(`${hostname}/clients/clientInfo`, { params: { 
         id: usrId,
         token: token
     }})

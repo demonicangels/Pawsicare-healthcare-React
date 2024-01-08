@@ -8,7 +8,7 @@ import UserService from '../services/UserService'
 
 
 
-const Header = ({isDarkMode}) => {   
+const Header = (props) => {   
 
     const [isLoggedIn, setIsLoggedIn] = useState(TokenService.getAccessToken() !== null);
     const [sideNavWidth,setSideNavWidth] = useState(0);
@@ -18,11 +18,14 @@ const Header = ({isDarkMode}) => {
 
 
     const headerTextStyle = () => ({
-        color: isDarkMode ? 'white' : 'black',
+        color: props.isDarkMode ? 'white' : 'black',
     });
     const iconStyle = () => ({
-        color: isDarkMode ? 'white' : 'blue' 
+        color: props.isDarkMode ? 'white' : 'blue' 
     })
+
+    debugger
+    const notificationsArray = props.notification === null || props.notification.getNotifications().length === 0 ? '' : JSON.parse(props.notification.getNotifications());
 
     const handleLogout = () => {
         UserService.logout(TokenService.getRefreshToken())
@@ -81,6 +84,7 @@ const Header = ({isDarkMode}) => {
                 <a href="/" className="header" style={headerTextStyle()}>Pawsicare</a>
                 {isLoggedIn ? ( 
                     <>
+                        <i className='notificationIcon'>{notificationsArray === undefined || notificationsArray === null ? '' : notificationsArray.length}</i>
                         <i onClick={openChat} className='chatBtn'><FontAwesomeIcon icon={faComments} style={iconStyle()}/></i>
                         <i onClick={openSideNav} className='sideNavIcon'><FontAwesomeIcon icon={faBars} style={iconStyle()} /></i>
                     </>
