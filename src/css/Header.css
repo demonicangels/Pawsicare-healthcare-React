@@ -5,6 +5,7 @@
   font-size: 2rem;
   position: relative;
   width: 100vw;
+  margin: 10px;
 }
 
 .account-logo {
@@ -38,10 +39,10 @@ a.header {
   top: 10%;
   max-width: 12%;
 }
-
+/* 
 form.searchFunction {
   max-width: 20%;
-}
+} */
 
 i :hover{
   cursor: pointer;
@@ -100,7 +101,6 @@ i :hover{
 i.sideNavIcon {
   position: absolute;
   right: 3rem;
-  bottom: 1rem;
 }
 
 button.accountBtn{
@@ -119,6 +119,33 @@ button.deleteBtn{
   border: none;
   background: transparent;
   font-size: 70%;
+}
+
+i.notificationIcon {
+  border: 1px solid;
+  border-radius: 50%;
+  padding: 0px;
+  font-size: 56%;
+  background-color: red;
+  color: white;
+  position: relative;
+  left: 115px  ;
+  top: -1rem;
+  width: 1.4em;
+  height: 1.4em;
+  text-align: center;
+  line-height: 1.4em;
+  display: inline-block;
+}
+.notificationIcon.small {
+  border: none;
+  background-color: transparent;
+}
+i.chatBtn {
+  position: relative;
+  left: 5rem;
+  width: 2.5em;
+  height: 2.5em;
 }
 
 @media only screen and (min-width: 400px) {
@@ -146,7 +173,9 @@ button.deleteBtn{
   }
 
   a.header {
+    position: absolute;
     left: 39%;
+    top: -63%;
     text-align: center;
   }
 
@@ -157,20 +186,5 @@ button.deleteBtn{
     border: none;
     background: transparent;
     font-size: 70%;
-  }
-
-  i.chatBtn {
-    position: relative;
-    left: 5rem;
-    top: -1rem;
-  }
-
-  i.notificationIcon {
-    border: 1px solid;
-    border-radius: 50%;
-    padding: 4px;
-    font-size: 56%;
-    background-color: red;
-    color: white;
   }
 }

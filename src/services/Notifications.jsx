@@ -13,19 +13,16 @@ class Notifications {
     onNewNotification(notification){
       console.log(notification);
 
-      localStorage.setItem("notifications", JSON.stringify(notification));
-      
+      this.notifications.push(notification);
     }
   
     getNotifications(){
-      const storedNotifications = localStorage.getItem("notifications") || [];
-      console.log('Notifications array', this.notifications);
-      return [...this.notifications, ...storedNotifications];
+      return this.notifications;
     }
   
-    sendNotification(message){
+    sendNotification(message, to){
       const payload = { 'id': uuidv4(), 'message': message };
-      this.stompClientobj.publish({'destination': `/topic/notifications/${this.userId}`, body: payload})
+      this.stompClientobj.publish({'destination': `/topic/notifications/${to}`, body: JSON.stringify(payload)})
     }
   
     subscribeUser(){
@@ -34,7 +31,6 @@ class Notifications {
   
         stompClient.onConnect = () => {
           stompClient.subscribe(`/topic/notifications/${this.userId}`, (data) => {
-            console.log(data.body)
             this.onNewNotification(data.body)
         })}
   
@@ -46,6 +42,12 @@ class Notifications {
         console.log('Error connecting to websocket', err)
       }
     }
+
+    clearNotis(){
+      debugger
+      this.notifications && this.notifications.length > 0 ? this.notifications = [] : this.notifications;
+    }
   
 }
+
 export default Notifications;

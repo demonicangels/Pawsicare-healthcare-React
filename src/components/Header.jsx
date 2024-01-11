@@ -1,10 +1,11 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch,faUser,faSignOut,faComments,faBars,faXmark } from '@fortawesome/free-solid-svg-icons'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../css/Header.css'
 import TokenService from '../services/TokenService'
 import UserService from '../services/UserService'
+import { useNotificationContext } from "../components/NotificationContext.jsx";
 
 
 
@@ -24,8 +25,20 @@ const Header = (props) => {
         color: props.isDarkMode ? 'white' : 'blue' 
     })
 
-    debugger
-    const notificationsArray = props.notification === null || props.notification.getNotifications().length === 0 ? '' : JSON.parse(props.notification.getNotifications());
+    
+    const { updateNotifications, notifications } = useNotificationContext();
+
+    useEffect(() => {
+      const notis = props.notification === null || props.notification === undefined ? "" : props.notification.getNotifications(); 
+      updateNotifications(notis);
+    }, [props.notification, notifications]);
+  
+    const notificationsArray = notifications;
+
+
+
+
+
 
     const handleLogout = () => {
         UserService.logout(TokenService.getRefreshToken())
@@ -36,7 +49,10 @@ const Header = (props) => {
         navigate('/')
     }
     const openChat = () => {
+        props.notification.clearNotis();
+        sessionStorage.setItem("needsReload", true)
         navigate('/chat')
+        
     }
     const openSideNav = () => {
         setShowSideNav(true)
@@ -77,14 +93,14 @@ const Header = (props) => {
     return ( 
         <header>
             <div className="header">
-                <form className='searchFunction' method='post'>
+                {/* <form className='searchFunction' method='post'>
                     <input type="text" placeholder="Search.." name="search"/>
                     <button type="submit" name='searchbtn'><FontAwesomeIcon icon={faSearch} style={iconStyle()} /></button>
-                </form>
+                </form> */}
                 <a href="/" className="header" style={headerTextStyle()}>Pawsicare</a>
                 {isLoggedIn ? ( 
                     <>
-                        <i className='notificationIcon'>{notificationsArray === undefined || notificationsArray === null ? '' : notificationsArray.length}</i>
+                        <i className={`${notificationsArray && notificationsArray.length === 0 ? 'notificationIcon.small' : 'notificationIcon'}`}>{notificationsArray && notificationsArray.length > 0 && notificationsArray.length}</i>
                         <i onClick={openChat} className='chatBtn'><FontAwesomeIcon icon={faComments} style={iconStyle()}/></i>
                         <i onClick={openSideNav} className='sideNavIcon'><FontAwesomeIcon icon={faBars} style={iconStyle()} /></i>
                     </>

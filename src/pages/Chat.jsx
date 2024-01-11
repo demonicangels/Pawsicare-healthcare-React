@@ -10,9 +10,10 @@ import ChatMessagesPlaceholder from '../components/ChatMessagesPlaceHolder';
 import SendMessagePlaceholder from '../components/SendMessagePlaceholder';
 import TokenService from '../services/TokenService';
 import UsernamePlaceholder from '../components/UsernamePlaceholder';
+import { useNotificationContext } from "../components/NotificationContext.jsx";
 
 
-const Chat = (props) => {
+const Chat = ({notification}) => {
   
 
     const [messagesReceived, setMessages] = useState([]);
@@ -23,7 +24,16 @@ const Chat = (props) => {
     const token = TokenService.getAccessToken()
     const userRole = claims.role 
     const usrId = claims.userId
-    const notification = props.notification;
+    const noti = notification;
+    
+
+
+
+    const reload = sessionStorage.getItem("needsReload")
+    if(reload === "true"){
+        sessionStorage.setItem("needsReload",false)
+        window.location.reload()
+    }
 
 
     useEffect(() => {
@@ -66,8 +76,10 @@ const Chat = (props) => {
       };
       fetchDataAndSetUsername();
       setupStompClient();
+
+
     }, []);
-  
+
    
     const setupStompClient = () => {
 
@@ -103,10 +115,9 @@ const Chat = (props) => {
         console.log(`Sending to /user/${payload.to}/chat`)
         stompClient.publish({'destination': `/user/${usrId}/chat`, body: jsonPayload})
         stompClient.publish({'destination': `/user/${payload.to}/chat`, body: jsonPayload});
-        notification.sendNotification(`${payload.from} sent you a message`)
+        notification.sendNotification(`${payload.from} sent you a message`, payload.to)
       }
     };
-
     const onMessageReceived = (newmsg) => {
       console.log('Received message:', newmsg);
       const message = JSON.parse(newmsg)

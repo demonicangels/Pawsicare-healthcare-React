@@ -18,7 +18,8 @@ import DocProfile from './pages/DoctorProfile'
 import ScheduleCalendar from './pages/DoctorSchedule'
 import Chat from './pages/Chat'
 import MyAppointments from './pages/MyAppointments'
-import Notifications from './services/Notifications.jsx';
+import Notifications from './services/Notifications.jsx'
+import { NotificationProvider } from './components/NotificationContext.jsx'
 
 
 
@@ -73,24 +74,29 @@ function App() {
   return (
     <div className='app'>
       <Router>
-            <Header isDarkMode = {isDarkMode} notification={notification} /> 
-            <Navbar isDarkMode = {isDarkMode} setIsDarkMode = {setIsDarkMode} />
-          <Routes>
-            <Route path='/' element= {<Home/>}/>
-            <Route path='/login' element = {<Login/>}/>
-            <Route path='/aboutus' element = {<About/>}/>
-            <Route path='/doctors' element = {<Doctors/>}/>
-            <Route path='/contacts' element = {<AuthRequired><ContactForm/></AuthRequired>}/>
-            <Route path='/docportal' element = {<DoctorPortal/>}/>
-            <Route path='/profile' element = {<AuthRequired><Profile/></AuthRequired>}/>
-            <Route path='/appointmentsInCalendar' element = {<AuthRequired><AppCalendar/></AuthRequired>}/>
-            <Route path='/appointments' element = {<AuthRequired><MyAppointments/></AuthRequired>}/>
-            <Route path='/mypets' element = {<AuthRequired>{userRole === 'Client' ? <MyPets/> : '' }</AuthRequired>}/>
-            <Route path='/docprofile' element = {<AuthRequired><DocProfile/></AuthRequired>}/>
-            <Route path='/docSchedule' element = {<ScheduleCalendar/>}/>
-            <Route path='/chat' element = {<AuthRequired><Chat notification={notification}/></AuthRequired>}/>
-          </Routes>
-      </Router>
+        <NotificationProvider>
+          <Header isDarkMode = {isDarkMode} notification={notification} />  
+        </NotificationProvider> 
+          <Navbar isDarkMode = {isDarkMode} setIsDarkMode = {setIsDarkMode} />
+           <NotificationProvider>
+              <Routes>
+                <Route path='/' element= {<Home/>}/>
+                <Route path='/login' element = {<Login/>}/>
+                <Route path='/aboutus' element = {<About/>}/>
+                <Route path='/doctors' element = {<Doctors/>}/>
+                <Route path='/contacts' element = {<AuthRequired><ContactForm/></AuthRequired>}/>
+                <Route path='/docportal' element = {<DoctorPortal/>}/>
+                <Route path='/profile' element = {<AuthRequired><Profile/></AuthRequired>}/>
+                <Route path='/appointmentsInCalendar' element = {<AuthRequired><AppCalendar/></AuthRequired>}/>
+                <Route path='/appointments' element = {<AuthRequired><MyAppointments/></AuthRequired>}/>
+                <Route path='/mypets' element = {<AuthRequired>{userRole === 'Client' ? <MyPets/> : '' }</AuthRequired>}/>
+                <Route path='/docprofile' element = {<AuthRequired><DocProfile/></AuthRequired>}/>
+                <Route path='/docSchedule' element = {<ScheduleCalendar/>}/>
+                <Route path='/chat' element = {<AuthRequired><Chat notification={notification}/></AuthRequired>}/>
+            </Routes>
+            </NotificationProvider>
+            </Router>
+          
     </div>
   )
 }
