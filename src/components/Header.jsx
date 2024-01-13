@@ -1,11 +1,12 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch,faUser,faSignOut,faComments,faBars,faXmark } from '@fortawesome/free-solid-svg-icons'
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import '../css/Header.css'
 import TokenService from '../services/TokenService'
 import UserService from '../services/UserService'
 import { useNotificationContext } from "../components/NotificationContext.jsx";
+import DoctorService from '../services/DoctorService.js'
 
 
 
@@ -15,8 +16,10 @@ const Header = (props) => {
     const [sideNavWidth,setSideNavWidth] = useState(0);
     const [sideNavMarginRight, setSideNavMarginRight] = useState(0)
     const [showSideNav, setShowSideNav] = useState(false);
+    const [user, setUser] = useState(null);
+    const [claims, setClaims] = useState(TokenService.getClaims());
     const navigate = useNavigate();
-
+    const location = useLocation();
 
     const headerTextStyle = () => ({
         color: props.isDarkMode ? 'white' : 'black',
@@ -35,9 +38,23 @@ const Header = (props) => {
   
     const notificationsArray = notifications;
 
-
-
-
+    useEffect(() =>{
+        const fetchData = async () => {
+            try {
+              if (claims.role === "Client") {
+                const response = await UserService.getClient(claims.userId, TokenService.getAccessToken());
+                setUser(response.client);
+              } else {
+                const doctor = await DoctorService.getDoctorById(claims.userId, TokenService.getAccessToken());
+                setUser(doctor);
+              }
+            } catch (error) {
+              console.error('Error fetching user data:', error);
+            }
+          };
+        
+        fetchData();
+    },[])
 
 
     const handleLogout = () => {
@@ -102,7 +119,11 @@ const Header = (props) => {
                     <>
                         <i className={`${notificationsArray && notificationsArray.length === 0 ? 'notificationIcon.small' : 'notificationIcon'}`}>{notificationsArray && notificationsArray.length > 0 && notificationsArray.length}</i>
                         <i onClick={openChat} className='chatBtn'><FontAwesomeIcon icon={faComments} style={iconStyle()}/></i>
-                        <i  data-testid="cypress-logout-sideNavButton" onClick={openSideNav} className='sideNavIcon'><FontAwesomeIcon icon={faBars} style={iconStyle()} /></i>
+                        {location === "/profile" || location === "/docprofile" ? (<i  data-testid="cypress-logout-sideNavButton" onClick={openSideNav} className='sideNavIcon'><FontAwesomeIcon icon={faBars} style={iconStyle()} /></i>) : ''}
+                        <div className='account-button'>
+                            <img src={user && user.role === "Client" ? 'https://images.pexels.com/photos/3792581/pexels-photo-3792581.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' : (user && user.doctor.role === "Doctor" ? user.doctor.image : '') } title='User Account'></img>
+                        </div>
+                        
                     </>
 
                 ) : <a href='/login' className='account-logo'><FontAwesomeIcon icon={faUser} /></a>}

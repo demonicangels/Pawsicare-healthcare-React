@@ -15,10 +15,6 @@ import '../css/MyPets.css'
 import TokenService from "../services/TokenService";
 import PetService from "../services/PetService";
 
-
-
-
-
 const MyPets = () => {
 
     
