@@ -159,6 +159,8 @@ i.chatBtn {
     left: 90%;
     height: 35%;
     max-width: 50%;
+    position: relative;
+    top: 0rem;
   }
 
   input[name="search"] {

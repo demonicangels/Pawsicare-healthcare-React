@@ -70,7 +70,7 @@ const Navbar = ({isDarkMode,setIsDarkMode}) => {
                     { isLoggedIn !== null && userRole === 'Client' ? (
                         <React.Fragment>
                             <li>
-                                <NavLink to="/mypets" style={liStyle}>
+                                <NavLink data-testid="cypress-openCreateDialog-mypetsPageLink" to="/mypets" style={liStyle}>
                                     My Pets 
                                 </NavLink>
                             </li>

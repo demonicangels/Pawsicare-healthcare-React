@@ -30,7 +30,7 @@ const CarouselSlides = () => {
                 {images.map((im) => (
                     <div className='carouselContent' key={im.id}>
                         <img src={`${im.Image}`} alt={`Image ${im.id}`} />
-                        <p className="text">
+                        <p className="text"  id='remove-margin'>
                         {im.Image === kittens
                             ? 'Cat habits that cause concern '
                             : 'Care tips from our specialists'}
@@ -47,9 +47,9 @@ const CarouselSlides = () => {
                             {showMore ? 'Read less' : 'Read More'}
                         </a>
                     </div>
-                    
                 ))}
             </Carousel>
+            
         </div>
     
             

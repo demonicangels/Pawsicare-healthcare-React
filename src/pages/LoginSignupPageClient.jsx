@@ -39,11 +39,11 @@ const LoginForm = () => {
 
     return (
         <div className='page-layout'>
-            <h1 className='errorMsg'>{operationStatus ? null : 'Wrong username or password. Please try again!'}</h1>
-            <form  className="login-form" onSubmit={handleSubmit(onSubmit)}>
-                <input type="text" placeholder="Enter email..." {...register("uname", {required: true, pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i})} name='uname' />
+            <h1 data-testid="cypress-loginUser-invalidCredentials-error" className='errorMsg'>{operationStatus ? null : 'Wrong username or password. Please try again!'}</h1>
+            <form data-testid="cypress-loginUser-form" className="login-form" onSubmit={handleSubmit(onSubmit)}>
+                <input data-testid="cypress-input-email-login" type="text" placeholder="Enter email..." {...register("uname", {required: true, pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i})} name='uname' />
                 {errors.uname && <p> Please enter a valid email! </p>}
-                <input type="password" placeholder="Enter password..." {...register("pass", {required: true, minLength: 3})} name='pass' />
+                <input data-testid="cypress-input-pass-login" type="password" placeholder="Enter password..." {...register("pass", {required: true, minLength: 3})} name='pass' />
                 {errors.pass && <p> Password must be at least 3 characters. </p>}
                 <button type="submit" name='loginbtn'>Login</button>
             </form>

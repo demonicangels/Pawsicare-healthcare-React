@@ -102,7 +102,7 @@ const Header = (props) => {
                     <>
                         <i className={`${notificationsArray && notificationsArray.length === 0 ? 'notificationIcon.small' : 'notificationIcon'}`}>{notificationsArray && notificationsArray.length > 0 && notificationsArray.length}</i>
                         <i onClick={openChat} className='chatBtn'><FontAwesomeIcon icon={faComments} style={iconStyle()}/></i>
-                        <i onClick={openSideNav} className='sideNavIcon'><FontAwesomeIcon icon={faBars} style={iconStyle()} /></i>
+                        <i  data-testid="cypress-logout-sideNavButton" onClick={openSideNav} className='sideNavIcon'><FontAwesomeIcon icon={faBars} style={iconStyle()} /></i>
                     </>
 
                 ) : <a href='/login' className='account-logo'><FontAwesomeIcon icon={faUser} /></a>}
@@ -115,7 +115,7 @@ const Header = (props) => {
                             <button onClick={handleDeleteAccount} className='deleteBtn'> 
                                 Delete account
                             </button>
-                            <button onClick={handleLogout} className='logoutBtn'> 
+                            <button  data-testid="cypress-button-logout" onClick={handleLogout} className='logoutBtn'> 
                                 Logout
                             </button>
                         </div>

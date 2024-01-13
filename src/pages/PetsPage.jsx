@@ -159,7 +159,7 @@ const MyPets = () => {
 
             <div className="pets-cards">
                 {mypets.map(p => 
-                        <div className='petCardContent' key={p.id}>
+                        <div  data-testId="cypress-createNewPet-petCardContent" className='petCardContent' key={p.id}>
                             <div className='text'>
                                 <h4>{p.name}</h4>
                                 <p>Species: {p.type}</p> 
@@ -167,17 +167,17 @@ const MyPets = () => {
                                 <p>Birthday: {p.birthday}</p>
                                 <p>Information: {p.information} </p>
                                 <button onClick={() => handleUpdateOpen(p.id)}>Update</button>
-                                <button onClick={() => handleDeletePet(p.id)}>Remove</button>
+                                <button data-testid="cypress-createNewPet-deleteBtn" onClick={() => handleDeletePet(p.id)}>Remove</button>
                             </div>
                         </div>
                     )}
             </div>
                 
 
-                <Button variant="outlined" onClick={handleClickOpen}>
+                <Button  data-testid="cypress-openCreateDialog-openDialogBtn" variant="outlined" onClick={handleClickOpen}>
                     Add new pet 
                 </Button>
-                <FormDialog open={open} onClose={handleClose}>
+                <FormDialog  data-testid="cypress-openCreateDialog-CreateDialog" open={open} onClose={handleClose}>
                     <DialogTitle>Register new pet</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
@@ -195,9 +195,10 @@ const MyPets = () => {
                                 onChange={e => {
                                     setPetName(e.target.value)
                                 }}
+                                data-testid= "cypress-createNewPet-nameInput"
                             />
                             <label>Gender</label>
-                            <Select label="Gender" variant="outlined" placeholder="Gender" className="input-field" value={petGender} onChange={(e) => setGender(e.target.value)}>
+                            <Select data-testid= "cypress-createNewPet-genderDropdown" label="Gender" variant="outlined" placeholder="Gender" className="input-field" value={petGender} onChange={(e) => setGender(e.target.value)}>
                                 {gender.map((choice) => (
                                     <MenuItem key={choice} value={choice}>
                                     {choice}
@@ -205,7 +206,7 @@ const MyPets = () => {
                                 ))}
                             </Select>
                             <label>Type of animal</label>
-                            <Select label="Type of animal" variant="outlined" className="input-field" value={selectedOption} onChange={e => setSelectedOption(e.target.value)}>
+                            <Select data-testid= "cypress-createNewPet-typeOfAnimalDropdown" label="Type of animal" variant="outlined" className="input-field" value={selectedOption} onChange={e => setSelectedOption(e.target.value)}>
                                 {options.map((option) => (
                                     <MenuItem key={option} value={option}>
                                     {option}
@@ -231,11 +232,12 @@ const MyPets = () => {
                                 onChange={e => {
                                     setDescription(e.target.value)
                                 }}  
+                                data-testid= "cypress-createNewPet-descriptionInput"
                             />
                         </DialogContent>
                         <DialogActions>
-                        <Button onClick={handleClose}>Cancel</Button>
-                        <Button onClick={handleClose}>Save</Button>
+                        <Button data-testid="cypress-openCreateDialog-closeDialogBtn" onClick={handleClose}>Cancel</Button>
+                        <Button data-testid= "cypress-createNewPet-saveDialogBtn" onClick={handleClose}>Save</Button>
                         </DialogActions>
                 </FormDialog>
 

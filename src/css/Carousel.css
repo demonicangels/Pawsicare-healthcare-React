@@ -3,9 +3,9 @@
     text-decoration: underline;
     cursor: pointer;
 }
-#link :hover{
-    text-emphasis-color: blue;
-}
+#remove-margin {
+    margin: 0;
+} 
 .carousel{
     position: relative;
     max-width: 75%;
@@ -21,11 +21,7 @@ ul.control-dots {
     display: none;
 }
 .carousel.carousel-slider .control-arrow{
-    max-height: 90rem;
-    top: 13rem;
-    max-width: 20rem;
-    /*pointer-events: none;*/
-    max-height: 42px;
+    max-height: 94.1%;
 }
 .carousel .slide img{
     max-width: 50rem;
@@ -40,8 +36,4 @@ h1 {
 }
 .carousel .control-prev.control-arrow:before {
     border-right: 13px solid black;
-}
-button.control-arrow.control-next{
-    position: relative;
-    top: 2rem;
 }
