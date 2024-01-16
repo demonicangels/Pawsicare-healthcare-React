@@ -1,28 +1,15 @@
 import { useEffect, useState } from "react";
 import UserService from "../services/UserService";
 import TokenService from "../services/TokenService";
-
+import '../css/ProfilePage.css'
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
 
     const [client,setClient] = useState(null)
+    const navigate = useNavigate();
 
-    const clientData = async () => {
 
-		debugger 
-
-        const userId = TokenService.getClaims().userId
-		const token = TokenService.getAccessToken()
-
-        const client = await UserService.getClient(userId,token)
-
-		console.log(client.data)
-
-		if(client.data){
-			setClient(client.data)
-		}
-        
-    }
 
 	const reload = sessionStorage.getItem('needsReload')
 
@@ -32,16 +19,45 @@ const Profile = () => {
 	}
 
     useEffect(() => {
-		debugger
+		const clientData = async () => {
+
+            debugger 
+    
+            const userId = TokenService.getClaims().userId
+    
+            const response = await UserService.getClient(userId)
+    
+            console.log(response.data)
+    
+            if(response.client){
+                setClient(response.client)
+            }
+            
+        }
+
         clientData()
     },[])
 
+    const redirectToPetsPage = () =>{
+        navigate('/mypets')
+    }
+
+    const redirectToAppPage = () =>{
+        navigate('/appointments') 
+    }
+
     return ( 
         <div className="profile">
-            <img src="https://www.google.com/url?sa=i&url=https%3A%2F%2Funsplash.com%2Fs%2Fphotos%2Fgirl-profile&psig=AOvVaw2iQIYM6vkpGi-iLkQbIwAF&ust=1700561058234000&source=images&cd=vfe&opi=89978449&ved=0CBEQjRxqFwoTCPi70OCp0oIDFQAAAAAdAAAAABAJ"/>
-            <div className="profile-content">
-                <h1>{client.name}</h1>
-                <p>{client.email}</p>
+            <img className="profilePic" src="https://images.pexels.com/photos/3792581/pexels-photo-3792581.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"/>
+            <div className="profile-text">
+                <a> Name: {client ? client.name : ''}</a>
+                <a> Email: {client ? client.email : ''}</a>
+                <a> Phone number: {client ? client.phoneNumber : ''}</a>
+                <a> Birthday: {client ? client.birthday : ''}</a>
+            </div>
+            <div className="buttons">
+                <button className="myPetsPageShortcut" onClick={redirectToPetsPage}> My pets </button>
+                <button className="myAppPageShortcut" onClick={redirectToAppPage}> My appointments </button>
             </div>
         </div>
     );

@@ -1,0 +1,70 @@
+.profile-text {
+    display: flex;
+    justify-content: space-around;
+    position: absolute;
+    left: 35rem;
+    flex-direction: column;
+    top: 15rem;
+    font-size: 179%;
+}
+.profilePic{ 
+    width: 25%;
+    height: 50%;
+    overflow: hidden;
+    cursor: pointer;
+}
+.profile {
+    position: relative;
+    left: 20rem;
+    top: 2rem;
+}
+.myPetsPageShortcut{
+    font-size: 60%;
+    background-color: #B7C9E2;
+    color: white;
+    padding: 13px 20px;
+    margin: 24px 0;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    border-radius: 3px 3px 3px 3px;
+}
+.myAppPageShortcut{
+    font-size: 60%;
+    background-color: #B7C9E2;
+    color: white;
+    padding: 13px 20px;
+    margin: 24px 0;
+    border: none;
+    cursor: pointer;
+    width: 10%;
+    border-radius: 3px 3px 3px 3px;
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    left: 35rem;
+    top: -11rem;
+}
+
+button.myPetsPageShortcut{
+    margin: 0 5px;
+}
+
+button.myAppPageShortcut{
+    margin: 0 5px;
+}
+
+button.myAppPageShortcut:hover, button.myPetsPageShortcut:hover{
+    border: 1px solid black;
+}
+
+button.myAppPageShortcut:active, button.myPetsPageShortcut:active{
+    text-decoration: none;
+    background-color: #B7C9E2;
+    box-shadow: 0 3px #E0E0E0;
+    transform: translateY(4px);
+}
+

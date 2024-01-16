@@ -1,0 +1,40 @@
+.aboutUs-heading {
+    color: rgb(255, 255, 255);
+    font-size: 150%;
+    letter-spacing: 0.5mm;
+    padding-top: 1%;
+    padding-left: 3%;
+}
+
+.aboutUs-grid {
+    display: grid;
+    grid-template-columns: 60% 25%;
+    padding: 1%;
+    gap: 5%;
+}
+
+.aboutUs-grid-left {
+    grid-column: 1;
+    margin-left: 5%;
+}
+
+.aboutUs-grid-right {
+    grid-column: 2;
+}
+
+
+/* TEXT */
+
+.aboutUs-description {
+    color: #ffffff;
+    letter-spacing: 0.5mm;
+    font-size: 120%;
+    width: 90%;
+    height: 50%;
+}
+
+
+.remove-margin {
+    margin: 0;
+    padding: 0;
+}

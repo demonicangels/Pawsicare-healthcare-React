@@ -62,11 +62,10 @@ const createDoctor = (data) => {
         return false;
     })
 }
-const getClient = (usrId,token) => {
+const getClient = (usrId) => {
      debugger
     return axiosApiResponseInterceptor.get(`${hostname}/clients/clientInfo`, { params: { 
-        id: usrId,
-        token: token
+        id: usrId
     }})
     .then(response => response.data)
     .catch(err => {
@@ -79,11 +78,10 @@ const getAllClients = () => {
     .then(response => response.data)
     .catch(err => console.log('Error getting all clients', err.message))
 }
-const deleteUserAccount = (userId, token) =>{
+const deleteUserAccount = (userId) =>{
 
     return axiosApiResponseInterceptor.delete(`${hostname}/auth`,{params: {
-        id: userId,
-        token: token
+        id: userId
     }}).then(res => {
         console.log('Data from delete request',res.data)
         return true;

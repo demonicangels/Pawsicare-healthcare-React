@@ -20,10 +20,9 @@ const getDoctorsByField = (field) =>{
     })
 }
 
-const getDoctorById = (id, token) =>{
+const getDoctorById = (id) =>{
     return axiosApiResponseInterceptor.get(`${hostname}/doctors/docInfo`, {params: {
-        id: id,
-        token: token
+        id: id
     }})
     .then(response => response.data)
     .catch(error => {

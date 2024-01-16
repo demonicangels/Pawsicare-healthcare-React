@@ -1,5 +1,3 @@
-import axios  from "axios";
-import TokenService from "./TokenService";
 import axiosApiResponseInterceptor from './AxiosResponseInterceptor';
 
 const hostname = 'http://localhost:8080'
@@ -21,10 +19,9 @@ const getAppointments = (userId) => {
     });
 }
 
-const getDoctorSchedule = (doctorId, token) => {
+const getDoctorSchedule = (doctorId) => {
     return axiosApiResponseInterceptor.get(`${hostname}/appointments/getDocSchedule`, {params: {
-        docId: doctorId,
-        token: token
+        docId: doctorId
     }})
     .then(response => response.data.appointments)
     .catch(error => {
@@ -67,10 +64,9 @@ const createSchedule = (schedulePreferences) => {
     .catch(err => console.log('Error creating schedule', err))
 }
 
-const cancelAppointment = (appId, token) =>{
+const cancelAppointment = (appId) =>{
     return axiosApiResponseInterceptor.delete(`${hostname}/appointments`, {params: {
-        id: appId,
-        token: token
+        id: appId
     }})
     .then(response => {
         response.data

@@ -2,7 +2,7 @@ import './css/App.css'
 import Home from './pages/HomePage'
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import Login from './pages/LoginSignupPageClient'
-import About from './pages/AboutusPage'
+import About from './pages/AboutusPage.jsx'
 import Doctors from './pages/DoctorsPage'
 import Navbar from './components/Navbar'
 import Header from './components/Header'
@@ -78,7 +78,7 @@ function App() {
           <Header isDarkMode = {isDarkMode} notification={notification} />  
         </NotificationProvider> 
           <Navbar isDarkMode = {isDarkMode} setIsDarkMode = {setIsDarkMode} />
-           <NotificationProvider>
+          <NotificationProvider>
               <Routes>
                 <Route path='/' element= {<Home/>}/>
                 <Route path='/login' element = {<Login/>}/>
@@ -94,7 +94,7 @@ function App() {
                 <Route path='/docSchedule' element = {<ScheduleCalendar/>}/>
                 <Route path='/chat' element = {<AuthRequired><Chat notification={notification}/></AuthRequired>}/>
             </Routes>
-            </NotificationProvider>
+          </NotificationProvider>
             </Router>
           
     </div>

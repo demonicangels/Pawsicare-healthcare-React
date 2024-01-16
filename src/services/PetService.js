@@ -4,10 +4,9 @@ import axiosApiResponseInterceptor from './AxiosResponseInterceptor';
 const hostname = 'http://localhost:8080'
 
 
-const getPetsByOwnerId = (id, token) => {
+const getPetsByOwnerId = (id) => {
     return axiosApiResponseInterceptor.get(`${hostname}/pets`,{params: {
-      ownerId: id,
-      token: token
+      ownerId: id
   }})
     .then(response => response.data)
     .catch(error => {
@@ -23,12 +22,11 @@ const registerPet = (data) =>{
     })
 }
 
-const deletePet = (id, userToken) => {
+const deletePet = (id) => {
     try {
         const response = axiosApiResponseInterceptor.delete(`${hostname}/pets`, {
           params: {
-            id: id,
-            token: userToken,
+            id: id
           }
         }).then(res => {
           console.log('Data from delete request',res.data)

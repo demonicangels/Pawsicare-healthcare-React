@@ -91,6 +91,17 @@ const Header = (props) => {
             navigate('/profile')
         }
     }
+
+    const redirectToProfile = () =>{
+
+        if(user.role === "Client"){
+            navigate('/profile')
+        }
+        else{
+            navigate('/docprofile')
+        }
+    }
+
     const handleDeleteAccount = async () =>{
         const userId = TokenService.getClaims().userId
         const token = TokenService.getAccessToken()
@@ -119,9 +130,9 @@ const Header = (props) => {
                     <>
                         <i className={`${notificationsArray && notificationsArray.length === 0 ? 'notificationIcon.small' : 'notificationIcon'}`}>{notificationsArray && notificationsArray.length > 0 && notificationsArray.length}</i>
                         <i onClick={openChat} className='chatBtn'><FontAwesomeIcon icon={faComments} style={iconStyle()}/></i>
-                        {location === "/profile" || location === "/docprofile" ? (<i  data-testid="cypress-logout-sideNavButton" onClick={openSideNav} className='sideNavIcon'><FontAwesomeIcon icon={faBars} style={iconStyle()} /></i>) : ''}
+                        {location.pathname === "/profile" || location.pathname === "/docprofile" && (user && user.doctor && user.doctor.role === "Doctor") ? (<i  data-testid="cypress-logout-sideNavButton" onClick={openSideNav} className='sideNavIcon'><FontAwesomeIcon icon={faBars} style={iconStyle()} /></i>) : ''}
                         <div className='account-button'>
-                            <img src={user && user.role === "Client" ? 'https://images.pexels.com/photos/3792581/pexels-photo-3792581.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' : (user && user.doctor.role === "Doctor" ? user.doctor.image : '') } title='User Account'></img>
+                            <img src={user && user.role === "Client" ? 'https://images.pexels.com/photos/3792581/pexels-photo-3792581.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' : (user && user.doctor.role === "Doctor" ? user.doctor.image : '')} onClick={redirectToProfile} title='User Account'></img>
                         </div>
                         
                     </>

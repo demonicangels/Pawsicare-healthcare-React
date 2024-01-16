@@ -98,8 +98,6 @@ const DocProfile = () => {
 
       const fetchDocBookings = async () => {
         try{
-      
-          debugger
 
           const docSchedule = await AppointmentService.getDoctorSchedule(docId, TokenService.getAccessToken());
 
