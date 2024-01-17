@@ -19,8 +19,12 @@ const loginUser = (email, password) => {
         return true;
     })
     .catch(error => {
-        console.log('Error:', error.message);
-        return false;
+        if(error.code === "ERR_BAD_REQUEST"){
+            return false;
+        }
+        else{
+            sessionStorage.setItem('noConnection', 'Oops :( Looks like the system is out of order. Please try again later.')
+        }
     });
 }
 const refreshToken = (token) => {

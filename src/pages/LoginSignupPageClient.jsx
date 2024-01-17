@@ -3,13 +3,14 @@ import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import UserService from '../services/UserService';
 import {useNavigate} from 'react-router-dom';
+import { left } from '@popperjs/core';
 
 
 
 const LoginForm = () => {
 
     const { register, handleSubmit, formState: {errors} } = useForm();
-    const [operationStatus, setStatus] = useState(true);
+    const [operationStatus, setStatus] = useState(null);
     const navigate = useNavigate();
 
     const onSubmit = async (data) => {
@@ -20,14 +21,17 @@ const LoginForm = () => {
           if (loginSuccess){
             sessionStorage.setItem("needsReload", true);
             navigate('/doctors');
-          }else {
+          }else if(loginSuccess === false) {
 
             setStatus(false);
 
           }
+          else{
+            setStatus(true)
+          }
         } catch (err) {
           console.log(err);
-          setStatus(false);
+          
         }
       };
 
@@ -39,7 +43,7 @@ const LoginForm = () => {
 
     return (
         <div className='page-layout'>
-            <h1 data-testid="cypress-loginUser-invalidCredentials-error" className='errorMsg'>{operationStatus ? null : 'Wrong username or password. Please try again!'}</h1>
+            <h1 data-testid="cypress-loginUser-invalidCredentials-error" className='errorMsg' style={{ left: operationStatus === true ? '19rem' : '25.3 rem' }}>{operationStatus === true ? `${sessionStorage.getItem('noConnection')}` : operationStatus === false ? 'Wrong username or password. Please try again!' : ''}</h1>
             <form data-testid="cypress-loginUser-form" className="login-form" onSubmit={handleSubmit(onSubmit)}>
                 <input data-testid="cypress-input-email-login" type="text" placeholder="Enter email..." {...register("uname", {required: true, pattern: /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}$/i})} name='uname' />
                 {errors.uname && <p> Please enter a valid email! </p>}

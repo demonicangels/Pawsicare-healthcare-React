@@ -132,7 +132,7 @@ const Header = (props) => {
                         <i onClick={openChat} className='chatBtn'><FontAwesomeIcon icon={faComments} style={iconStyle()}/></i>
                         {location.pathname === "/profile" || location.pathname === "/docprofile" && (user && user.doctor && user.doctor.role === "Doctor") ? (<i  data-testid="cypress-logout-sideNavButton" onClick={openSideNav} className='sideNavIcon'><FontAwesomeIcon icon={faBars} style={iconStyle()} /></i>) : ''}
                         <div className='account-button'>
-                            <img src={user && user.role === "Client" ? 'https://images.pexels.com/photos/3792581/pexels-photo-3792581.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' : (user && user.doctor.role === "Doctor" ? user.doctor.image : '')} onClick={redirectToProfile} title='User Account'></img>
+                            <img  data-testid = "cypress-loginUser-profileBtn" src={user && user.role === "Client" ? 'https://images.pexels.com/photos/3792581/pexels-photo-3792581.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' : (user && user.doctor.role === "Doctor" ? user.doctor.image : '')} onClick={redirectToProfile} title='User Account'></img>
                         </div>
                         
                     </>
