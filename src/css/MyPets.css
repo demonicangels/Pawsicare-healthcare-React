@@ -13,7 +13,8 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     min-width: 90%;
-    min-height: 90%;;
+    min-height: 90%;
+    background: url('./src/assets/images/paws.jpg');
   }
   
   h1 {
@@ -114,4 +115,4 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPr
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-}
+  }

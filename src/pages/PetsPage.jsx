@@ -149,7 +149,7 @@ const MyPets = () => {
     }
     
     return (  
-        <div className="pets-page">
+        <div className="pets-page" style={{ backgroundImage: "url('paws.jpg')" }}>
             <div className="pets-content">
                 <h1>My pets: </h1>
 
@@ -168,7 +168,7 @@ const MyPets = () => {
                         </div>
                     )}
             </div>
-                
+
 
                 <Button  data-testid="cypress-openCreateDialog-openDialogBtn" variant="outlined" onClick={handleClickOpen}>
                     Add new pet 

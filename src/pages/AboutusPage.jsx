@@ -8,7 +8,7 @@ function About() {
     const mapCenter = [51.451672, 5.479698];
   
       return (
-        <>
+        <div className='page-content'>
               <div className='aboutUs-heading'>
                 <h1 className='remove-margin'>ABOUT US</h1>
               </div>
@@ -39,6 +39,12 @@ function About() {
                   </div>
   
               </div>
-        </>)
+
+            <div className='info-box'>
+              <a>If you have any questions about the website or something is not working you can contact us on:</a>
+              <a>Phone: +312345678</a>
+              <a>Email: pawsicarehealth@gmail.com</a>
+            </div>
+      </div>)
 }  
   export default About;
