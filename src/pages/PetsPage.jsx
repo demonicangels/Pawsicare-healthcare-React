@@ -155,7 +155,7 @@ const MyPets = () => {
 
             <div className="pets-cards">
                 {mypets.map(p => 
-                        <div  data-testId="cypress-createNewPet-petCardContent" className='petCardContent' key={p.id}>
+                        <div  data-testid="cypress-createNewPet-petCardContent" className='petCardContent' key={p.id}>
                             <div className='text'>
                                 <h4>{p.name}</h4>
                                 <p>Species: {p.type}</p> 
