@@ -45,7 +45,7 @@
 p.additional-text.slide-in {
     position: absolute;
     left: 0rem;
-    top: 5rem;
+    top: 4rem;
 }
 
 .doctorCardContent:hover .image-wrapper {
@@ -118,6 +118,16 @@ h1.text-doctors {
     position: absolute;
     top: 8rem;
     left: 30rem;
+}
+
+h4.name-text {
+    margin: 0;
+    margin-top: 1rem;
+}
+
+p.field-text {
+    margin: 0;
+    margin-top: 2%;
 }
 
 @media only screen and (min-width: 400px) {

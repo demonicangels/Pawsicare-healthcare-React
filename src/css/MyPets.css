@@ -94,22 +94,22 @@ button.MuiButtonBase-root.MuiButton-root.MuiButton-outlined.MuiButton-outlinedPr
     border-radius: 4px;
   }
   
-  .text {
+  .text-pets {
     margin-top: -25px;
   }
   
-  .text h4 {
+  .text-pets h4 {
     color: #333;
     margin-bottom: 8px;
     position: relative;
     left: -1rem;
   }
   
-  .text p {
+  .text-pets p {
     margin: 4px 0;
     color: #666;
     position: relative;
-    left: -1rem;
+    left: 0rem;
   }
   .pets-cards {
     display: flex;

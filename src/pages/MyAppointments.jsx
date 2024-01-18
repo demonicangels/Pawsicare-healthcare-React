@@ -59,7 +59,7 @@ const MyAppointments = () => {
             const appointments = await AppointmentService.getAppointments(userId)
 
             appointments.map(async (app) =>{
-                debugger
+                
                 const schedule = await AppointmentService.getDoctorSchedule(app.doctor.id, TokenService.getAccessToken())
 
                 const formattedSchedule = schedule.map((app) =>{
@@ -97,6 +97,8 @@ const MyAppointments = () => {
 
     },[])
 
+  
+
     const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
     const monthNames = [
       'January', 'February', 'March', 'April', 'May', 'June',
@@ -111,18 +113,6 @@ const MyAppointments = () => {
         navigate('/doctors')
     }
 
-    const deleteAppointment =  async (app) =>{
-
-        debugger
-        const response = await AppointmentService.cancelAppointment(app.id, TokenService.getAccessToken())
-
-        if(response === 'true'){
-            console.log("Successful")
-            sessionStorage.setItem("needsReload", true)
-        }
-
-    }
-
     const rescheduleAppointment = () =>{
         setOpenDialog(false)
         debugger
@@ -135,6 +125,18 @@ const MyAppointments = () => {
         appToBeRescheduled.dateAndEnd = dateAndEnd
         AppointmentService.rescheduleAppointment(appToBeRescheduled)
         sessionStorage.setItem('needsReload', true)
+    }
+
+    const deleteAppointment =  async (app) =>{
+
+        debugger
+        const response = await AppointmentService.cancelAppointment(app.id, TokenService.getAccessToken())
+
+        if(response === true){
+            console.log("Successful")
+            sessionStorage.setItem("needsReload", true)
+        }
+
     }
 
     const closeDialog = () =>{

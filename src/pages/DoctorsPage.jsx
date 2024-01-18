@@ -82,10 +82,9 @@ const Doctors = () => {
                 <div className='doctorCardContent' key={doc.id} onClick={() => { handleSelectedDoctor(doc.id) }}>
                     <img className='image-wrapper' src={doc.image} alt={`Dr. ${doc.name}`}/>
                     <div className='text'>
-                        <h4> Dr. {doc.name}</h4>
-                        <p> Field: {doc.field}</p>
-                        <p className='additional-text slide-in'>As a seasoned specialist in veterinary neurology, Dr. Mia possesses a profound knowledge of the intricacies of the nervous system, 
-                        allowing her to navigate the complexities of neurological disorders with precision and insight. </p>
+                        <h4 className='name-text'> Dr. {doc.name}</h4>
+                        <p className='field-text'> Field: {doc.field}</p>
+                        <p className='additional-text slide-in'>{doc && doc.description} </p>
                     </div>
                 </div>
             )}
