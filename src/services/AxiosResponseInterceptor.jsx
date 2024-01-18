@@ -23,30 +23,6 @@ axiosApiResponseInterceptor.interceptors.request.use(
     }
 );
 
-axiosApiResponseInterceptor.interceptors.response.use(
-
-  (response) => {
-    return response 
-  },
-  async(err) => {
-
-    console.log('Error from interceptor', err);
-
-    const originalConfig = err.config;
-
-    try{
-
-      debugger
-      if(err.code === 400){
-        sessionStorage.setItem('pet', 'Opps :( That pet is already scheduled for an appointment. Please cancel the appointment before you delete the pet from the system.')
-      }
-
-    }catch(error){
-      return Promise.reject(error)
-    }
-  }
-)
-
 // Response interceptor for the response from the API
 axiosApiResponseInterceptor.interceptors.response.use(
 

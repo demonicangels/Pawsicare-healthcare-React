@@ -107,6 +107,10 @@ const MyAppointments = () => {
         navigate('/appointmentsInCalendar')
     }
 
+    const redirectToDoctors = () => {
+        navigate('/doctors')
+    }
+
     const deleteAppointment =  async (app) =>{
 
         debugger
@@ -178,7 +182,10 @@ const MyAppointments = () => {
                     );
                 })
                 ) : (
-                <div className="noAppText"> No upcoming appointments.</div>
+                <>
+                    <div className="noAppText"> No upcoming appointments.</div> 
+                    <button onClick={redirectToDoctors} className="redirectToDoctorsPage">Book an appointment</button>
+                </>
                 )}
                 <button className="redirectToCalendarbtn" onClick={redirectToCalendar}> My calendar </button>
             </div>

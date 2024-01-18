@@ -47,9 +47,9 @@ button.redirectToCalendarbtn{
     margin: 24px 0;
     border: none;
     cursor: pointer;
-    width: 15%;
+    width: 10%;
     border-radius: 3px 3px 3px 3px;
-    font-size: 150%;
+    font-size: 100%;
     position: relative;
     left: -27rem;
     top: -10rem;
@@ -60,7 +60,7 @@ button.redirectToCalendarbtn{
     top: 3rem;
 }
 
-button.removeBtn:active, button.rescheduleBtn:active, button.redirectToCalendarbtn:active{
+button.removeBtn:active, button.rescheduleBtn:active, button.redirectToCalendarbtn:active, button.redirectToDoctorsPage:active{
     text-decoration: none;
     background-color: #B7C9E2;
     box-shadow: 0 3px #E0E0E0;
@@ -75,10 +75,22 @@ button.removeBtn{
     margin: 0 5px;
 }
 
-button.rescheduleBtn:hover, button.removeBtn:hover, button.redirectToCalendarbtn:hover{
+button.rescheduleBtn:hover, button.removeBtn:hover, button.redirectToCalendarbtn:hover, button.redirectToDoctorsPage:hover{
     border: 1px solid black;
 }
 
 .noAppText{
     font-size: 150%;
+}
+
+.redirectToDoctorsPage{
+    background-color: #B7C9E2;
+    color: white;
+    padding: 13px 20px;
+    margin: 24px 0;
+    border: none;
+    cursor: pointer;
+    width: 15%;
+    border-radius: 3px 3px 3px 3px;
+    font-size: 100%;
 }
