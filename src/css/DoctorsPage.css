@@ -43,9 +43,11 @@
     transition: height 0.3s ease;
 }
 p.additional-text.slide-in {
-    position: absolute;
+    /* position: absolute;
     left: 0rem;
-    top: 4rem;
+    top: 4rem; */
+    text-align: justify;
+    padding: 15px;
 }
 
 .doctorCardContent:hover .image-wrapper {
