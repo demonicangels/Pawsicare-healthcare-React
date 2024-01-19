@@ -6,7 +6,7 @@
     position: relative;
     top: 5rem;
     box-sizing: border-box;
-    max-width: 50%;
+    max-width: 80%;
     left: 13rem;
 }
 
@@ -43,9 +43,6 @@
     transition: height 0.3s ease;
 }
 p.additional-text.slide-in {
-    /* position: absolute;
-    left: 0rem;
-    top: 4rem; */
     text-align: justify;
     padding: 15px;
 }
@@ -135,7 +132,7 @@ p.field-text {
 @media only screen and (min-width: 400px) {
     .doctors-cards {
         justify-content: flex-start;
-        max-width: 60%;
+        max-width: 80%;
         left: 15rem;
         top: 7rem;
     }

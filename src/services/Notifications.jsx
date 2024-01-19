@@ -44,7 +44,6 @@ class Notifications {
     }
 
     clearNotis(){
-      debugger
       this.notifications && this.notifications.length > 0 ? this.notifications = [] : this.notifications;
     }
   
