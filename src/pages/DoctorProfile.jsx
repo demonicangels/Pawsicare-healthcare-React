@@ -258,19 +258,6 @@ const DocProfile = () => {
       <FormDialog open={open} onClose={handleClose}>
         <DialogTitle>{`Make an appointment for ${weekDayOfAppointment} ${chosenAppointment.date} ${chosenAppointment.start}h`} </DialogTitle>
         <DialogContent>
-          <DialogContentText>Please choose a pet and fill the reason for the appointment.</DialogContentText>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="desc"
-            label="Reason for meeting"
-            type="text"
-            fullWidth
-            variant="standard"
-            onChange={(e) => {
-              setDescription(e.target.value);
-            }}
-          />
           <label>Pet</label>
           <Select
             label="Pet"

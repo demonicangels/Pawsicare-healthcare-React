@@ -39,23 +39,6 @@
     padding: 0;
 }
 
-.info-box{
-    margin: auto;
-    position: relative;
-    top: 3rem;
-    display: flex;
-    flex-direction: column;
-    background: #B7C9E2;
-    overflow: hidden;
-    width: 40%;
-    font-size: 120%;
-    padding: 2%;
-    right: 24rem;
-    box-shadow: 8px 8px 20px rgba(0, 0, 0, 0.4); 
-    transition: transform 0.3s ease-in-out;
-
-}
-
 .info-box:hover{
     transform: translateY(-5px);
 }

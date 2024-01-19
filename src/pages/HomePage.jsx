@@ -31,7 +31,7 @@ const Home = () => {
                 <div className="overlay"/>
 
                 <div className="homepage-text">
-                    <h1 className="remove-margin">Welcome to PawsiCare</h1>
+                    <h1 className="homepage-remove-margin">Welcome to PawsiCare</h1>
                 </div>
 
                 <div className="background-homepage-container">

@@ -76,22 +76,7 @@ const Navbar = ({isDarkMode,setIsDarkMode}) => {
                             </li>
                         </React.Fragment> ) : null
                         
-                        //(
-                        //convert this to link to the page where the doctor makes their schedule 
-                        // <React.Fragment>
-                        //     <li>
-                        //         <NavLink to="/appointments" style={liStyle}>
-                        //             My Appointments 
-                        //         </NavLink>
-                        //     </li> 
-                        // </React.Fragment> )
                     }
-
-                <DarkModeToggle
-                    onChange={setIsDarkMode}
-                    checked={isDarkMode}
-                    size={70}   
-                />
                 </ul>
             </div>
         </nav>

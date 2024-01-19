@@ -24,7 +24,7 @@ function About() {
                   </div>
   
                   <div className="aboutUs-grid-right">
-                    <MapContainer center={mapCenter} zoom={15} style={{ height: '110%', width: '130%' }}>
+                    <MapContainer center={mapCenter} zoom={15} style={{ height: '170%', width: '130%' }}>
   
                     <TileLayer
                         url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
@@ -39,12 +39,6 @@ function About() {
                   </div>
   
               </div>
-
-            <div className='info-box'>
-              <a>If you have any questions about the website or something is not working you can contact us on:</a>
-              <a>Phone: +312345678</a>
-              <a>Email: pawsicarehealth@gmail.com</a>
-            </div>
       </div>)
 }  
   export default About;

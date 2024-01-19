@@ -21,7 +21,7 @@ ul.control-dots {
     display: none;
 }
 .carousel.carousel-slider .control-arrow{
-    max-height: 94.1%;
+    max-height: 87.1%;
 }
 .carousel .slide img{
     max-width: 50rem;
@@ -36,4 +36,12 @@ h1 {
 }
 .carousel .control-prev.control-arrow:before {
     border-right: 13px solid black;
+}
+
+.readMoreOrLessElement {
+    margin-left: 3%;
+}
+
+.text-carousel {
+    margin-top: 10%;
 }

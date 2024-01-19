@@ -30,22 +30,28 @@ const CarouselSlides = () => {
                 {images.map((im) => (
                     <div className='carouselContent' key={im.id}>
                         <img src={`${im.Image}`} alt={`Image ${im.id}`} />
-                        <p className="text"  id='remove-margin'>
-                        {im.Image === kittens
-                            ? 'Cat habits that cause concern '
-                            : 'Care tips from our specialists'}
-                        <span id="dots" style={{ display: showMore ? 'none' : 'inline' }}>
-                            ...
-                        </span>
-                        <span id="more" style={{ display: showMore ? 'inline' : 'none' }}>
+
+                        <div className='text-carousel'>
+                            <p className="text"  id='remove-margin'>
                             {im.Image === kittens
-                            ? ' but are completely normal'
-                            : ' for a happy and healthy dog'}
-                        </span>
-                        </p>
-                        <a onClick={btnText} id='link' >
-                            {showMore ? 'Read less' : 'Read More'}
-                        </a>
+                                ? 'Cat habits that cause concern '
+                                : 'Care tips from our specialists'}
+                            <span id="dots" style={{ display: showMore ? 'none' : 'inline' }}>
+                                ...
+                            </span>
+                            <span id="more" style={{ display: showMore ? 'inline' : 'none' }}>
+                                {im.Image === kittens
+                                ? ' but are completely normal'
+                                : ' for a happy and healthy dog'}
+                            </span>
+
+                            <a className="readMoreOrLessElement" onClick={btnText} id='link' >
+                                {showMore ? 'Read less' : 'Read More'}
+                            </a>
+
+                            </p>
+                            
+                        </div>
                     </div>
                 ))}
             </Carousel>

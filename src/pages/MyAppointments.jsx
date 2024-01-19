@@ -200,7 +200,7 @@ const MyAppointments = () => {
                     You will be notified and asked to make a new appointment.</DialogContentText>
                 <label>Available schedule</label>
                 <Select
-                    label="doc"
+                    label="Label"
                     variant="outlined"
                     placeholder="docSchedule"
                     className="input-field"
@@ -208,7 +208,7 @@ const MyAppointments = () => {
                     onChange={(e) => {
                         const selected = e.target.value;
                        
-                        const formattedDialogDisplay = `${selected.date} ${convertTime(selected.start)} - ${convertTime(selected.end)}`
+                        const formattedDialogDisplay = `${selected.date}`
                         console.log(formattedDialogDisplay)
                         setSelectedTimeInDialog(formattedDialogDisplay)
                         setChosenAppForRescheduleID(selected.id);}}

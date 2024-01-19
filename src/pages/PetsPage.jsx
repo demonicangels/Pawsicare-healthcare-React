@@ -148,6 +148,16 @@ const MyPets = () => {
         window.location.reload();
     }
     
+
+    const convertBirthday = (pet) =>{
+        const birthday = new Date(pet.birthday);
+
+        const petBirthday = birthday.toISOString().split('T')[0];
+
+        return petBirthday;
+    }
+
+
     return (  
         <div className="pets-page" style={{ backgroundImage: "url('paws.jpg')" }}>
             <div className="pets-content">
@@ -160,7 +170,7 @@ const MyPets = () => {
                                 <h4>{p.name}</h4>
                                 <p>Species: {p.type}</p> 
                                 <p>Gender: {p.gender.toLowerCase()}</p>
-                                <p>Birthday: {p.birthday}</p>
+                                <p>Birthday: {convertBirthday(p)}</p>
                                 <p>Information: {p.information} </p>
                                 <button onClick={() => handleUpdateOpen(p.id)}>Update</button>
                                 <button data-testid="cypress-createNewPet-deleteBtn" onClick={() => handleDeletePet(p.id)}>Remove</button>
@@ -184,7 +194,7 @@ const MyPets = () => {
                                 autoFocus
                                 margin="dense"
                                 id="name"
-                                label="Pet name"
+                                label="Pet name*"
                                 type="text"
                                 fullWidth
                                 variant="standard"
@@ -193,7 +203,7 @@ const MyPets = () => {
                                 }}
                                 data-testid= "cypress-createNewPet-nameInput"
                             />
-                            <label>Gender</label>
+                            <label>Gender*</label>
                             <Select data-testid= "cypress-createNewPet-genderDropdown" label="Gender" variant="outlined" placeholder="Gender" className="input-field" value={petGender} onChange={(e) => setGender(e.target.value)}>
                                 {gender.map((choice) => (
                                     <MenuItem key={choice} value={choice}>
@@ -201,7 +211,7 @@ const MyPets = () => {
                                     </MenuItem>
                                 ))}
                             </Select>
-                            <label>Type of animal</label>
+                            <label>Type of animal*</label>
                             <Select data-testid= "cypress-createNewPet-typeOfAnimalDropdown" label="Type of animal" variant="outlined" className="input-field" value={selectedOption} onChange={e => setSelectedOption(e.target.value)}>
                                 {options.map((option) => (
                                     <MenuItem key={option} value={option}>
@@ -221,7 +231,7 @@ const MyPets = () => {
                                 autoFocus
                                 margin="dense"
                                 id="description"
-                                label="Description of health condition"
+                                label="Description of health condition*"
                                 type="text"
                                 fullWidth
                                 variant="standard"

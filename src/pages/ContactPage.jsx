@@ -15,7 +15,13 @@ const ContactForm = () => {
 
         try{
 
-            mail.sendMail(emailData)
+            const emailInfo = {
+                userEmail: emailData.userEmail,
+                message: emailData.message,
+                subject: 'Pawsicare contacts'
+            }
+
+            mail.sendMail(emailInfo)
             .then(() => {
                 toast.success('Successfully sent email. Thank you!',{
                     position: toast.POSITION.TOP_RIGHT
@@ -47,6 +53,12 @@ const ContactForm = () => {
                     <button type="submit" name='contactbtn'>Submit</button>
                 </div>
             </form> 
+
+            <div className='info-box'>
+              <a>If you have any questions about the website or something is not working you can contact us on:</a>
+              <a>Phone: +312345678</a>
+              <a>Email: pawsicarehealth@gmail.com</a>
+            </div>
             <ToastContainer />
         </div>
     );

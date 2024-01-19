@@ -170,11 +170,12 @@ i.chatBtn {
 
   .header {
     font-size: 150%;
+    width: 90%;
   }
 
   .account-logo {
     width: 8%;
-    left: 90%;
+    left: 95%;
     height: 35%;
     max-width: 50%;
     position: relative;
