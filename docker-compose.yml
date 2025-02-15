@@ -2,11 +2,11 @@ version: "3.6"
 
 services:
   react-node:
+    image: ghcr.io/demonicangels/pawsicare-healthcare-react/react-node:latest
     container_name: react-node
     build:
       context: .
       dockerfile: Dockerfile
-    image: react-node
     environment:
       - NODE_ENV=production
     ports:
