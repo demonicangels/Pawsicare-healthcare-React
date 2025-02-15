@@ -1,0 +1,24 @@
+version: "3.6"
+
+services:
+  react-node:
+    container_name: react-node
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: react-node
+    environment:
+      - NODE_ENV=production
+    ports:
+      - "3000:3000"
+  
+  watchtower:
+    image: containrrr/watchtower
+    restart: unless-stopped
+    container_name: watchtower
+    environment:
+      - WATCHTOWER_POLL_INTERVAL=1800  
+      - WATCHTOWER_CLEANUP=true         
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock  
+      - /root/.docker/config.json:/config.json    
